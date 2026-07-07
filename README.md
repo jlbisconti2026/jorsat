@@ -110,6 +110,8 @@ hybrid
 - MLFlow
 - KServe
 - Kubeflow  
+- ArgoCD
+- AWX
 
 ---
 

@@ -1,181 +1,27 @@
-################Login de gcloud a GCP ###############
+# Cheat Sheet: gcloud CLI & Apigee Hybrid
 
+Guía rápida de comandos de `gcloud` para la administración de proyectos, API Proxies, Buckets de Storage y exportación de configuraciones mediante la API de Apigee.
+
+---
+
+## 1. Autenticación e Inicialización
+
+### Login de gcloud a GCP
+> **Nota:** La validación se realiza mediante la cuenta de Active Directory (AD) de Claro con Google.
+
+```bash
 gcloud auth login
-
-Tiene validación con gcloud mediante la cuenta de AD de claro con google
-
-############### Crear proyectos###################
-
-gcloud projects create  [PROJECT_ID o nombre]
-
-############## Borrar proYectos####################
-
-gcloud projects delete  [PROJECT_ID o nombre]
-
-############# Recuperar proyecto borrado ################
-
-gcloud projects undelete  [PROJECT_ID o nombre]
-
-############## Renombrar proyectos#################
-
- gcloud projects update [PROJECT_ID o nombre]
-
-############### Listar lista de proyectos GCP############
-
- gcloud projects list
-
-gcloud projects list | grep apigee
-claup-apigee-hybrid-desa    claup-apigee-hybrid-desa    1010788170711
-claup-apigee-hybrid-prod    claup-apigee-hybrid-prod    300430456458
-
-###############Listar organizaciones dispnibles###########
-
-gcloud apigee organizations list
-
-Resultado:
-
-PS C:\Users\CTI24114> gcloud apigee organizations list
-NAME                      PROJECT
-claup-apigee-hybrid-desa  claup-apigee-hybrid-desa
-claup-apigee-hybrid-prod  claup-apigee-hybrid-prod
-
-################Listar envs creados ####################
-
-  gcloud apigee environments list
- - desa-ar
- - desa-py
- - desa-uy
- - test-ar
- - test-py
- - test-uy
-
-################# Listar api proxies#################
-Comando:
-
- gcloud apigee apis list
- - AUP_Proxy_Prueba_DD
- - myproxy-ar
- - myproxy-py
- - myproxy-uy
-
-################ Listar deployments de los proxies #############
-
-gcloud apigee deployments list
-ENVIRONMENT  API_PROXY   REVISION
-test-ar      myproxy-ar  1
-test-py      myproxy-py  1
-test-uy      myproxy-uy  1
-desa-ar      myproxy-ar  1
-desa-py      myproxy-py  1
-desa-uy      myproxy-uy  1
-
-################ Crear api proxies a partir de archivo exportado de otro apigee#################
-
-# Importa y despliega directamente el zip exportado
-gcloud apigee apis deploy --organization=claup-apigee-hybrid-prod --environment=prod-ar --api=mi-api-exportada --file=.\mi-api-v1.zip --override
-
-############### Crear api proxies a partir de carpeta local ##############################
-
-# Apuntando directamente a la carpeta local
-gcloud apigee apis deploy --organization=claup-apigee-hybrid-desa --environment=desa-ar --api=mi-api --file=.\ruta\a\mi-carpeta-proxy --override
-
-
-############## Quitar/desactivar proxy de un entorno  ################################
-
-gcloud apigee apis undeploy  --organization=claup-apigee-hybrid-desa   --environment=desa-ar   --api=nombre-del-proxy
-
-
-############# Obtener información de un proxy ########################
-
-
- gcloud apigee apis describe myproxy-ar
-apiProxyType: PROGRAMMABLE
-latestRevisionId: '1'
-metaData:
-  createdAt: '1783542114388'
-  lastModifiedAt: '1783542114388'
-  subType: Proxy
-name: myproxy-ar
-revision:
-- '1'
-
-
-########################## Crear bucket en GCP ###########################
-
-gcloud storage buckets create gs://claup-apigee-hybrid-desa --project=claup-apigee-hybrid-desa --default-storage-class=STANDARD --location=us-central1 --uniform-bucket-level-access
---soft-delete-duration=30d --encryption-enforcement-file=Estándar
-
-########################### Borrar bucket GCP ############################
-
-gcloud storage rm --recursive gs://claup-apigee-hybrid-desa
-
-
-########################### Copiar archivo local en un bucket de GCP #####################
-
-gcloud storage cp gs://gcp-external-http-lb-with-bucket/three-cats.jpg gs://claro-apigee-hybrid-desa/never-fetch/
-
-############ Otras opciones de gcloud storage ######################
-
-
-Available groups for gcloud storage:
-
-      batch-operations        Manage Cloud Storage batch operations.
-      buckets                 Manage Cloud Storage buckets.
-      folders                 Manage Cloud Storage folders.
-      hmac                    Manage Cloud Storage service account HMAC keys.
-      insights                Manage Cloud Storage inventory reports.
-      intelligence-configs    Manage Cloud Storage Intelligence Configurations.
-      intelligence-findings   Findings for Cloud Storage usage.
-      managed-folders         Manage Cloud Storage managed folders.
-      objects                 Manage Cloud Storage objects.
-      operations              x|.
-
-Available commands for gcloud storage:
-
-      cat                     Outputs the contents of one or more URLs to
-                              stdout.
-      diagnose                Diagnose Google Cloud Storage.
-      du                      Displays the amount of space in bytes used by
-                              storage resources.
-      hash                    Calculates hashes on local or cloud files.
-      ls                      List Cloud Storage buckets and objects.
-      mv                      Moves or renames objects.
-      restore                 Restore one or more soft-deleted objects.
-      rm                      Delete objects and buckets.
-      rsync                   Synchronize content of two buckets/directories.
-      service-agent           Manage a project's Cloud Storage service agent,
-                              which is used to perform Cloud KMS operations.
-      sign-url                Generate a URL with embedded authentication that
-                              can be used by anyone.
-
-
-##########################Exportar envs y grupos de envs
-
-#####Envs
-En powershell:
-
-$TOKEN = (gcloud auth print-access-token)
-$ORG = "claup-apigee-hybrid-desa"
-
-Invoke-RestMethod -Uri "https://apigee.googleapis.com/v1/organizations/$ORG/envgroups" `
-  -Headers @{ Authorization = "Bearer $TOKEN" } | `
-  ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 environment_groups.json
-
-
-#####Grupos
-
-
-$TOKEN = (gcloud auth print-access-token)
-$ORG = "claup-apigee-hybrid-desa"
-$GROUP = "claro-desa-test-ar-group"
-
-Invoke-RestMethod -Uri "https://apigee.googleapis.com/v1/organizations/$ORG/envgroups/$GROUP/attachments" `
-  -Headers @{ Authorization = "Bearer $TOKEN" } | `
-  ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 envgroup_attachments.json
-
-
-
-
-
-
-
+```
+
+## 2.Habilitar APIs de Google requeridas
+```bash
+gcloud services enable pubsub.googleapis.com --project="claup-apigee-hybrid-desa"
+gcloud services enable cloudresourcemanager.googleapis.com --project="claup-apigee-hybrid-desa"
+gcloud services enable apigee.googleapis.com --project="claup-apigee-hybrid-desa"
+gcloud services enable apigeeconnect.googleapis.com --project="claup-apigee-hybrid-desa"
+```
+##3. Gestión de Proyectos en GCP
+### Crear proyecto
+```bash
+gcloud projects create [PROJECT_ID_O_NOMBRE]
+```

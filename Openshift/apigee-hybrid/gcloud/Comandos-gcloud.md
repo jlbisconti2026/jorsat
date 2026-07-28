@@ -199,4 +199,26 @@ gcloud storage rm --recursive gs://nombre-bucket
 gcloud storage cp gs://gcp-external-http-lb-with-bucket/three-cats.jpg gs://nombre-bucket/never-fetch/
 ```
 
+## 6. Exportación de Entornos y Grupos vía API (PowerShell)
+### Exportar Environment Groups
+
+```bash
+$TOKEN = (gcloud auth print-access-token)$ORG = "apigee-org"
+
+Invoke-RestMethod -Uri "[https://apigee.googleapis.com/v1/organizations/$ORG/envgroups](https://apigee.googleapis.com/v1/organizations/$ORG/envgroups)" `
+  -Headers @{ Authorization = "Bearer $TOKEN" } | `
+  ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 environment_groups.json
+```
+
+### Exportar Attachments de un Environment Group
+
+```bash
+$TOKEN = (gcloud auth print-access-token)$ORG = "apigee-org"
+$GROUP = "apigee-group"
+
+Invoke-RestMethod -Uri "[https://apigee.googleapis.com/v1/organizations/$ORG/envgroups/$GROUP/attachments](https://apigee.googleapis.com/v1/organizations/$ORG/envgroups/$GROUP/attachments)" `
+  -Headers @{ Authorization = "Bearer $TOKEN" } | `
+  ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 envgroup_attachments.json
+```
+
 

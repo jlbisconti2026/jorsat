@@ -121,4 +121,4 @@ hybrid
 =======
 # jorsat
 Repo general de proyectos varios. 
->>>>>>> 48c92c9f026f4dd0f99dd9a7427f3cefb022ad36
+

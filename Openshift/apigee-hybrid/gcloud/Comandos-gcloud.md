@@ -1,4 +1,4 @@
-# Cheat Sheet: gcloud CLI & Apigee Hybrid
+#  gcloud CLI & Apigee Hybrid
 
 Guía rápida de comandos de `gcloud` para la administración de proyectos, API Proxies, Buckets de Storage y exportación de configuraciones mediante la API de Apigee.
 

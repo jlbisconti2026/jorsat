@@ -25,3 +25,38 @@ gcloud services enable apigeeconnect.googleapis.com --project="claup-apigee-hybr
 ```bash
 gcloud projects create [PROJECT_ID_O_NOMBRE]
 ```
+
+### Borrar proyecto
+```bash
+gcloud projects delete [PROJECT_ID_O_NOMBRE]
+```
+
+### Recuperar proyecto borrado
+
+```bash
+gcloud projects undelete [PROJECT_ID_O_NOMBRE]
+```
+
+### Renombrar / Actualizar proyecto
+
+```bash
+gcloud projects update [PROJECT_ID_O_NOMBRE]
+```
+
+### Listar proyectos GCP
+```bash
+gcloud projects list
+```
+
+### Filtrar proyectos de Apigee:
+```bash
+gcloud projects list | grep apigee
+```
+
+Ejemplo de salida:
+
+```text
+claup-apigee-hybrid-desa    claup-apigee-hybrid-desa    1010788170711
+claup-apigee-hybrid-prod    claup-apigee-hybrid-prod    300430456458
+```
+

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # JORSAT
 
 Repositorio principal de infraestructura, seguridad, automatización y plataformas híbridas.

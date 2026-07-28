@@ -84,7 +84,6 @@ gcloud apigee organizations list
 
 Ejemplo de salida:
 
-Plaintext
 NAME                      PROJECT
 claup-apigee-hybrid-desa  claup-apigee-hybrid-desa
 claup-apigee-hybrid-prod  claup-apigee-hybrid-prod

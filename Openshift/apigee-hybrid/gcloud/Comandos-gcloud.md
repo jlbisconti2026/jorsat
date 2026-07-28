@@ -15,10 +15,11 @@ gcloud auth login
 
 ## 2.Habilitar APIs de Google requeridas
 ```bash
-gcloud services enable pubsub.googleapis.com --project="claup-apigee-hybrid-desa"
-gcloud services enable cloudresourcemanager.googleapis.com --project="claup-apigee-hybrid-desa"
-gcloud services enable apigee.googleapis.com --project="claup-apigee-hybrid-desa"
-gcloud services enable apigeeconnect.googleapis.com --project="claup-apigee-hybrid-desa"
+gcloud services enable pubsub.googleapis.com --project="project-id"
+gcloud services enable cloudresourcemanager.googleapis.com --project="project-id"
+gcloud services enable apigee.googleapis.com --project="project-id"
+gcloud services enable apigeeconnect.googleapis.com --project="project-id"
+gcloud services enable container.googleapis.com --project="project-id"
 ```
 ## 3. Gestión de Proyectos en GCP
 ### Crear proyecto
@@ -235,4 +236,28 @@ Invoke-RestMethod -Uri "[https://apigee.googleapis.com/v1/organizations/$ORG/env
   ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 envgroup_attachments.json
 ```
 
+## 7. Gestión de IAM y Cuentas de Servicio (Service Accounts)
+
+Apigee Hybrid requiere múltiples Service Accounts y roles específicos para funcionar.
+
+Listar Service Accounts del proyecto
+
+```bash
+gcloud iam service-accounts list --project=project-name 
+```
+
+### Crear una Service Account
+```bash
+gcloud iam service-accounts create apigee-telemetry-sa \
+  --display-name="Service Account para Apigee Telemetry" \
+  --project=project-name 
+```
+
+### Asignar un rol de IAM a una Service Account
+
+```bash
+gcloud projects add-iam-policy-binding claup-apigee-hybrid-desa \
+  --member="serviceAccount:apigee-telemetry-sa@claup-apigee-hybrid-desa.iam.gserviceaccount.com" \
+  --role="roles/monitoring.metricWriter"
+```
 

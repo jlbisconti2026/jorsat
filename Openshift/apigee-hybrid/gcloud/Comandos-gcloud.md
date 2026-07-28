@@ -53,12 +53,27 @@ gcloud projects list
 gcloud projects list | grep apigee
 ```
 
+
+
 Ejemplo de salida:
 
  
 claup-apigee-hybrid-desa    claup-apigee-hybrid-desa    1010788170711
 claup-apigee-hybrid-prod    claup-apigee-hybrid-prod    300430456458
  
+
+### Cambiar de proyecto activo
+
+```bash
+gcloud config set project nombre-del-projecto
+```
+
+### Cambiar la región o zona por defecto
+
+```bash
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
+```
 
 ## 4. Administración de Apigee
 

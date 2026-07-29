@@ -43,3 +43,6 @@
 | **Runtime Pods** | Ejecutan las llamadas de tus APIs (el data plane). |
 | **Ingress Gateway** | Maneja el ingreso HTTP/HTTPS de tráfico de clientes externos. |
 | **Istio (opcional)** | Puede integrarse con Apigee para manejar tráfico. |
+
+
+

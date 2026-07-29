@@ -81,16 +81,15 @@ Centralizar documentación, manifests, scripts y automatizaciones relacionadas c
 ## Estructura sugerida
 
 ```text
-jorsat/
-├── gcp/
-├── ia-ml/
-├── guemes/
-├── k8s/
-├── openshift/
-├── security/
-├── scripts/
-├── monitoring/
-└── docs/
+k8s-vanilla/
+├── configmaps/
+├── deployments_documentacion/
+├── dev_tools/
+├── scripts\infra/
+├── stress-cluster/
+├── Testing/
+├── vagrant/
+└── yamls/
 ```
 hybrid 
 ---

@@ -1,7 +1,8 @@
 # Desinstalación de ambiente Apigee Hybrid
 
 ##1.	Desinstala los recursos del espacio de nombres apigee:
- 	
+
+  ````
    helm uninstall -n claro-apigee-hybrid-desa \
    vh-desa-test-ar vh-desa-test-py vh-desa-test-uy \
    env-desa-ar env-desa-py env-desa-uy env-test-ar env-test-py env-test-uy \
@@ -10,6 +11,7 @@
    apigee-telemetry \
    redis \
    apigee-datastore
+````
 
 3.	Desinstala apigee-operator:
 helm uninstall -n claro-apigee-hybrid-desa operator

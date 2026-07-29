@@ -5,6 +5,7 @@ Repositorio principal de infraestructura, seguridad, automatización y plataform
 ## Áreas del repositorio
 
 ### ☁️ Cloud & GCP
+
 - Apigee Hybrid
 - IAM
 - Networking
@@ -12,6 +13,7 @@ Repositorio principal de infraestructura, seguridad, automatización y plataform
 - Automatización GCP
 
 ### 🤖 IA / ML
+
 - OpenDataHub
 - Kubeflow
 - KServe
@@ -20,6 +22,7 @@ Repositorio principal de infraestructura, seguridad, automatización y plataform
 - Pipelines
 
 ### 🔐 Seguridad & Observabilidad
+
 - Suricata
 - nftables
 - eBPF
@@ -30,6 +33,7 @@ Repositorio principal de infraestructura, seguridad, automatización y plataform
 - Alerting
 
 ### 🖥️ Infraestructura
+
 - Linux
 - Storage
 - Networking
@@ -37,7 +41,9 @@ Repositorio principal de infraestructura, seguridad, automatización y plataform
 - Automatización
 
 ### ⚡ Guemes
+
 Laboratorio de seguridad y análisis de tráfico:
+
 - IDS/IPS
 - NFQUEUE
 - Suricata Inline
@@ -46,6 +52,7 @@ Laboratorio de seguridad y análisis de tráfico:
 - Threat analysis
 
 ### ☸️ Kubernetes Vanilla
+
 - kubeadm
 - CNI
 - CSI
@@ -54,6 +61,7 @@ Laboratorio de seguridad y análisis de tráfico:
 - Hardening
 
 ### 🚀 OpenShift / OKD
+
 - OCP
 - OKD
 - Operators
@@ -91,7 +99,8 @@ k8s-vanilla/
 ├── vagrant/
 └── yamls/
 ```
-hybrid 
+
+hybrid
 ---
 
 ## Tecnologías
@@ -117,6 +126,4 @@ hybrid
 ## Estado
 
 🚧 Laboratorio y entorno activo de investigación/desarrollo.
-=======
-# jorsat
-Repo general de proyectos varios multiplataforma.
+

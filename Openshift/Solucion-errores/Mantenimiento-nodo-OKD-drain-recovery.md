@@ -1,6 +1,7 @@
 # Mantenimiento y recuperación de nodo en OKD
 
 ## 1. Marcar el nodo como *Unschedulable*
+
 Se evita que el scheduler asigne nuevos pods al nodo.
 
 ```bash
@@ -10,6 +11,7 @@ oc adm cordon master2.gsve.locals
 ---
 
 ## 2. Retirar el nodo del clúster (Drain)
+
 Se drenan los workloads existentes del nodo.
 
 ```bash
@@ -44,11 +46,13 @@ systemctl stop kubelet
 ## 5. Detener pods y contenedores
 
 ### Detener todos los pods
+
 ```bash
 crictl stopp `crictl pods -q`
 ```
 
 ### Detener todos los contenedores
+
 ```bash
 crictl stop `crictl ps -aq`
 ```
@@ -84,6 +88,7 @@ systemctl start kubelet
 ---
 
 ## Resultado esperado
+
 - El nodo queda limpio de pods y contenedores corruptos.
 - kubelet y CRI-O inician correctamente.
 - El nodo puede reincorporarse al clúster luego del *uncordon*.
@@ -91,5 +96,6 @@ systemctl start kubelet
 ---
 
 ## Nota
+
 Este procedimiento es **destructivo a nivel de contenedores locales**.  
 Usar únicamente en nodos con fallas graves.

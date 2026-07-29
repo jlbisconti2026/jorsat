@@ -101,7 +101,6 @@ k8s-vanilla/
 ```
 
 hybrid
----
 
 ## Tecnologías
 
@@ -126,4 +125,3 @@ hybrid
 ## Estado
 
 🚧 Laboratorio y entorno activo de investigación/desarrollo.
-

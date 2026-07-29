@@ -1,6 +1,6 @@
 # Desinstalación de ambiente Apigee Hybrid
 
-##1.	Desinstala los recursos del espacio de nombres apigee:
+## 1.	Desinstala los recursos del espacio de nombres apigee:
 
   ````
    helm uninstall -n claro-apigee-hybrid-desa \
@@ -13,14 +13,19 @@
    apigee-datastore
 ````
 
-3.	Desinstala apigee-operator:
+## 3.	Desinstala apigee-operator:
+````
 helm uninstall -n claro-apigee-hybrid-desa operator
+````
 
-4.	Elimina los CRDs de Apigee:
+## 4.	Elimina los CRDs de Apigee:
+````
 oc delete -k  apigee-operator/etc/crds/default/
+````
 
 Opcion 2 :
 
+````
 oc delete crd \
   apigeedatastores.apigee.cloud.google.com \
   apigeedeployments.apigee.cloud.google.com \
@@ -32,10 +37,13 @@ oc delete crd \
   apigeeroutes.apigee.cloud.google.com \
   apigeetelemetries.apigee.cloud.google.com \
   cassandradatareplications.apigee.cloud.google.com \
-  secretrotations.apigee.cloud.google.com	
-4.	Eliminar cert-manager
-   oc  delete secret -n claro-apigee-hybrid-desa apigee-ca
+  secretrotations.apigee.cloud.google.com
+````
 
+4.	Eliminar cert-manager
+   ````
+   oc  delete secret -n claro-apigee-hybrid-desa apigee-ca
+   ````
 
 
 

@@ -2,6 +2,8 @@
 Fecha de exportación: 2026
 
 ## 1. JSON ORIGINAL (Raw Data)
+
+```json
 --------------------------------------------------------------------------------
 {
   "apiServerInternalIPs": [],
@@ -34,6 +36,7 @@ Fecha de exportación: 2026
   ]
 }
 --------------------------------------------------------------------------------
+```
 
 ## 2. DATOS DE CONEXIÓN Y ACCESO (vCenter)
 * **Servidor vCenter:** openstack-vcenter.claro.amx

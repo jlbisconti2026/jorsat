@@ -13,6 +13,7 @@ Si usas el modelo recomendado de cuentas separadas, estos son los roles exactos 
 
 
 Entorno actual de DESA / TEST:
+
 Como unificaste las funciones en apigee-non-prod@claup-apigee-hybrid-desa.iam.gserviceaccount.com, asegúrate de que esa única cuenta tenga asignados en IAM estos 4 roles en paralelo:
 1.	Administrador de Apigee Synchronizer (roles/apigee.synchronizerManager)
 2.	Agente de tiempo de ejecución de Apigee (roles/apigee.runtimeAgent)
@@ -25,14 +26,19 @@ Por políticas de seguridad corporativa y auditoría en producción, la recomend
 •	apigee-runtime@claro-apigee-hybrid-prod... ➔ Con el rol analyticsAgent
 •	apigee-mart@claro-apigee-hybrid-prod... ➔ Con el rol entriesProcessor
 💡 Recordatorio de Oro: No importa si usas una sola cuenta o cuentas separadas, cada vez que crees la SA del Synchronizer en cualquier ambiente, el paso final e indispensable será ejecutar el comando setSyncAuthorization que descubrimos hoy para darle luz verde en la nube.
-Component Service Accounts and IAM Roles
-Component / Service Account Name	Predefined IAM Role	IAM Role Reference String	Purpose & Permissions
-apigee-synchronizer	Apigee Synchronizer Manager	roles/apigee.synchronizerManager	Downloads proxy bundles and environment configuration data from the management plane.
-apigee-udca	Apigee Analytics Agent	roles/apigee.analyticsAgent	Universal Data Collection Agent; uploads API metrics, analytics, trace, and status records.
-apigee-mart / apigee-connect	Apigee Connect Agent	roles/apigeeconnect.Agent	Manages the secure bidirectional connection between the runtime and Google management plane.
-apigee-watcher	Apigee Runtime Agent	roles/apigee.runtimeAgent	Watches and monitors controller routing changes and deployments.
-apigee-logger	Logs Writer	roles/logging.logWriter	Streams system and application logs to Cloud Logging.
-apigee-metrics	Monitoring Metric Writer	roles/monitoring.metricWriter	Writes health metrics directly into Cloud Monitoring.
-apigee-cassandra	Storage Object Admin	roles/storage.objectAdmin	Used optionally for backing up and restoring database cluster snapshots into Cloud Storage.
-apigee-runtime	Optional Roles Only	roles/cloudtrace.agent (Optional)	Requires no default role, but requires Cloud Trace Agent if using Google Distributed Tracing.
+
+# Component Service Accounts and IAM Roles
+
+| Component / Service Account Name | Predefined IAM Role | IAM Role Reference String | Purpose & Permissions |
+| :--- | :--- | :--- | :--- |
+| **apigee-synchronizer** | Apigee Synchronizer Manager | `roles/apigee.synchronizerManager` | Downloads proxy bundles and environment configuration data from the management plane. |
+| **apigee-udca** | Apigee Analytics Agent | `roles/apigee.analyticsAgent` | Universal Data Collection Agent; uploads API metrics, analytics, trace, and status records. |
+| **apigee-mart / apigee-connect** | Apigee Connect Agent | `roles/apigeeconnect.Agent` | Manages the secure bidirectional connection between the runtime and Google management plane. |
+| **apigee-watcher** | Apigee Runtime Agent | `roles/apigee.runtimeAgent` | Watches and monitors controller routing changes and deployments. |
+| **apigee-logger** | Logs Writer | `roles/logging.logWriter` | Streams system and application logs to Cloud Logging. |
+| **apigee-metrics** | Monitoring Metric Writer | `roles/monitoring.metricWriter` | Writes health metrics directly into Cloud Monitoring. |
+| **apigee-cassandra** | Storage Object Admin | `roles/storage.objectAdmin` | Used optionally for backing up and restoring database cluster snapshots into Cloud Storage. |
+| **apigee-runtime** | Optional Roles Only | `roles/cloudtrace.agent` (Optional) | Requires no default role, but requires Cloud Trace Agent if using Google Distributed Tracing. |
+
+
 

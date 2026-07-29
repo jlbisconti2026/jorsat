@@ -40,6 +40,9 @@ replicas: 3
 ```bash
 oc get po -n openshift-ingress | grep router-default
 ```
+router-default-5bc8685474-jtdql                                   2/2     Running   0         
+router-default-5bc8685474-knlk7                                   2/2     Running   0         
+router-default-5bc8685474-z6wc2                                   2/2     Running 
 ---
 ### 2. SOLUCIÓN PARA EL REGISTRO DE IMÁGENES (IMAGE REGISTRY)
 ---
@@ -57,6 +60,12 @@ tolerations:
 ```bash
 oc get po -n openshift-image-registry | grep image-registry-
 ```
+cluster-image-registry-operator-7dcf979d75-t7kws   1/1     Running     1 (92d ago)   103d
+image-registry-6c54666fdd-6mjxv                    1/1     Running     0             88m
+image-registry-6c54666fdd-hmmp4                    1/1     Running     0             88m
+image-registry-6c54666fdd-v7swk                    1/1     Running     0             88m
+
+
 ---
 3. VERIFICACIÓN FINAL DEL CLÚSTER
 ---

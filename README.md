@@ -120,5 +120,4 @@ hybrid
 🚧 Laboratorio y entorno activo de investigación/desarrollo.
 =======
 # jorsat
-Repo general de proyectos varios. 
-
+Repo general de proyectos varios multiplataforma.

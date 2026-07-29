@@ -56,7 +56,6 @@ router-default-5bc8685474-z6wc2                                   2/2     Runnin
 
 ### 2. SOLUCIÓN PARA EL REGISTRO DE IMÁGENES (IMAGE REGISTRY)
 
-
 El operador de Image Registry queda trabado en 'Progressing: True' porque el pod nuevo
 no puede ingresar a los nodos de infraestructura para completar el despliegue.
 
@@ -80,7 +79,6 @@ cluster-image-registry-operator-7dcf979d75-t7kws   1/1     Running     1 (92d ag
 image-registry-6c54666fdd-6mjxv                    1/1     Running     0             88m
 image-registry-6c54666fdd-hmmp4                    1/1     Running     0             88m
 image-registry-6c54666fdd-v7swk                    1/1     Running     0             88m
-
 
 1. VERIFICACIÓN FINAL DEL CLÚSTER
 

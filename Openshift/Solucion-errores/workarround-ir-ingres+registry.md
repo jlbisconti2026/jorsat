@@ -3,8 +3,16 @@
 ---
 Los nodos de infraestructura dedicados (infra0, infra1, infra2) tienen activo el
 siguiente bloqueo que impide que los componentes del sistema se programen allí:
-- Nodo: infra0.labokdipi.claro.amx
+- Nodo: infra0.labjorsat.gsve.locals
 - Taint: infra=reserved:NoSchedule
+Para verificar que esto es asi ejecutamos el comando
+```bash
+oc describe node infra0.labjorsat.gsve.locals | grep -i taints
+```
+
+Taints:             infra=reserved:NoSchedule
+
+  
 Para solucionar esto, se debe inyectar la tolerancia exacta (Key: infra, Value: reserved)
 en las configuraciones maestras administradas por los operadores correspondientes.
 ---
@@ -57,4 +65,3 @@ Comprobá que el estado de los ClusterOperators sea saludable (Available: True, 
  ```bash
   oc get co ingress image-registry
 ```
-================================================================================

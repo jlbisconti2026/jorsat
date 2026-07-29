@@ -37,7 +37,8 @@ apigeeenvironments.apigee.cloud.google.com
 apigeeissues.apigee.cloud.google.com                              
 apigeeorganizations.apigee.cloud.google.com                       
 apigeeredis.apigee.cloud.google.
-apigeerouteconfigs.apigee.cloud.google.com                        
+apigeerouteconfigs.apigee.cloud.google.com 
+apigeetelemetries.apigee.cloud.google.com                         
 apigeeroutes.apigee.cloud.google.com                              
 cassandradatareplications.apigee.cloud.google.com                 
 secretrotations.apigee.cloud.google.com         

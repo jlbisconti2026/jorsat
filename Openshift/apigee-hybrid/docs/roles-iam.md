@@ -1,12 +1,15 @@
-Roles por Cuenta de Servicio
+# Roles por Cuenta de Servicio
+
 Si usas el modelo recomendado de cuentas separadas, estos son los roles exactos para cada componente. Si usas una sola SA unificada en No-Prod, esa única cuenta debe llevar la suma de todos estos roles:
-Componente de Apigee	Nombre Técnico del Rol de GCP	¿Para qué sirve?
-Synchronizer	roles/apigee.synchronizerManager	Permite al pod descargar los bundles de los proxies desde GCS (el que habilitamos hoy).
-Watcher	roles/apigee.runtimeAgent	Permite al pod enviar datos de configuración al plano de control de GCP.
-Runtime	roles/apigee.analyticsAgent	Permite a las APIs enviar los datos de telemetría y analítica de tráfico a GCP.
-MART	roles/apigee.entriesProcessor	Permite la comunicación de gestión de datos de las APIs del runtime.
-UDCA	roles/apigee.analyticsAgent	Recolecta y sube los datos analíticos de las llamadas (comparte rol con Runtime).
-Connect Agent	roles/apigee.runtimeAgent	Mantiene el túnel de conexión activo (comparte rol con Watcher).
+
+| Componente de Apigee | Nombre Técnico del Rol de GCP | ¿Para qué sirve? |
+| :--- | :--- | :--- |
+| **Synchronizer** | `roles/apigee.synchronizerManager` | Permite al pod descargar los bundles de los proxies desde GCS (el que habilitamos hoy). |
+| **Watcher** | `roles/apigee.runtimeAgent` | Permite al pod enviar datos de configuración al plano de control de GCP. |
+| **Runtime** | `roles/apigee.analyticsAgent` | Permite a las APIs enviar los datos de telemetría y analítica de tráfico a GCP. |
+| **MART** | `roles/apigee.entriesProcessor` | Permite la comunicación de gestión de datos de las APIs del runtime. |
+| **UDCA** | `roles/apigee.analyticsAgent` | Recolecta y sube los datos analíticos de las llamadas (comparte rol con Runtime). |
+| **Connect Agent** | `roles/apigee.runtimeAgent` | Mantiene el túnel de conexión activo (comparte rol con Watcher). |
 
 
 Entorno actual de DESA / TEST:

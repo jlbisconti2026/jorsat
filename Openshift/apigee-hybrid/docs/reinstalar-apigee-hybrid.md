@@ -6,12 +6,14 @@ El proceso involucró la reinstalación manual de CRDs evitando límites de anot
 
 ## 2. Diagrama de la Secuencia de Recuperación
 
-	Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & Redis → 4. Recuperación de Cassandra → 5. Despliegue de Runtimes y VirtualHosts
+Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & Redis → 4. Recuperación de Cassandra → 5. Despliegue de Runtimes y VirtualHosts
 	
 ## 3. Detalle Paso a Paso de las Soluciones Aplicadas
 ### Paso 1: Reinstalación de Custom Resource Definitions (CRDs)
-	Problema: Al intentar aplicar los CRDs mediante oc apply, la API Server de OpenShift rechazaba la petición por superar el límite de bytes en anotaciones (metadata.annotations: Too long: may not be more than 262144 bytes).
+
+Problema: Al intentar aplicar los CRDs mediante oc apply, la API Server de OpenShift rechazaba la petición por superar el límite de bytes en anotaciones (metadata.annotations: Too long: may not be more than 262144 bytes).
 	Solución: Se aplicaron los manifiestos omitiendo la anotación de última configuración mediante oc create:
+	
 ```Bash
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeeorganizations.yaml
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeeenvironments.yaml
@@ -50,7 +52,8 @@ oc delete validatingwebhookconfiguration apigee-validating-webhook-configuration
 oc rollout restart deployment/apigee-controller-manager -n claro-apigee-hybrid-desa
 ```
 ### Paso 3: Limpieza de Recursos Atascados (Finalizers)
-	Problema: El recurso [apigeedatastore.apigee.cloud.google.com/default](https://apigeedatastore.apigee.cloud.google.com/default) se mantenía en estado deleting, bloqueando la creación del StatefulSet de Cassandra y sus PVCs.
+
+Problema: El recurso [apigeedatastore.apigee.cloud.google.com/default](https://apigeedatastore.apigee.cloud.google.com/default) se mantenía en estado deleting, bloqueando la creación del StatefulSet de Cassandra y sus PVCs.
 	Solución: Se forzó la remoción del finalizer para liberar la API de Kubernetes:
   
   ```Bash

@@ -15,6 +15,7 @@ Para fijarlo exclusivamente en tus 3 nodos infra y tolerar el bloqueo, seguí es
 ### 1. Abrí la configuración del Ingress Controller default:
    $ oc edit ingresscontroller default -n openshift-ingress-operator
 ### 2. Modificá o agregá las secciones 'nodeSelector' y 'tolerations' dentro del bloque 'spec':
+
 spec:
 nodePlacement:
 nodeSelector:
@@ -27,7 +28,10 @@ operator: Equal
 value: reserved
 replicas: 3
 ### 3. Guardá y salí del editor (:wq). El operador recreará los pods en tus nodos infra.
-### 4. Verificá que las réplicas pasen a estado 'Running' (2/2): $ oc get po -n openshift-ingress | grep router-default
+### 4. Verificá que las réplicas pasen a estado 'Running' (2/2): 
+```bash
+oc get po -n openshift-ingress | grep router-default
+```
 ---
 ### 2. SOLUCIÓN PARA EL REGISTRO DE IMÁGENES (IMAGE REGISTRY)
 ---
@@ -41,11 +45,16 @@ spec:
 tolerations:
 - effect: NoSchedule key: infra operator: Equal value: reserved
 3. Guardá y salí del editor (:wq).
-4. El operador le inyectará la regla al pod pendiente de forma inmediata. Verificá que el pod en 'Pending' pase a 'Running' (1/1): $ oc get po -n openshift-image-registry | grep image-registry-
+4. El operador le inyectará la regla al pod pendiente de forma inmediata. Verificá que el pod en 'Pending' pase a 'Running' (1/1):
+```bash
+oc get po -n openshift-image-registry | grep image-registry-
+```
 ---
 3. VERIFICACIÓN FINAL DEL CLÚSTER
 ---
 Una vez aplicados ambos cambios, los operadores terminarán sus tareas de conciliación.
 Comprobá que el estado de los ClusterOperators sea saludable (Available: True, Progressing: False, Degraded: False):
-$ oc get co ingress image-registry
+ ```bash
+  oc get co ingress image-registry
+```
 ================================================================================

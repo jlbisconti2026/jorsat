@@ -48,14 +48,20 @@
 
 ```mermaid
 flowchart TD
+    %% Estilos de colores
+    classDef verde fill:#d4e7c5,stroke:#4b6043,color:#000000;
+    classDef rosa fill:#f4c2c2,stroke:#a85a6e,color:#000000;
+    classDef azul fill:#b3d8e8,stroke:#4a7a96,color:#000000;
+    classDef amarillo fill:#fce8a6,stroke:#8c7b3e,color:#000000;
+
     %% Nodos principales
-    GCP["Google Cloud (Control Plane)"]
-    CLIENT["Cliente / App"]
-    SYNC["Synchronizer"]
-    MART["MART\n(Management API Runtime)"]
-    INGRESS(["Ingress Gateway\n(Istio/Apigee)"])
-    RUNTIME(["Runtime\n(API Execution)"])
-    UDCA["UDCA\n(Data Collection Agent)"]
+    GCP["Google Cloud (Control Plane)"]:::verde
+    CLIENT["Cliente / App"]:::amarillo
+    SYNC["Synchronizer"]:::rosa
+    MART["MART<br>(Management API Runtime)"]:::rosa
+    INGRESS(["Ingress Gateway<br>(Istio/Apigee)"]):::azul
+    RUNTIME(["Runtime<br>(API Execution)"]):::azul
+    UDCA["UDCA<br>(Data Collection Agent)"]:::rosa
 
     %% Conexiones desde Google Cloud
     GCP -->|"Descarga config y proxies"| SYNC

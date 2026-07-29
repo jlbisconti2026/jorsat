@@ -1,6 +1,6 @@
-GUÍA DE MIGRACIÓN Y UPGRADE: APIGEE PRIVATE CLOUD (ON-PREMISE) De la versión 4.51.00 a la versión 4.53.01
+# GUÍA DE MIGRACIÓN Y UPGRADE: APIGEE PRIVATE CLOUD (ON-PREMISE) De la versión 4.51.00 a la versión 4.53.01
 
-1. CONSIDERACIONES CRÍTICAS ANTES DE EMPEZAR
+## 1. CONSIDERACIONES CRÍTICAS ANTES DE EMPEZAR
 ---
 REGLA DE ORO DE GOOGLE APIGEE: No existe el salto directo (upgrade directo) de la
 versión 4.51.00 a la 4.53.01. Intentar forzar la instalación romperá los esquemas
@@ -15,7 +15,7 @@ Apigee On-Premise, tales como:
 - Migración interna de scripts hacia Python 3.
 La versión intermedia (4.52.x) prepara, limpia y adapta los esquemas de datos
 existentes para que la transición final a la 4.53 no cause pérdida de información.
-2. PLAN DE RESPALDO (BACKUP OBLIGATORIO)
+## 2. PLAN DE RESPALDO (BACKUP OBLIGATORIO)
 ---
 Antes de ejecutar cualquier comando de actualización, se debe realizar un respaldo
 total de todos los entornos:

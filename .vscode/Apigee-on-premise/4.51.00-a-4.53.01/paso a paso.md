@@ -41,7 +41,7 @@ Backup de Analíticas (Postgres): En los nodos de base de datos de analíticas, 
 pg_dumpall -U apigee > apigee_analytics_backup.sql
  ```
 
- ## 3. ORDEN ESTRICTO DE ACTUALIZACIÓN POR NODO (POR CADA FASE)
+## 3. ORDEN ESTRICTO DE ACTUALIZACIÓN POR NODO (POR CADA FASE)
 
 Tanto para la Fase 1 (4.51 a 4.52) como para la Fase 2 (4.52 a 4.53), se debe seguir un orden estricto de componentes para mantener la disponibilidad del tráfico y la consistencia del clúster:
 

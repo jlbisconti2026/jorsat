@@ -54,7 +54,6 @@ router-default-5bc8685474-jtdql                                   2/2     Runnin
 router-default-5bc8685474-knlk7                                   2/2     Running   0
 router-default-5bc8685474-z6wc2                                   2/2     Running
 
-
 ### 2. SOLUCIÓN PARA EL REGISTRO DE IMÁGENES (IMAGE REGISTRY)
 
 
@@ -70,7 +69,7 @@ tolerations:
 
 - effect: NoSchedule key: infra operator: Equal value: reserved
 
-3. Guardá y salí del editor (:wq).
+1. Guardá y salí del editor (:wq).
 2. El operador le inyectará la regla al pod pendiente de forma inmediata. Verificá que el pod en 'Pending' pase a 'Running' (1/1):
 
 ```bash
@@ -82,10 +81,9 @@ image-registry-6c54666fdd-6mjxv                    1/1     Running     0        
 image-registry-6c54666fdd-hmmp4                    1/1     Running     0             88m
 image-registry-6c54666fdd-v7swk                    1/1     Running     0             88m
 
----
+
 1. VERIFICACIÓN FINAL DEL CLÚSTER
 
----
 Una vez aplicados ambos cambios, los operadores terminarán sus tareas de conciliación.
 Comprobá que el estado de los ClusterOperators sea saludable (Available: True, Progressing: False, Degraded: False):
 

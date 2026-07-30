@@ -17,6 +17,7 @@ Ejemplo del evento observado:
 ---
 
 ## Causa
+
 Las credenciales configuradas para vCenter en el secret `vsphere-creds` del namespace `kube-system` son incorrectas.
 
 ---
@@ -24,6 +25,7 @@ Las credenciales configuradas para vCenter en el secret `vsphere-creds` del name
 ## Resolución
 
 ### 1. Actualizar credenciales
+
 Cambiar la contraseña en el secret `vsphere-creds` del namespace `kube-system` asegurando que el usuario y password sean válidos en vCenter.
 
 ---
@@ -50,6 +52,7 @@ oc delete co/storage
 ---
 
 ## Resultado esperado
+
 - El operador `storage` vuelve a estado **Available**
 - El CSI de vSphere se autentica correctamente contra vCenter
 - El clúster queda operativo
@@ -57,5 +60,6 @@ oc delete co/storage
 ---
 
 ## Observaciones
+
 - Validar permisos del usuario de vCenter para operaciones CSI
 - Verificar conectividad de red entre OKD y vCenter

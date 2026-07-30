@@ -10,10 +10,13 @@
 > - **app_generales**: _destinado a contener el how to de cada app a instalar dentro del cluster._
 > - **infra_k8s**: _destinado a contener how to de como instalara y configurar el cluster._
 
-```
-deployments
-    ├───configmaps
-    ├───deployment
-    ├───yamls
-    └───infra_k8s
-```
+```text
+k8s-vanilla/
+├── configmaps/
+├── deployments_documentacion/
+├── dev_tools/
+├── scripts\infra/
+├── stress-cluster/
+├── Testing/
+├── vagrant/
+└── yamls/

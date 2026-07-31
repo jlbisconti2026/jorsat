@@ -1,6 +1,0 @@
-[Unit]
-Description=Limpieza de logs viejos de ClamAV
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/clamav-log-cleaner

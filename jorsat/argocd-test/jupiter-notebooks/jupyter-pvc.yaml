@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jupyter-pvc
+  namespace: dev # <-- Cambiado a dev
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-client # <-- Tu StorageClass NFS dinámico
+  resources:
+    requests:
+      storage: 5Gi

@@ -49,3 +49,65 @@ oc scale deployment odh-dashboard -n opendatahub --replicas=1
 
 
 Todos los pods del namespace opendatahub alcanzaron estado operativo estable (1/1 y 9/9 READY). La consola web del dashboard se encuentra completamente accesible y operativa.
+
+# 4. Workarround adicional 
+
+En caso de que el pod correspondiente a odh-dashboard no quede estable y tenga restarts o incluso quede en estadoCrashLoopBackoff, realizar los siguientes pasos.
+
+#### 1. Pausa de Gestión sobre el Deployment
+
+Se aplicó la anotación necesaria para indicarle al operador que ignore la gestión de este Deployment específico:
+
+```bash
+oc annotate deployment odh-dashboard -n opendatahub opendatahub.io/managed=false --overwrite
+```
+
+### 2. Reemplazo Completo del Bloque de Probes (Exec Curl)
+
+Se reestructuraron por completo las definiciones de readinessProbe y livenessProbe para ejecutar la validación vía curl en 127.0.0.1:8080:
+
+```bash
+oc patch deployment odh-dashboard -n opendatahub --type='json' -p='[
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/readinessProbe",
+    "value": {
+      "exec": {
+        "command": ["curl", "-f", "[http://127.0.0.1:8080/api/health](http://127.0.0.1:8080/api/health)"]
+      },
+      "initialDelaySeconds": 30,
+      "periodSeconds": 10,
+      "timeoutSeconds": 5,
+      "successThreshold": 1,
+      "failureThreshold": 3
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/livenessProbe",
+    "value": {
+      "exec": {
+        "command": ["curl", "-f", "[http://127.0.0.1:8080/api/health](http://127.0.0.1:8080/api/health)"]
+      },
+      "initialDelaySeconds": 60,
+      "periodSeconds": 15,
+      "timeoutSeconds": 5,
+      "successThreshold": 1,
+      "failureThreshold": 5
+    }
+  }
+]'
+```
+
+### 3. Reinicio y Validación
+
+Se reinició la instancia para forzar la recreación bajo los nuevos parámetros:
+
+
+```bash
+oc delete pod -l app=odh-dashboard -n opendatahub
+```
+
+### Estado Final de Validación
+
+El pod se mantiene en ejecución continua alcanzando estado 9/9 READY, sin presentar reinicios ni cambios de hash por conciliación del operador.

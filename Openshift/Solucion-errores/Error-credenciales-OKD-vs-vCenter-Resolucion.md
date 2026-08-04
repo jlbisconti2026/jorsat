@@ -1,6 +1,7 @@
 # Error de credenciales de OKD contra vCenter
 
 ## Síntoma
+
 El clúster OKD presenta el operador de almacenamiento degradado debido a un error de autenticación contra vCenter.
 
 Ejemplo del evento observado:

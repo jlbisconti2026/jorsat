@@ -1,10 +1,12 @@
 # OKD / OpenShift 4.18 – Troubleshooting vSphere CSI Datastore
 
 ## Contexto
+
 Cluster **OKD 4.18** sobre **vSphere** con el operador **vmware-vsphere-csi-driver** en estado **Degraded**.
 
 Error recurrente:
-```
+
+```bash
 VMwareVSphereController reconciliation failed:
 unable to fetch default datastore url: datastore not found
 ```
@@ -12,11 +14,14 @@ unable to fetch default datastore url: datastore not found
 ---
 
 ## Síntoma
+
 El ClusterOperator `storage` permanece en estado:
+
 - `Available=True`
 - `Degraded=True`
 
 Aunque:
+
 - El datastore existe
 - El usuario `openshift4@vsphere.local` tiene permisos
 - El nombre del datastore es correcto
@@ -28,12 +33,14 @@ Aunque:
 El **vSphere CSI NO usa solo el nombre del datastore**, sino su **Inventory Path completo**.
 
 Ejemplo **incorrecto**:
-```
+
+```bash
 /jorsat-IT/datastore/DS-DESA01-123-L003
 ```
 
 Ejemplo **correcto**:
-```
+
+```bash
 /jorsat-IT/datastore/OSDS-DESA01/DS-Cluster-DESA01-HUA/DS-DESA01-123-L003
 ```
 
@@ -60,7 +67,8 @@ while ($parent -and $parent.Name -ne "datastore") {
 ```
 
 Salida esperada:
-```
+
+```bash
 /jorsat-IT/datastore/OSDS-DESA01/DS-Cluster-DESA01-HUA/DS-DESA01-123-L003
 ```
 
@@ -92,17 +100,20 @@ oc -n openshift-cluster-csi-drivers rollout restart \
 ## Validaciones
 
 ### 1. Verificar infraestructura
+
 ```bash
 oc get infrastructure cluster -o jsonpath='{.spec.platformSpec.vsphere.failureDomains[0].topology.datastore}'
 ```
 
 ### 2. Verificar operador storage
+
 ```bash
 oc get co storage
 ```
 
 Estado esperado:
-```
+
+```bash
 Available=True
 Progressing=False
 Degraded=False

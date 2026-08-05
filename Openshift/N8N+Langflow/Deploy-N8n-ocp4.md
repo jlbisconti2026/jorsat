@@ -1,4 +1,4 @@
-Contenido
+# Contenido
 1. Preparación del Proyecto (Namespace) y Permisos	1
 2. Secretos y Configuración (Secret y ConfigMap)	1
 3. Almacenamiento Persistente (PVC)	1

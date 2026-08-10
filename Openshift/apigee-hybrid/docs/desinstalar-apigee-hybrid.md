@@ -1,11 +1,9 @@
 
 # Contenido
-
-1. [Desinstala los recursos del espacio de nombres apigee](#1-Desinstala los recursos del espacio de nombres apigee)
-2. [Desinstala apigee-operator)](#2-Desinstala apigee-operator)
-3. [Elimina los CRDs de Apigee](#3-Elimina los CRDs de Apigee)
-4. [Eliminar cert-manager)](#4-dEliminar cert-manager)
-
+* [1. Desinstala los recursos del espacio de nombres apigee](#1-desinstala-los-recursos-del-espacio-de-nombres-apigee)
+* [2. Desinstala apigee-operator](#2-desinstala-apigee-operator)
+* [3. Elimina los CRDs de Apigee](#3-elimina-los-crds-de-apigee)
+* [4. Eliminar cert-manager](#4-eliminar-cert-manager)
 
 
 

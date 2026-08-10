@@ -241,7 +241,7 @@ A partir de ese momento, cualquier **Job Template** podrá utilizar esa imagen.
 
 ---
 
-## 8. Consideracion  Importante
+## 8. Consideracion Importante
 
 Verificar que el archivo se llame exactamente:
 

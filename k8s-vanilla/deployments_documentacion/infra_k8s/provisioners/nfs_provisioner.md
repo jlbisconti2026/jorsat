@@ -76,7 +76,7 @@ Helm es una herramienta de gestión de paquetes para Kubernetes que facilita la 
 
 Los charts de Helm son como scripts que describen una aplicación de Kubernetes, incluyendo los recursos de Kubernetes necesarios (como despliegos, servicios, secretos, etc.), configuraciones predeterminadas y valores personalizables. Con Helm, los desarrolladores pueden crear charts para empaquetar y distribuir sus aplicaciones de Kubernetes de manera coherente y reutilizable.
 
-#### Instalacion de helm en el nodo master
+#### Instalacion de helm en el nodo Master
 
 Para instalar Helm en nuestro nodo master  vamos a descragarlo de su sitio oficial con el el siguiente comando:
 

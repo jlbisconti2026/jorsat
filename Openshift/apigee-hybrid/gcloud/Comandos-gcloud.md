@@ -1,4 +1,4 @@
-#  gcloud CLI & Apigee Hybrid
+# gcloud CLI & Apigee Hybrid
 
 Guía rápida de comandos de `gcloud` para la administración de proyectos, API Proxies, Buckets de Storage y exportación de configuraciones mediante la API de Apigee.
 
@@ -56,7 +56,7 @@ gcloud projects update [PROJECT_ID_O_NOMBRE]
 gcloud projects list
 ```
 
-### Filtrar proyectos de Apigee:
+### Filtrar proyectos de Apigee
 
 ```bash
 gcloud projects list | grep apigee
@@ -64,10 +64,8 @@ gcloud projects list | grep apigee
 
 Ejemplo de salida:
 
-
 claup-apigee-hybrid-desa    claup-apigee-hybrid-desa    1010788170711
 claup-apigee-hybrid-prod    claup-apigee-hybrid-prod    300430456458
- 
 
 ### Cambiar de proyecto activo
 
@@ -162,7 +160,7 @@ gcloud apigee apis deploy \
   --override
 ```
 
-### A partir de una carpeta local:
+### A partir de una carpeta local
 
 ```bash
 gcloud apigee apis deploy \
@@ -199,7 +197,7 @@ metaData:
 name: myproxy-ar
 revision:
 
-- '1' 
+- '1'
 
   ## 5. Gestión de Google Cloud Storage (gcloud storage)
 

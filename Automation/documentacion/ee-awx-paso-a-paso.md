@@ -1,6 +1,24 @@
-# 🚀 Construcción de un Execution Environment (EE) para AWX
+## Índice de Contenidos
 
-## Introducción
+1. [Introducción](#introducción)
+2. [Flujo Completo](#flujo-completo)
+3. [Pasos de Construcción y Despliegue](#pasos-de-construcción-y-despliegue)
+   - [1. Clonar el repositorio](#1-clonar-el-repositorio)
+   - [2. Instalar Ansible Builder](#2-instalar-ansible-builder)
+   - [3. Instalar Docker (o Podman)](#3-instalar-docker-o-podman)
+   - [4. Construir la imagen](#4-construir-la-imagen)
+   - [5. Verificar la imagen creada](#5-verificar-la-imagen-creada)
+   - [6. Publicar la imagen en el Registry Local](#6-publicar-la-imagen-en-el-registry-local)
+   - [7. Registrar el Execution Environment en AWX](#7-registrar-el-execution-environment-en-awx)
+   - [8. Consideración Importante](#8-consideración-importante)
+   - [9. Próximos Pasos Recomendados](#9-próximos-pasos-recomendados)
+   - [10. Resultado Esperado](#10-resultado-esperado)
+
+
+
+## 🚀 Construcción de un Execution Environment (EE) para AWX
+
+# Introducción
 
 El repositorio **Git no se usa directamente para que AWX ejecute el Execution Environment (EE)**.
 
@@ -8,7 +26,7 @@ Se utiliza únicamente como **fuente del código** para construir una **imagen D
 
 ---
 
-# 📌 Flujo completo
+#  Flujo completo
 
 ```text
 GitHub
@@ -38,7 +56,9 @@ GitHub
 
 ---
 
-# 1️⃣ Clonar el repositorio
+# Pasos de Construcción y Despliegue
+
+## 1. Clonar el repositorio
 
 Supongamos que el repositorio se encuentra en GitHub:
 
@@ -97,7 +117,7 @@ additional_build_steps:
 
 ---
 
-# 2️⃣ Instalar Ansible Builder
+## 2. Instalar Ansible Builder
 
 Actualizar el sistema:
 
@@ -119,7 +139,7 @@ pip install ansible-builder
 
 ---
 
-# 3️⃣ Instalar Docker (o Podman)
+##  3. Instalar Docker (o Podman)
 
 Por ejemplo:
 
@@ -137,7 +157,7 @@ Cerrar sesión y volver a ingresar para aplicar el cambio.
 
 ---
 
-# 4️⃣ Construir la imagen
+## 4. Construir la imagen
 
 Ejecutar:
 
@@ -174,7 +194,7 @@ Genera la Imagen Docker
 
 ---
 
-# 5️⃣ Verificar la imagen creada
+##  5 Verificar la imagen creada
 
 Ejecutar:
 
@@ -191,7 +211,7 @@ awx-ee-jorsat   v1
 
 ---
 
-# 6️⃣ Publicar la imagen en el Registry Local
+## 6. Publicar la imagen en el Registry Local
 
 Si ya existe un Registry local funcionando en:
 
@@ -209,7 +229,7 @@ docker push 10.10.100.35:5000/awx-ee-jorsat:v1
 
 ---
 
-# 7️⃣ Registrar el Execution Environment en AWX
+## 7. Registrar el Execution Environment en AWX
 
 Crear un nuevo **Execution Environment** apuntando a:
 
@@ -221,7 +241,7 @@ A partir de ese momento, cualquier **Job Template** podrá utilizar esa imagen.
 
 ---
 
-# ⚠️ Importante
+## 8. Consideracion Importante
 
 Verificar que el archivo se llame exactamente:
 
@@ -239,7 +259,7 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-# 🎯 Próximos pasos recomendados
+## 9. Próximos pasos recomendados
 
 1. Clonar el repositorio `jorsat`.
 2. Instalar `ansible-builder`.
@@ -251,6 +271,6 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-## Resultado esperado
+## 10. Resultado esperado
 
 En menos de una hora es posible disponer de un **Execution Environment personalizado**, versionado en Git, publicado en un Registry privado y reutilizable por todos los Jobs de AWX.

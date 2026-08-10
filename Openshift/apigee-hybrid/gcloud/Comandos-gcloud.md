@@ -262,29 +262,37 @@ gcloud projects add-iam-policy-binding claup-apigee-hybrid-desa \
 ```
 
 ### Exportar proyectos y permisos a formato de terraform
-
+```bash
 gcloud beta resource-config bulk-export --path=.\backup_terraform-desa --project=claup-apigee-hybrid-desa --resource-format=terraform
-
+```
+```bash
 gcloud beta resource-config bulk-export --path=.\backup_terraform-prod --project=claup-apigee-hybrid-prod --resource-format=terraform
+```
 
 #### Pasos importar proyecto y permisos en nueva cuenta GCP
 
 login en la cuenta nueva:
+```bash
 gcloud auth login (Para poder usar comandos gcloud)
-
+```
+```bash
 gcloud auth application-default login (Clave para Terraform)
-
+```
+```bash
 cd .\backup_terraform_desa
-
+```
+```bash
 terraform init
-
+```
+```bash
 terraform apply
-
+```
 #### Entorno Prod
 
+```bash
 cd .\backup_terraform_prod
 
 terraform init
 
 terraform apply
-
+```

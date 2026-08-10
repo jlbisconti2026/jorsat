@@ -117,7 +117,7 @@ additional_build_steps:
 
 ---
 
-# Instalar Ansible Builder
+## 2. Instalar Ansible Builder
 
 Actualizar el sistema:
 

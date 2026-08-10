@@ -20,7 +20,7 @@ helm uninstall -n claro-apigee-hybrid-desa \
   apigee-datastore
 ```
 
-## 2.	Desinstala apigee-operator:
+## 2. Desinstala apigee-operator
 ````
 helm uninstall -n claro-apigee-hybrid-desa operator
 ````

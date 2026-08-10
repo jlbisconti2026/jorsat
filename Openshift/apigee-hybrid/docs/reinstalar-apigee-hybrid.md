@@ -23,9 +23,10 @@ Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & R
 	
 ## 3. Detalle Paso a Paso de las Soluciones Aplicadas
 
-### Paso 1: Reinstalación de Custom Resource Definitions (CRDs)
+### Paso 1: Reinstalación de Custom Resource Definitions (CRDs)  
+
 Problema: Al intentar aplicar los CRDs mediante oc apply, la API Server de OpenShift rechazaba la petición por superar el límite de bytes en anotaciones (metadata.annotations: Too long: may not be more than 262144 bytes).
-	Solución: Se aplicaron los manifiestos omitiendo la anotación de última configuración mediante oc create:
+Solución: Se aplicaron los manifiestos omitiendo la anotación de última configuración mediante oc create:
 	
 ```Bash
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeeorganizations.yaml

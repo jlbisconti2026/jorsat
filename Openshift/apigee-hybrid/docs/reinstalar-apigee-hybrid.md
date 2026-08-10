@@ -1,21 +1,14 @@
 
 # Índice de Contenidos
 
-## <a name="sec-resumen"></a>1. Resumen Ejecutivo
-
-## <a name="sec-diagrama"></a>2. Diagrama de la Secuencia de Recuperación
-
-## <a name="sec-detalle"></a>3. Detalle Paso a Paso de las Soluciones Aplicadas
-
-### <a name="paso-1"></a>Paso 1: Reinstalación de Custom Resource Definitions (CRDs)
-
-### <a name="paso-2"></a>Paso 2: Eliminación de Webhooks Interceptores Bloqueantes
-
-### <a name="paso-3"></a>Paso 3: Limpieza de Recursos Atascados (Finalizers)
-
-### <a name="paso-4"></a>Paso 4: Re-despliegue de Componentes Base e Infraestructura
-
-### <a name="paso-5"></a>Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts
+1. [Resumen Ejecutivo](#1-resumen-ejecutivo)
+2. [Diagrama de la Secuencia de Recuperación](#2-diagrama-de-la-secuencia-de-recuperacion)
+3. [Detalle Paso a Paso de las Soluciones Aplicadas](#3-detalle-paso-a-paso-de-las-soluciones-aplicadas)
+   - [Paso 1: Reinstalación de Custom Resource Definitions (CRDs)](#paso-1-reinstalacion-de-custom-resource-definitions-crds)
+   - [Paso 2: Eliminación de Webhooks Interceptores Bloqueantes](#paso-2-eliminacion-de-webhooks-interceptores-bloqueantes)
+   - [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3-limpieza-de-recursos-atascados-finalizers)
+   - [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4-re-despliegue-de-componentes-base-e-infraestructura)
+   - [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5-despliegue-de-entornos-environments-y-virtual-hosts)
 
 
 # Recuperación de Entorno Apigee Hybrid

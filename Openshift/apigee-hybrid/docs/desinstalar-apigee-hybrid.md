@@ -25,14 +25,15 @@ helm uninstall -n claro-apigee-hybrid-desa \
 helm uninstall -n claro-apigee-hybrid-desa operator
 ````
 
-## 3.	Elimina los CRDs de Apigee:
-````
+## 3. Elimina los CRDs de Apigee
+
+````bash
 oc delete -k  apigee-operator/etc/crds/default/
 ````
 
 Opcion 2 :
 
-````
+````bash
 oc delete crd \
   apigeedatastores.apigee.cloud.google.com \
   apigeedeployments.apigee.cloud.google.com \

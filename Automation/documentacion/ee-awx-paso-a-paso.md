@@ -1,6 +1,6 @@
 ## Índice de Contenidos
 
-1. [Introducción](#introducción)
+1. [Introducción][def]
 2. [Flujo Completo](#flujo-completo)
 3. [Pasos de Construcción y Despliegue](#pasos-de-construcción-y-despliegue)
    - [1. Clonar el repositorio](#1-clonar-el-repositorio)
@@ -10,15 +10,13 @@
    - [5. Verificar la imagen creada](#5-verificar-la-imagen-creada)
    - [6. Publicar la imagen en el Registry Local](#6-publicar-la-imagen-en-el-registry-local)
    - [7. Registrar el Execution Environment en AWX](#7-registrar-el-execution-environment-en-awx)
-   - [8. Consideración Importante](#8-consideración-importante)
+   - [8. Consideración Importante](#8-consideracion-importante)
    - [9. Próximos Pasos Recomendados](#9-próximos-pasos-recomendados)
    - [10. Resultado Esperado](#10-resultado-esperado)
 
-
-
-## 🚀 Construcción de un Execution Environment (EE) para AWX
-
 # Introducción
+
+# Construcción de un Execution Environment (EE) para AWX
 
 El repositorio **Git no se usa directamente para que AWX ejecute el Execution Environment (EE)**.
 
@@ -26,7 +24,7 @@ Se utiliza únicamente como **fuente del código** para construir una **imagen D
 
 ---
 
-#  Flujo completo
+# Flujo completo
 
 ```text
 GitHub
@@ -74,7 +72,7 @@ cd jorsat/Automation/EE
 
 En esa carpeta deberán existir los siguientes archivos:
 
-```
+```text
 execution-environment.yml
 requirements.yml
 requirements.txt
@@ -83,10 +81,9 @@ bindep.txt
 
 Editar el archivo  execution-environment.yaml con el siguinte contenido
 
-
-```
-
 ---
+
+```bash
 version: 3
 
 images:
@@ -114,9 +111,6 @@ additional_build_steps:
 
 ```
 
-
----
-
 ## 2. Instalar Ansible Builder
 
 Actualizar el sistema:
@@ -139,7 +133,7 @@ pip install ansible-builder
 
 ---
 
-##  3. Instalar Docker (o Podman)
+## 3. Instalar Docker (o Podman)
 
 Por ejemplo:
 
@@ -194,7 +188,7 @@ Genera la Imagen Docker
 
 ---
 
-##  5 Verificar la imagen creada
+## 5 Verificar la imagen creada
 
 Ejecutar:
 
@@ -274,3 +268,5 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 ## 10. Resultado esperado
 
 En menos de una hora es posible disponer de un **Execution Environment personalizado**, versionado en Git, publicado en un Registry privado y reutilizable por todos los Jobs de AWX.
+
+[def]: #introducción

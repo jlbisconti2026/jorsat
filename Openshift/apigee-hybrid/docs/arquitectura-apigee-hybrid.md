@@ -1,3 +1,14 @@
+
+## Índice de Contenidos
+
+1. [Diagrama de Arquitectura (Visual mental)](#1-diagrama-de-arquitectura-visual-mental)
+2. [Componentes Clave](#2-componentes-clave)
+3. [Diagrama de flujo de componentes](#3-diagrama-de-flujo-de-componentes)
+
+
+
+
+
 # Arquitectura y Componentes de Apigee Hybrid
 
 ## 1. Diagrama de Arquitectura (Visual mental)

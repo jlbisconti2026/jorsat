@@ -7,18 +7,18 @@
 
 
 
-## 1.	Desinstala los recursos del espacio de nombres apigee:
+## 1. Desinstala los recursos del espacio de nombres apigee
 
-  ````
-   helm uninstall -n claro-apigee-hybrid-desa \
-   vh-desa-test-ar vh-desa-test-py vh-desa-test-uy \
-   env-desa-ar env-desa-py env-desa-uy env-test-ar env-test-py env-test-uy \
-   ingress-manager \Apigee 
-   org \
-   apigee-telemetry \
-   redis \
-   apigee-datastore
-````
+```bash
+helm uninstall -n claro-apigee-hybrid-desa \
+  vh-desa-test-ar vh-desa-test-py vh-desa-test-uy \
+  env-desa-ar env-desa-py env-desa-uy env-test-ar env-test-py env-test-uy \
+  ingress-manager \
+  org \
+  apigee-telemetry \
+  redis \
+  apigee-datastore
+```
 
 ## 2.	Desinstala apigee-operator:
 ````

@@ -1,3 +1,15 @@
+
+# Contenido
+
+1. [Desinstala los recursos del espacio de nombres apigee](#1-Desinstala los recursos del espacio de nombres apigee)
+2. [Secretos y Configuración (Secret y ConfigMap)](#2-secretos-y-configuración-secret-y-configmap)
+3. [Almacenamiento Persistente (PVC)](#3-almacenamiento-persistente-pvc)
+4. [Deployment de n8n (Deployment)](#4-deployment-de-n8n-deployment)
+5. [Exposición de Servicios y Ruta de OpenShift (Service y Route)](#5-exposición-de-servicios-y-ruta-de-openshift-service-y-route)
+
+
+
+
 # Desinstalación de ambiente Apigee Hybrid
 
 ## 1.	Desinstala los recursos del espacio de nombres apigee:

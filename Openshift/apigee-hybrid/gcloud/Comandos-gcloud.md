@@ -7,6 +7,7 @@ Guía rápida de comandos de `gcloud` para la administración de proyectos, API 
 ## 1. Autenticación e Inicialización
 
 ### Login de gcloud a GCP
+
 > **Nota:** La validación se realiza mediante la cuenta de Active Directory (AD) de Claro con Google.
 
 ```bash
@@ -14,6 +15,7 @@ gcloud auth login
 ```
 
 ## 2.Habilitar APIs de Google requeridas
+
 ```bash
 gcloud services enable pubsub.googleapis.com --project="project-id"
 gcloud services enable cloudresourcemanager.googleapis.com --project="project-id"
@@ -21,13 +23,17 @@ gcloud services enable apigee.googleapis.com --project="project-id"
 gcloud services enable apigeeconnect.googleapis.com --project="project-id"
 gcloud services enable container.googleapis.com --project="project-id"
 ```
+
 ## 3. Gestión de Proyectos en GCP
+
 ### Crear proyecto
+
 ```bash
 gcloud projects create [PROJECT_ID_O_NOMBRE]
 ```
 
 ### Borrar proyecto
+
 ```bash
 gcloud projects delete [PROJECT_ID_O_NOMBRE]
 ```
@@ -45,20 +51,20 @@ gcloud projects update [PROJECT_ID_O_NOMBRE]
 ```
 
 ### Listar proyectos GCP
+
 ```bash
 gcloud projects list
 ```
 
 ### Filtrar proyectos de Apigee:
+
 ```bash
 gcloud projects list | grep apigee
 ```
 
-
-
 Ejemplo de salida:
 
- 
+
 claup-apigee-hybrid-desa    claup-apigee-hybrid-desa    1010788170711
 claup-apigee-hybrid-prod    claup-apigee-hybrid-prod    300430456458
  
@@ -79,6 +85,7 @@ gcloud config set compute/zone us-central1-a
 ## 4. Administración de Apigee
 
 Listar organizaciones disponibles:
+
 ```bash
 gcloud apigee organizations list
 ```
@@ -130,6 +137,7 @@ myproxy-uy
 ```bash
 gcloud apigee deployments list
 ```
+
 Ejemplo de salida:
 
 Plaintext
@@ -142,6 +150,7 @@ desa-py      myproxy-py  1
 desa-uy      myproxy-uy  1
 
 ### Desplegar / Importar API Proxies
+
 A partir de un archivo .zip (exportado de otro Apigee):
 
 ```bash
@@ -174,6 +183,7 @@ gcloud apigee apis deploy \
 ```
 
 ### Obtener detalles e información de un Proxy
+
 ```bash
 gcloud apigee apis describe myproxy-ar
 ```
@@ -188,7 +198,8 @@ metaData:
   subType: Proxy
 name: myproxy-ar
 revision:
-- '1'
+
+- '1' 
 
   ## 5. Gestión de Google Cloud Storage (gcloud storage)
 
@@ -210,11 +221,13 @@ gcloud storage rm --recursive gs://nombre-bucket
 ```
 
 ### Copiar archivos a un Bucket
+
 ```bash
 gcloud storage cp gs://gcp-external-http-lb-with-bucket/three-cats.jpg gs://nombre-bucket/never-fetch/
 ```
 
 ## 6. Exportación de Entornos y Grupos vía API (PowerShell)
+
 ### Exportar Environment Groups
 
 ```bash
@@ -247,6 +260,7 @@ gcloud iam service-accounts list --project=project-name
 ```
 
 ### Crear una Service Account
+
 ```bash
 gcloud iam service-accounts create apigee-telemetry-sa \
   --display-name="Service Account para Apigee Telemetry" \
@@ -262,9 +276,11 @@ gcloud projects add-iam-policy-binding claup-apigee-hybrid-desa \
 ```
 
 ### Exportar proyectos y permisos a formato de terraform
+
 ```bash
 gcloud beta resource-config bulk-export --path=.\backup_terraform-desa --project=claup-apigee-hybrid-desa --resource-format=terraform
 ```
+
 ```bash
 gcloud beta resource-config bulk-export --path=.\backup_terraform-prod --project=claup-apigee-hybrid-prod --resource-format=terraform
 ```
@@ -272,21 +288,27 @@ gcloud beta resource-config bulk-export --path=.\backup_terraform-prod --project
 #### Pasos importar proyecto y permisos en nueva cuenta GCP
 
 login en la cuenta nueva:
+
 ```bash
 gcloud auth login (Para poder usar comandos gcloud)
 ```
+
 ```bash
 gcloud auth application-default login (Clave para Terraform)
 ```
+
 ```bash
 cd .\backup_terraform_desa
 ```
+
 ```bash
 terraform init
 ```
+
 ```bash
 terraform apply
 ```
+
 #### Entorno Prod
 
 ```bash

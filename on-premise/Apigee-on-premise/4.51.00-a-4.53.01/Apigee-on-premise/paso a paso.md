@@ -1,3 +1,22 @@
+
+## Índice de Contenidos
+
+1. [Consideraciones Críticas Antes de Empezar](#1-consideraciones-críticas-antes-de-empezar)
+   - [La Ruta de Upgrade Obligatoria (Secuencial)](#la-ruta-de-upgrade-obligatoria-secuencial)
+   - [¿Por qué se hace así?](#por-qué-se-hace-así)
+2. [Plan de Respaldo (Backup Obligatorio)](#2-plan-de-respaldo-backup-obligatorio)
+3. [Orden Estricto de Actualización por Nodo (Por Cada Fase)](#3-orden-estricto-de-actualización-por-nodo-por-cada-fase)
+4. [Procedimiento Técnico Paso a Paso (Ejemplo por Nodo)](#4-procedimiento-técnico-paso-a-paso-ejemplo-por-nodo)
+   - [Paso 4.1: Actualizar el Utilitario Bootstrap de Apigee](#paso-41-actualizar-el-utilitario-bootstrap-de-apigee)
+   - [Paso 4.2: Actualizar el Comando de Configuración Central](#paso-42-actualizar-el-comando-de-configuración-central)
+   - [Paso 4.3: Actualizar los Componentes Específicos del Nodo](#paso-43-actualizar-los-componentes-específicos-del-nodo)
+5. [Recomendaciones de Operación](#5-recomendaciones-de-operación)
+
+
+
+
+
+
 # GUÍA DE MIGRACIÓN Y UPGRADE: APIGEE PRIVATE CLOUD (ON-PREMISE)
 
 > **De la versión 4.51.00 a la versión 4.53.01**
@@ -67,7 +86,8 @@ Message Processor: Procesador de la lógica y políticas de los proxies.
 
 El siguiente procedimiento se debe repetir en cada servidor, respetando el orden de la lista anterior. Primero para la versión 4.52 y, una vez finalizado todo el clúster, repetir el proceso para la versión 4.53.
 
-Paso 4.1: Actualizar el Utilitario Bootstrap de Apigee
+### Paso 4.1: Actualizar el Utilitario Bootstrap de Apigee
+
 Descargar y ejecutar el script de bootstrap correspondiente a la versión destino (ejemplo para la fase intermedia):
 
 ```bash

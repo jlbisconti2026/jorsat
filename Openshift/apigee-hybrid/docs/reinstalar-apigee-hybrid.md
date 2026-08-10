@@ -59,8 +59,7 @@ secretrotations.apigee.cloud.google.com
                   
 ### Paso 2: Eliminación de Webhooks Interceptores Bloqueantes
 
-	Problema: Los comandos de Helm rebotaban con el error failed calling webhook: no endpoints available for service "apigee-webhook-service".
-	Solución: Se removieron temporalmente las reglas de validación y mutación para permitir que Helm registre las nuevas entregas mientras el operador se estabilizaba:
+Necesitamos borrar los webhooks resultantes de la instalacion anterior. Para ello ejecutamos los siguintes comandos:
 
   ```Bash
 oc delete mutatingwebhookconfiguration apigee-mutating-webhook-configuration-claro-apigee-hybrid-desa

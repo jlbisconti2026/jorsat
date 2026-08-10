@@ -10,9 +10,9 @@
    - [5. Verificar la imagen creada](#5-verificar-la-imagen-creada)
    - [6. Publicar la imagen en el Registry Local](#6-publicar-la-imagen-en-el-registry-local)
    - [7. Registrar el Execution Environment en AWX](#7-registrar-el-execution-environment-en-awx)
-   - [8. Consideración Importante](#consideración-importante)
-   - [9. Próximos Pasos Recomendados](#próximos-pasos-recomendados)
-   - [10. Resultado Esperado](#resultado-esperado)
+   - [8. Consideración Importante](#8-consideración-importante)
+   - [9. Próximos Pasos Recomendados](#9-próximos-pasos-recomendados)
+   - [10. Resultado Esperado](#10-resultado-esperado)
 
 
 

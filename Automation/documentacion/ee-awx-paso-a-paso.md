@@ -139,7 +139,7 @@ pip install ansible-builder
 
 ---
 
-# Instalar Docker (o Podman)
+##  3. Instalar Docker (o Podman)
 
 Por ejemplo:
 
@@ -157,7 +157,7 @@ Cerrar sesión y volver a ingresar para aplicar el cambio.
 
 ---
 
-# Construir la imagen
+## 4. Construir la imagen
 
 Ejecutar:
 
@@ -194,7 +194,7 @@ Genera la Imagen Docker
 
 ---
 
-# Verificar la imagen creada
+##  5 Verificar la imagen creada
 
 Ejecutar:
 
@@ -229,7 +229,7 @@ docker push 10.10.100.35:5000/awx-ee-jorsat:v1
 
 ---
 
-# Registrar el Execution Environment en AWX
+## 6. Registrar el Execution Environment en AWX
 
 Crear un nuevo **Execution Environment** apuntando a:
 
@@ -259,7 +259,7 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-# 🎯 Próximos pasos recomendados
+## 7. Próximos pasos recomendados
 
 1. Clonar el repositorio `jorsat`.
 2. Instalar `ansible-builder`.
@@ -271,6 +271,6 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-## Resultado esperado
+## 8. Resultado esperado
 
 En menos de una hora es posible disponer de un **Execution Environment personalizado**, versionado en Git, publicado en un Registry privado y reutilizable por todos los Jobs de AWX.

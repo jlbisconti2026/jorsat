@@ -1,5 +1,4 @@
 
-
 Argo Workflows: Orquestador de tareas y pipelines en paralelo nativo de Kubernetes.
 
 Argo Rollouts: Controlador para estrategias avanzadas de despliegue (Canary, Blue-Green).
@@ -12,36 +11,46 @@ Podés desplegarlos de forma sencilla usando kubectl (aplicando los manifiestos 
 Es ideal para procesamiento de datos o pipelines de CI/CD.
 
 Bash
+
 # Crear el namespace argo (si usás el mismo que argo-cd, omití la creación)
+
 kubectl create namespace argo
 
 # Aplicar los manifiestos oficiales de instalación
-kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+
+kubectl apply -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 (Para producción se recomienda usar el manifiesto quick-start.yaml o configurar un backend de base de datos como Postgres/MySQL para persistencia).
 
-2. Desplegar Argo Rollouts 🔄
+1. Desplegar Argo Rollouts 🔄
 Reemplaza gradualmente al objeto Deployment tradicional de Kubernetes para darte un control milimétrico sobre el impacto de tus nuevas versiones en producción.
 
 Bash
+
 # Crear un namespace específico
+
 kubectl create namespace argo-rollouts
 
 # Instalar el controlador y sus CRDs
-kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+
+kubectl apply -n argo-rollouts -f <https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml>
 Tip adicional: Para gestionar los Rollouts desde tu terminal, te recomiendo instalar su plugin para kubectl mediante Krew (kubectl krew install rollouts) o descargando el binario directo de su GitHub.
 
-3. Desplegar Argo Events ⚡
+1. Desplegar Argo Events ⚡
 Es el encargado de escuchar eventos externos (un push de GitHub, un archivo subido a AWS S3) y accionar triggers en tu clúster.
 
 Bash
+
 # Crear el namespace
+
 kubectl create namespace argo-events
 
 # Instalar el controlador de eventos
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install.yaml
+
+kubectl apply -f <https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install.yaml>
 
 # (Opcional) Instalar los recursos de validación e inyección webhooks
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml
+
+kubectl apply -f <https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml>
 💡 Consejo Pro (GitOps con tu propio Argo CD)
 Como ya tenés funcionando Argo CD, la manera más limpia y profesional de instalar y mantener actualizados estos tres componentes no es tirando comandos kubectl apply, sino usando un patrón App-of-Apps o declarándolos directamente como aplicaciones (Application) apuntando a sus Helm Charts oficiales:
 
@@ -51,7 +60,7 @@ Charts: argo-workflows, argo-rollouts y argo-events.
 
 ¡Me avisás si querés que te arme un manifiesto YAML de Argo CD para desplegar alguno de ellos de forma declarativa!
 
-jlb@ha-proxy:~$ kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+jlb@ha-proxy:~$ kubectl apply -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 
 customresourcedefinition.apiextensions.k8s.io/workflowartifactgctasks.argoproj.io created
 
@@ -77,29 +86,29 @@ clusterrolebinding.rbac.authorization.k8s.io/argo-server-binding created
 
 priorityclass.scheduling.k8s.io/workflow-controller created
 
-Error from server (Invalid): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": CustomResourceDefinition.apiextensions.k8s.io "clusterworkflowtemplates.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
+Error from server (Invalid): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": CustomResourceDefinition.apiextensions.k8s.io "clusterworkflowtemplates.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
 
-Error from server (Invalid): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": CustomResourceDefinition.apiextensions.k8s.io "cronworkflows.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
+Error from server (Invalid): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": CustomResourceDefinition.apiextensions.k8s.io "cronworkflows.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
 
-Error from server (Invalid): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": CustomResourceDefinition.apiextensions.k8s.io "workflows.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
+Error from server (Invalid): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": CustomResourceDefinition.apiextensions.k8s.io "workflows.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
 
-Error from server (Invalid): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": CustomResourceDefinition.apiextensions.k8s.io "workflowtemplates.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
+Error from server (Invalid): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": CustomResourceDefinition.apiextensions.k8s.io "workflowtemplates.argoproj.io" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
-Error from server (NotFound): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": namespaces "argo" not found
+Error from server (NotFound): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": namespaces "argo" not found
 
 Tenés dos problemas distintos acá que están haciendo fallar el despliegue. Vamos a resolverlos uno por uno porque son bastante fáciles de solucionar.
 
@@ -122,70 +131,70 @@ Opción A: Usar Server-Side Apply (La más recomendada)
 Le pasa la lógica del "apply" al servidor de Kubernetes, evitando meter todo el clon del archivo en las anotaciones locales.
 
 Bash
-kubectl apply --server-side -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+kubectl apply --server-side -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 Opción B: Usar kubectl create
 Si no necesitás que trackee los cambios anteriores mediante esa anotación específica de apply, podés forzar la creación limpia:
 
 Bash
-kubectl create -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+kubectl create -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 🚀 El resumen de lo que tenés que ejecutar ahora:
 Tirá estos dos comandos en orden y te va a levantar sin chistar:
 
 Bash
 kubectl create namespace argo
 
-kubectl apply --server-side -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+kubectl apply --server-side -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 Contame si con esto ya te quedan todas las CRDs creadas en verde.
 
-jlb@ha-proxy:~$ kubectl create -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+jlb@ha-proxy:~$ kubectl create -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "clusterworkflowtemplates.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "clusterworkflowtemplates.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "cronworkflows.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "cronworkflows.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "workflowartifactgctasks.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "workflowartifactgctasks.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "workfloweventbindings.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "workfloweventbindings.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "workflows.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "workflows.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "workflowtaskresults.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "workflowtaskresults.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "workflowtasksets.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "workflowtasksets.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": customresourcedefinitions.apiextensions.k8s.io "workflowtemplates.argoproj.io" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": customresourcedefinitions.apiextensions.k8s.io "workflowtemplates.argoproj.io" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": serviceaccounts "argo" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": serviceaccounts "argo" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": serviceaccounts "argo-server" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": serviceaccounts "argo-server" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": roles.rbac.authorization.k8s.io "argo-role" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": roles.rbac.authorization.k8s.io "argo-role" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterroles.rbac.authorization.k8s.io "argo-aggregate-to-admin" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterroles.rbac.authorization.k8s.io "argo-aggregate-to-admin" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterroles.rbac.authorization.k8s.io "argo-aggregate-to-edit" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterroles.rbac.authorization.k8s.io "argo-aggregate-to-edit" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterroles.rbac.authorization.k8s.io "argo-aggregate-to-view" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterroles.rbac.authorization.k8s.io "argo-aggregate-to-view" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterroles.rbac.authorization.k8s.io "argo-cluster-role" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterroles.rbac.authorization.k8s.io "argo-cluster-role" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterroles.rbac.authorization.k8s.io "argo-server-cluster-role" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterroles.rbac.authorization.k8s.io "argo-server-cluster-role" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": rolebindings.rbac.authorization.k8s.io "argo-binding" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": rolebindings.rbac.authorization.k8s.io "argo-binding" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterrolebindings.rbac.authorization.k8s.io "argo-binding" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterrolebindings.rbac.authorization.k8s.io "argo-binding" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": clusterrolebindings.rbac.authorization.k8s.io "argo-server-binding" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": clusterrolebindings.rbac.authorization.k8s.io "argo-server-binding" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": configmaps "workflow-controller-configmap" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": configmaps "workflow-controller-configmap" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": services "argo-server" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": services "argo-server" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": priorityclasses.scheduling.k8s.io "workflow-controller" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": priorityclasses.scheduling.k8s.io "workflow-controller" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": deployments.apps "argo-server" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": deployments.apps "argo-server" already exists
 
-Error from server (AlreadyExists): error when creating "https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml": deployments.apps "workflow-controller" already exists
+Error from server (AlreadyExists): error when creating "<https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>": deployments.apps "workflow-controller" already exists
 
 ¡Quédate tranquilo! Esto es una excelente noticia. El error AlreadyExists significa que el comando kubectl create que tiraste no pudo sobreescribir los recursos porque ya se crearon correctamente en tus intentos anteriores.
 
@@ -208,7 +217,7 @@ Si te querés quedar 100% seguro de que no quedó ningún recurso a medias o mal
 A diferencia de create, el apply --server-side no va a chocar con lo que ya existe, sino que va a revisar recurso por recurso, los va a actualizar si es necesario y va a ignorar el límite de tamaño de las anotaciones:
 
 Bash
-kubectl apply --server-side -n argo -f https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml
+kubectl apply --server-side -n argo -f <https://github.com/argoproj/argo-workflows/releases/latest/download/install.yaml>
 Si al tirar el get pods ves todo arriba, ¡ya tenés Argo Workflows cocinado! ¿Querés que sigamos con la configuración del Ingress para acceder al panel web o pasamos a meter Argo Rollouts?
 
 ¡Impecable! Ahí se ve perfecto: tanto el argo-server como el workflow-controller están en Running y con el READY en 1/1. Eso significa que Argo Workflows ya está 100% operativo en tu clúster.
@@ -268,17 +277,20 @@ Opción B (La definitiva): Si tenés un servidor DNS interno en tu red hogareña
 
 Una vez hecho esto, vas a poder entrar desde el navegador escribiendo: [https://argo-workflows.gsve.local:2746](https://argo-workflows.gsve.local:2746)
 
-2. Cómo generar las credenciales (Token de acceso)
+1. Cómo generar las credenciales (Token de acceso)
 Por defecto, la instalación rápida de Argo Workflows requiere autenticación mediante un Token de Kubernetes (cuenta de servicio). Para generar un usuario administrador y obtener su clave para pegarla en el cuadro en blanco de tu captura, ejecutá los siguientes comandos en tu terminal:
 
 Paso A: Crear una ServiceAccount y asignarle permisos de Admin
 Copiá y pegá este bloque de comandos para crear un usuario llamado argo-admin y darle privilegios en el clúster:
 
 Bash
+
 # 1. Crear la cuenta de servicio en el namespace argo
+
 kubectl create serviceaccount argo-admin -n argo
 
 # 2. Darle permisos de cluster-admin para que maneje todo el panel
+
 kubectl create clusterrolebinding argo-admin-binding \
   --clusterrole=cluster-admin \
   --serviceaccount=argo:argo-admin
@@ -318,7 +330,7 @@ Si el "Server" que aparece NO es la IP de tu Fortinet: Tu computadora está sali
 
 Si el "Server" SÍ es tu Fortinet pero da error: El problema está en la configuración interna del router. Pasemos al punto 2.
 
-2. Verificar la base de datos DNS en el FortiGate
+1. Verificar la base de datos DNS en el FortiGate
 Por defecto, si creaste el dominio bajo una zona específica en el FortiGate, asegurate de que la interfaz de red por la que entra tu computadora tenga habilitado el servicio de DNS.
 
 En la interfaz web de tu FortiGate, andá a Network > DNS Servers.
@@ -327,7 +339,7 @@ Revisá la sección DNS Service on Interface.
 
 Asegurate de que la interfaz de tu red local (por ejemplo, lan o la VLAN donde esté tu PC) esté añadida ahí y configurada en modo Non-Recursive o Recursive (según cómo manejes el resto del tráfico de internet). Si la interfaz de tu red no está en esa lista, el Fortinet va a ignorar cualquier consulta DNS que le mandes.
 
-3. Limpiar la caché de DNS (Muy común)
+1. Limpiar la caché de DNS (Muy común)
 A veces el Fortinet ya lo resuelve bien, pero tu sistema operativo o tu navegador web memorizaron el error anterior y ni siquiera intentan buscar de nuevo.
 
 En Windows: Abrí un CMD como administrador y vaciá la caché ejecutando:
@@ -390,7 +402,7 @@ Usá un sufijo alternativo para redes internas como .home, .lan, o directamente 
 
 Al cambiarlo a cualquiera de estos, Windows dejará de procesarlo como mDNS y enviará la consulta directo al Fortinet de inmediato.
 
-2. Verificar la Zona DNS en el FortiGate
+1. Verificar la Zona DNS en el FortiGate
 Si modificás el sufijo o decidís mantener el .local, asegurate de que la Zona DNS en el FortiGate esté declarada como una zona Primaria (Primary) y de tipo Shadow:
 
 En el FortiGate, ve a Network > DNS Servers.
@@ -405,7 +417,7 @@ View: Shadow (Esto le dice al Fortinet que resuelva de forma local si existe el 
 
 Dentro de los registros de esa zona, confirmá que el host argo-workflows sea un registro de tipo A apuntando a la IP 10.10.100.54.
 
-3. Activar el Servicio DNS en la Interfaz (Paso Clave)
+1. Activar el Servicio DNS en la Interfaz (Paso Clave)
 El FortiGate no responde consultas DNS en las interfaces de red a menos que se lo indiques explícitamente.
 
 En esa misma pantalla de Network > DNS Servers, mirá abajo del todo la sección DNS Service on Interface.
@@ -537,18 +549,22 @@ Bajá con las flechas del teclado hasta encontrar la sección del contenedor de 
 YAML
 spec:
   containers:
-  - args:
-    - server
-    # ... otros argumentos que ya existan ...
+
+- args:
+  - server
+
+    # ... otros argumentos que ya existan
+
 Modificá esa lista de args para dejarla exactamente con estas tres líneas adicionales (asegurate de borrar cualquier argumento duplicado de --auth-mode que se haya creado mal con los patches anteriores):
 
 YAML
 spec:
   containers:
-  - args:
-    - server
-    - --auth-mode=server
-    - --secure=false
+
+- args:
+  - server
+  - --auth-mode=server
+  - --secure=false
 💡 ¿Qué hace esto? Al poner --auth-mode=server, le prohibimos a Argo mostrar el formulario de login y lo obligamos a usar la cuenta de servicio del propio servidor. Con --secure=false, evitamos que el tráfico HTTP/HTTPS interno se rompa con los certificados del dominio .locals.
 
 Guardá y salí del editor:
@@ -591,7 +607,7 @@ unknown flag: --auth-mode=server: Esto pasa si se duplicó la línea de --auth-m
 
 Error: unknown command "server": Esto pasa si por accidente se borró la palabra - server de la lista de argumentos principales al editarlo a mano.
 
-2. Cómo corregirlo rápido
+1. Cómo corregirlo rápido
 Volvé a abrir el editor:
 
 Bash
@@ -620,9 +636,9 @@ time=2026-07-17T13:52:57.044Z level=INFO msg="not enabling pprof debug endpoints
 
 time=2026-07-17T13:52:57.044Z level=INFO msg="Starting Argo Server" ssoNamespace=argo baseHRef=/ secure=false authModes=[server] namespace=argo managedNamespace=""
 
-time=2026-07-17T13:52:57.044Z level=WARN msg="You are running in insecure mode. Learn how to enable transport layer security: https://argo-workflows.readthedocs.io/en/latest/tls/"
+time=2026-07-17T13:52:57.044Z level=WARN msg="You are running in insecure mode. Learn how to enable transport layer security: <https://argo-workflows.readthedocs.io/en/latest/tls/>"
 
-time=2026-07-17T13:52:57.044Z level=WARN msg="You are running without client authentication. Learn how to enable client authentication: https://argo-workflows.readthedocs.io/en/latest/argo-server-auth-mode/"
+time=2026-07-17T13:52:57.044Z level=WARN msg="You are running without client authentication. Learn how to enable client authentication: <https://argo-workflows.readthedocs.io/en/latest/argo-server-auth-mode/>"
 
 time=2026-07-17T13:52:57.044Z level=INFO msg="SSO disabled"
 
@@ -636,7 +652,7 @@ time=2026-07-17T13:52:57.076Z level=INFO msg="Creating event controller" asyncDi
 
 time=2026-07-17T13:52:57.281Z level=INFO msg="GRPC Server Max Message Size, MaxGRPCMessageSize, is set" GRPC_MESSAGE_SIZE=104857600
 
-time=2026-07-17T13:52:57.281Z level=INFO msg="Argo Server started successfully" url=http://localhost:2746
+time=2026-07-17T13:52:57.281Z level=INFO msg="Argo Server started successfully" url=<http://localhost:2746>
 
 time="2026-07-17T13:57:57.044Z" level=info msg="Alloc=7592 TotalAlloc=11874 Sys=22358 NumGC=6 Goroutines=114"
 
@@ -662,15 +678,13 @@ Ahora tendrías que entrar directo al dashboard principal del pulpo de Argo sin 
 
 me qued rao mira ay un server d emas ceo Every 2,0s: kubectl get pod -A -o wide                                                                                                                                                                   ha-proxy: Fri Jul 17 14:00:46 2026
 
-
-
 NAMESPACE              NAME                                                READY   STATUS              RESTARTS      AGE     IP                NODE        NOMINATED NODE   READINESS GATES
 
 argo                   argo-server-5d4dcd59df-jhtxf                        1/1     Running             0             90s     110.240.202.222   worker-03   <none>           <none>
 
 argo                   argo-server-6dfbf5b874-85x9z                        0/1     Running             0             8m5s    110.240.37.204    worker-02   <none>           <none>
 
-argo                   workflow-controller-68b8fdcdf6-wnj69                1/1     Running     
+argo                   workflow-controller-68b8fdcdf6-wnj69                1/1     Running
 
 ¡Ahí está el misterio! Lo que está pasando es que cuando borraste el pod anterior, el Deployment vio que se destruyó un pod y automáticamente levantó uno nuevo idéntico (argo-server-5d4dcd59df-jhtxf) de la versión vieja para mantener el clúster estable.
 
@@ -705,7 +719,7 @@ YAML
         initialDelaySeconds: 10
         periodSeconds: 20
 
-4. Guardá los cambios y salí del editor (`Ctrl+O` y `Ctrl+X` en Nano, o `:wq` en Vi).
+1. Guardá los cambios y salí del editor (`Ctrl+O` y `Ctrl+X` en Nano, o `:wq` en Vi).
 
 En cuanto guardes, Kubernetes va a actualizar las reglas. El pod nuevo va a pasar inmediatamente a **`1/1 READY`** porque la prueba va a responder bien, y el clúster va a limpiar y borrar el pod viejo molesto (`jhtxf`) por su cuenta. ¡Ahí sí te va a quedar un solo pod limpio!
 cago todo con eso de http en lugard ehttps. si boiror elpod que estaba d emas peor no carga el ´portal
@@ -724,7 +738,7 @@ Como ahora configuramos el servidor en modo no seguro (--secure=false), tenés q
 
 ⚠️ Nota: Chrome es muy testarudo con esto. Si te vuelve a redirigir automáticamente a https://, abrí una ventana de incógnito nueva y escribí la dirección con http:// a mano desde cero para obligarlo a no usar el SSL viejo.
 
-2. Verificar el estado actual
+1. Verificar el estado actual
 Si haciendo lo del navegador te sigue tirando error, pasame la salida de este comando para ver si el pod nuevo finalmente se puso contento y quedó en 1/1:
 
 Bash
@@ -783,11 +797,7 @@ argo                   argo-server-546786444f-9784w                        1/1  
 
 argo                   argo-server-6dfbf5b874-2scnr                        0/1     Running             0             34s     110.240.202.224   worker-03   <none>           <none>
 
-argo                   workflow-controller-68b8fdcdf6-wnj69                1/1     Running        
-
-¡Es completamente normal que vuelva a pasar esto! No te preocupes. Lo que estás viendo ahí es el comportamiento estándar de Kubernetes (su estrategia de despliegue progresivo o RollingUpdate).
-
-Como el pod nuevo (6dfbf5b874-2scnr) recién tiene 34 segundos de vida y Kubernetes está configurado para esperar un tiempo prudencial (y validar que el HTTPS responda bien), mantiene vivo el pod viejo (546786444f-9784w) para asegurarse de que no te quedes sin servicio si el nuevo llega a fallar.
+argo                   workflow-controller-68b8fdcdf6-wnj69                1/1     Running
 
 ⏳ Dale un minuto
 El pod nuevo dice 0/1 READY porque está ejecutando el initialDelaySeconds que tienen los probes (que le configuramos en 10 o 20 segundos para darle tiempo a arrancar al servidor interno).
@@ -919,7 +929,7 @@ kubectl get pod -n argo -o wide -w
 💻 Paso 5: Acceso al Portal
 Para evitar arrastrar certificados antiguos o cookies corruptas de los rebotados previos, abrir una ventana de incógnito en el navegador e ingresar a:
 
-👉 https://argo-workflows.gsve.locals:2746
+👉 <https://argo-workflows.gsve.locals:2746>
 
 Nota: Al utilizar certificados TLS autofirmados de fábrica, se debe aceptar la advertencia del navegador ("Aceptar el riesgo y continuar"). El portal cargará el Dashboard administrativo de forma directa.
 """
@@ -928,7 +938,6 @@ with open("argo-workflows-setup.md", "w", encoding="utf-8") as f:
 f.write(md_content)
 
 print("FILE_GENERATED: argo-workflows-setup.md")
-
 
 ```text?code_stdout&code_event_index=1
 FILE_GENERATED: argo-workflows-setup.md
@@ -990,15 +999,16 @@ kubectl get svc argo-server -n argo
 Para acceder usando el FQDN `argo-workflows.gsve.locals` en lugar de la IP cruda, se parametrizó el servidor DNS interno en el Fortinet.
 
 1. **Crear Entrada DNS (Address A):**
-   * **Hostname:** `argo-workflows`
-   * **FQDN:** `argo-workflows.gsve.locals` *(Atención con el tipeo exacto del sufijo)*
-   * **IP Address:** `10.10.100.54`
+   - **Hostname:** `argo-workflows`
+   - **FQDN:** `argo-workflows.gsve.locals` *(Atención con el tipeo exacto del sufijo)*
+   - **IP Address:** `10.10.100.54`
 2. **Habilitar Servicio DNS en la Interfaz:**
-   * Ir a **Network > DNS Servers**.
-   * En **DNS Service on Interface**, añadir la interfaz local (`LAN` / `VLAN`).
-   * Configurar el modo en **Recursive** para resolver registros internos y redirigir el resto a Internet.
+   - Ir a **Network > DNS Servers**.
+   - En **DNS Service on Interface**, añadir la interfaz local (`LAN` / `VLAN`).
+   - Configurar el modo en **Recursive** para resolver registros internos y redirigir el resto a Internet.
 
 *Tip de diagnóstico en la terminal cliente:*
+
 ```cmd
 ipconfig /flushdns
 nslookup argo-workflows.gsve.locals
@@ -1011,12 +1021,15 @@ nslookup argo-workflows.gsve.locals
 El comportamiento nativo de Argo bloquea los *Readiness Probes* si se usa el modo `--auth-mode=server` solitario bajo HTTPS. La solución óptima y definitiva es activar un **modo híbrido** (`server` y `client`) para que el clúster valide la salud del pod por HTTPS de forma anónima mientras deshabilita el login externo.
 
 ### 1. Edición del Deployment
+
 Ejecutar el comando de edición en vivo:
+
 ```bash
 kubectl edit deployment argo-server -n argo
 ```
 
 ### 2. Modificación de Argumentos (`args`)
+
 Localizar la sección de contenedores y estructurar los argumentos exactamente de la siguiente manera:
 
 ```yaml
@@ -1027,6 +1040,7 @@ Localizar la sección de contenedores y estructurar los argumentos exactamente d
 ```
 
 ### 3. Ajuste de las Pruebas de Salud (Probes)
+
 Asegurarse de mantener el esquema en **HTTPS** para que coincida con el transporte cifrado nativo del servidor:
 
 ```yaml
@@ -1049,6 +1063,7 @@ Asegurarse de mantener el esquema en **HTTPS** para que coincida con el transpor
 Una vez guardado el archivo, Kubernetes realizará un *Rolling Update* eliminando progresivamente el nodo anterior y validando el nuevo pod una vez supere el tiempo de delay inicial.
 
 Monitorear que el nuevo pod llegue exitosamente al estado `1/1 Running`:
+
 ```bash
 kubectl get pod -n argo -o wide -w
 ```

@@ -211,7 +211,7 @@ awx-ee-jorsat   v1
 
 ---
 
-# Publicar la imagen en el Registry Local
+## 6. Publicar la imagen en el Registry Local
 
 Si ya existe un Registry local funcionando en:
 
@@ -229,7 +229,7 @@ docker push 10.10.100.35:5000/awx-ee-jorsat:v1
 
 ---
 
-## 6. Registrar el Execution Environment en AWX
+## 7. Registrar el Execution Environment en AWX
 
 Crear un nuevo **Execution Environment** apuntando a:
 
@@ -241,7 +241,7 @@ A partir de ese momento, cualquier **Job Template** podrá utilizar esa imagen.
 
 ---
 
-# ⚠️ Importante
+# 4.  Consideracion  Importante
 
 Verificar que el archivo se llame exactamente:
 
@@ -259,7 +259,7 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-## 7. Próximos pasos recomendados
+# 5. Próximos pasos recomendados
 
 1. Clonar el repositorio `jorsat`.
 2. Instalar `ansible-builder`.
@@ -271,6 +271,6 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-## 8. Resultado esperado
+## 6. Resultado esperado
 
 En menos de una hora es posible disponer de un **Execution Environment personalizado**, versionado en Git, publicado en un Registry privado y reutilizable por todos los Jobs de AWX.

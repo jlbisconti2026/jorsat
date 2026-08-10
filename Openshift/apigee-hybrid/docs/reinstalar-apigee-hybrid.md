@@ -3,11 +3,11 @@
 1. [Resumen Ejecutivo](#1-resumen-ejecutivo)
 2. [Diagrama de la Secuencia de Recuperación](#2-diagrama-de-la-secuencia-de-recuperacion)
 3. [Detalle Paso a Paso de las Soluciones Aplicadas](#3-detalle-paso-a-paso-de-las-soluciones-aplicadas)
-   - [Paso 1: Reinstalación de Custom Resource Definitions (CRDs)](#paso-1-reinstalacion-de-custom-resource-definitions-crds)
-   - [Paso 2: Eliminación de Webhooks Interceptores Bloqueantes](#paso-2-eliminacion-de-webhooks-interceptores-bloqueantes)
-   - [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3-limpieza-de-recursos-atascados-finalizers)
-   - [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4-re-despliegue-de-componentes-base-e-infraestructura)
-   - [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5-despliegue-de-entornos-environments-y-virtual-hosts)
+4. [Paso 1: Reinstalación de Custom Resource Definitions (CRDs)](#paso-1-reinstalacion-de-custom-resource-definitions-crds)
+5. [Paso 2: Eliminación de Webhooks Interceptores Bloqueantes](#paso-2-eliminacion-de-webhooks-interceptores-bloqueantes)
+6. [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3-limpieza-de-recursos-atascados-finalizers)
+7. [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4-re-despliegue-de-componentes-base-e-infraestructura)
+8. [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5-despliegue-de-entornos-environments-y-virtual-hosts)
 
 ---
 
@@ -23,7 +23,7 @@ Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & R
 
 ## 3. Detalle Paso a Paso de las Soluciones Aplicadas
 
-### Paso 1: Reinstalación de Custom Resource Definitions (CRDs)
+## 4. Paso 1: Reinstalación de Custom Resource Definitions (CRDs)
 
 Problema: Al intentar aplicar los CRDs mediante `oc apply`, la API Server de OpenShift rechazaba la petición por superar el límite de bytes en anotaciones (`metadata.annotations: Too long: may not be more than 262144 bytes`).
 

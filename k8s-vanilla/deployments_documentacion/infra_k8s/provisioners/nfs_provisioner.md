@@ -11,7 +11,7 @@
 3. [Instalación y Configuración de Helm](#instalacion-y-configuracion-de-helm)
    - [¿Qué es Helm?](#que-es-helm)
    - [Instalacion de Helm en el Nodo Master](#instalacion-de-helm-en-el-nodo-master)
-   - [Creación del Namespace e Instalación del Chart](#creación-del-namespace-e-instalación-del-chart)
+   - [Instalacion del Helm chart para NFS](#Intalacion-del-helm-chart-para-nfs)
 4. [Configuración de Almacenamiento Persistente](#configuración-de-almacenamiento-persistente)
    - [Comprobación de StorageClass](#comprobación-de-storageclass)
    - [Creación de Namespace para Aplicaciones](#creación-de-namespace-para-aplicaciones)

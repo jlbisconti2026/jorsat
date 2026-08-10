@@ -2,15 +2,12 @@
 # Contenido
 
 1. [Desinstala los recursos del espacio de nombres apigee](#1-Desinstala los recursos del espacio de nombres apigee)
-2. [Desinstala apigee-operator)](#2-sDesinstala apigee-operator)
-3. [Almacenamiento Persistente (PVC)](#3-almacenamiento-persistente-pvc)
-4. [Deployment de n8n (Deployment)](#4-deployment-de-n8n-deployment)
-5. [Exposición de Servicios y Ruta de OpenShift (Service y Route)](#5-exposición-de-servicios-y-ruta-de-openshift-service-y-route)
+2. [Desinstala apigee-operator)](#2-Desinstala apigee-operator)
+3. [Elimina los CRDs de Apigee](#3-Elimina los CRDs de Apigee)
+4. [Eliminar cert-manager)](#4-dEliminar cert-manager)
 
 
 
-
-# Desinstalación de ambiente Apigee Hybrid
 
 ## 1.	Desinstala los recursos del espacio de nombres apigee:
 
@@ -30,7 +27,7 @@
 helm uninstall -n claro-apigee-hybrid-desa operator
 ````
 
-## 4.	Elimina los CRDs de Apigee:
+## 3.	Elimina los CRDs de Apigee:
 ````
 oc delete -k  apigee-operator/etc/crds/default/
 ````

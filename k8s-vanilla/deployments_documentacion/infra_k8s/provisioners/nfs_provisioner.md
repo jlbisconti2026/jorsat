@@ -5,7 +5,7 @@
 
 1. [Introducción](#introducción)
    - [Escenario Planteado](#escenario-planteado)
-   - [Solución NFS Seleccionada](#solución-nfs-seleccionada)
+   - [Solución NFS Seleccionada](#solucion-nfs-seleccionada)
 2. [Instalación de Prerrequisitos](#instalación-de-prerrequisitos)
    - [Paquete Cliente NFS y Configuración de Red](#paquete-cliente-nfs-y-configuración-de-red)
 3. [Instalación y Configuración de Helm](#instalación-y-configuración-de-helm)

@@ -261,3 +261,30 @@ gcloud projects add-iam-policy-binding claup-apigee-hybrid-desa \
   --role="roles/monitoring.metricWriter"
 ```
 
+### Exportar proyectos y permisos a formato de terraform
+
+gcloud beta resource-config bulk-export --path=.\backup_terraform-desa --project=claup-apigee-hybrid-desa --resource-format=terraform
+
+gcloud beta resource-config bulk-export --path=.\backup_terraform-prod --project=claup-apigee-hybrid-prod --resource-format=terraform
+
+#### Pasos importar proyecto y permisos en nueva cuenta GCP
+
+login en la cuenta nueva:
+gcloud auth login (Para poder usar comandos gcloud)
+
+gcloud auth application-default login (Clave para Terraform)
+
+cd .\backup_terraform_desa
+
+terraform init
+
+terraform apply
+
+#### Entorno Prod
+
+cd .\backup_terraform_prod
+
+terraform init
+
+terraform apply
+

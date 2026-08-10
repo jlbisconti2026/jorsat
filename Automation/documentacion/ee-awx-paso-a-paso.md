@@ -10,9 +10,9 @@
    - [5. Verificar la imagen creada](#5-verificar-la-imagen-creada)
    - [6. Publicar la imagen en el Registry Local](#6-publicar-la-imagen-en-el-registry-local)
    - [7. Registrar el Execution Environment en AWX](#7-registrar-el-execution-environment-en-awx)
-4. [Consideración Importante](#consideración-importante)
-5. [Próximos Pasos Recomendados](#próximos-pasos-recomendados)
-6. [Resultado Esperado](#resultado-esperado)
+   - [8. Consideración Importante](#consideración-importante)
+   - [9. Próximos Pasos Recomendados](#próximos-pasos-recomendados)
+   - [10. Resultado Esperado](#resultado-esperado)
 
 
 
@@ -241,7 +241,7 @@ A partir de ese momento, cualquier **Job Template** podrá utilizar esa imagen.
 
 ---
 
-# 4.  Consideracion  Importante
+## 8.  Consideracion  Importante
 
 Verificar que el archivo se llame exactamente:
 
@@ -259,7 +259,7 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-# 5. Próximos pasos recomendados
+## 9. Próximos pasos recomendados
 
 1. Clonar el repositorio `jorsat`.
 2. Instalar `ansible-builder`.
@@ -271,6 +271,6 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 
 ---
 
-## 6. Resultado esperado
+## 10. Resultado esperado
 
 En menos de una hora es posible disponer de un **Execution Environment personalizado**, versionado en Git, publicado en un Registry privado y reutilizable por todos los Jobs de AWX.

@@ -1,3 +1,29 @@
+
+# Guía de Instalación y Configuración de NFS Provisioner en Kubernetes
+
+## Índice de Contenidos
+
+1. [Introducción](#introducción)
+   - [Escenario Planteado](#escenario-planteado)
+   - [Solución NFS Seleccionada](#solución-nfs-seleccionada)
+2. [Instalación de Prerrequisitos](#instalación-de-prerrequisitos)
+   - [Paquete Cliente NFS y Configuración de Red](#paquete-cliente-nfs-y-configuración-de-red)
+3. [Instalación y Configuración de Helm](#instalación-y-configuración-de-helm)
+   - [¿Qué es Helm?](#qué-es-helm)
+   - [Instalación de Helm en el Nodo Master](#instalación-de-helm-en-el-nodo-master)
+4. [Despliegue de NFS Subdir External Provisioner](#despliegue-de-nfs-subdir-external-provisioner)
+   - [Creación del Namespace e Instalación del Chart](#creación-del-namespace-e-instalación-del-chart)
+5. [Configuración de Almacenamiento Persistente](#configuración-de-almacenamiento-persistente)
+   - [Comprobación de StorageClass](#comprobación-de-storageclass)
+   - [Creación de Namespace para Aplicaciones](#creación-de-namespace-para-aplicaciones)
+   - [Creación de PVC (Persistent Volume Claim)](#creación-de-pvc-persistent-volume-claim)
+6. [Pruebas de Validación](#pruebas-de-validación)
+   - [Despliegue de Pod de Prueba (Nginx)](#despliegue-de-pod-de-prueba-nginx)
+   - [Verificación de Montaje NFS y Persistencia de Datos](#verificación-de-montaje-nfs-y-persistencia-de-datos)
+
+
+
+
 # Introduccion 
 ## Escenario planteado
 Realize la instalacion de un cluster k8s vanilla al que le deploye un load balancer por software, a saber Metallb y se configo un servidor NFS para dar persistencia los POD's que lo requieran 

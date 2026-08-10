@@ -9,7 +9,7 @@
 2. [Instalacion](#instalacion)
    - [Paquete Cliente NFS y Configuracion de Red](#paquete-cliente-nfs-y-configuracion-de-red)
 3. [Instalación y Configuración de Helm](#instalacion-y-configuracion-de-helm)
-   - [¿Qué es Helm?](#qué-es-helm)
+   - [¿Qué es Helm?](#que-es-helm)
    - [Instalacion de Helm en el Nodo Master](#instalacion-de-helm-en-el-nodo-master)
 4. [Despliegue de NFS Subdir External Provisioner](#despliegue-de-nfs-subdir-external-provisioner)
    - [Creación del Namespace e Instalación del Chart](#creación-del-namespace-e-instalación-del-chart)

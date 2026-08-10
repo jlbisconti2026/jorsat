@@ -1,14 +1,13 @@
-# Índice de Contenidos
+## Índice de Contenidos
 
 1. [Resumen Ejecutivo](#1-resumen-ejecutivo)
-2. [Diagrama de la Secuencia de Recuperación](#2-diagrama-de-la-secuencia-de-recuperacion)
+2. [Diagrama de la Secuencia de Recuperación](#2-diagrama-de-la-secuencia-de-recuperación)
 3. [Detalle Paso a Paso de las Soluciones Aplicadas](#3-detalle-paso-a-paso-de-las-soluciones-aplicadas)
-   - [Paso 1: Reinstalación de Custom Resource Definitions (CRDs)](#paso-1)
-   - [Paso 2: Eliminación de Webhooks Interceptores Bloqueantes](#paso-2)
-   - [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3)
-   - [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4)
-   - [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5)
-
+   - [Paso 1: Reinstalación de Custom Resource Definitions (CRDs)](#paso-1-reinstalación-de-custom-resource-definitions-crds)
+   - [Paso 2: Eliminación de Webhooks Interceptores Bloqueantes](#paso-2-eliminación-de-webhooks-interceptores-bloqueantes)
+   - [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3-limpieza-de-recursos-atascados-finalizers)
+   - [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4-re-despliegue-de-componentes-base-e-infraestructura)
+   - [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5-despliegue-de-entornos-environments-y-virtual-hosts)
 ---
 
 # Recuperación de Entorno Apigee Hybrid
@@ -19,7 +18,7 @@ Tras la pérdida o eliminación de las definiciones de recursos personalizados (
 
 ## 2. Diagrama de la Secuencia de Recuperación
 
-Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & Redis → 4. Recuperación de Cassandra → 5. Despliegue de Runtimes y VirtualHosts
+`1. Restauración de CRDs` → `2. Desbloqueo de Webhooks` → `3. Despliegue de Org & Redis` → `4. Recuperación de Cassandra` → `5. Despliegue de Runtimes y VirtualHosts`
 
 ## 3. Detalle Paso a Paso de las Soluciones Aplicadas
 
@@ -39,25 +38,6 @@ oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeeis
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeerouteconfigs.yaml
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeedatastores.yaml
 ```
-
-Validación: Se confirmó la existencia de los 11 CRDs con oc get crd | grep apigee:
-
-```bash
-oc get crd | grep apigee
-```
-
-apigeedatastores.apigee.cloud.google.com
-apigeedeployments.apigee.cloud.google.com
-apigeeenvironments.apigee.cloud.google.com
-apigeeissues.apigee.cloud.google.com
-apigeeorganizations.apigee.cloud.google.com
-apigeeredis.apigee.cloud.google.com
-apigeerouteconfigs.apigee.cloud.google.com
-apigeetelemetries.apigee.cloud.google.com
-apigeeroutes.apigee.cloud.google.com
-cassandradatareplications.apigee.cloud.google.com
-secretrotations.apigee.cloud.google.com
-
 ### Paso 2: Eliminación de Webhooks Interceptores Bloqueantes
 
 Problema: Los comandos de Helm rebotaban con el error failed calling webhook: no endpoints available for service "apigee-webhook-service".
@@ -82,19 +62,26 @@ oc patch apigeedatastore default -n claro-apigee-hybrid-desa -p '{"metadata":{"f
 
 ### Paso 4: Re-despliegue de Componentes Base e Infraestructura
 
-Con los webhooks y CRDs en orden, se ejecutó el despliegue con Helm de la Organización, Datastore (Cassandra), Redis e Ingress:
-
 ```bash
+
 helm upgrade --install org apigee-org/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
-helm upgrade --install apigee-datastore apigee-datastore/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
-helm upgrade --install redis apigee-redis/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
-helm upgrade --install apigee-telemetry apigee-telemetry/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
-helm upgrade --install ingress-manager apigee-ingress-manager/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
 ```
 
-Resultado: Se provisionaron los nodos apigee-cassandra-default-0, 1, 2 en estado 2/2 Running.
+```bash
+helm upgrade --install apigee-datastore apigee-datastore/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+```
 
-Acción Correctiva Menor: Se reiniciaron los pods de schema-setup para forzar la conexión inmediata contra Cassandra recién creada, logrando el estado Completed y liberando la inicialización del pod MART.
+```bash
+helm upgrade --install redis apigee-redis/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+```
+
+```bash
+helm upgrade --install apigee-telemetry apigee-telemetry/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+```
+
+```bash
+helm upgrade --install ingress-manager apigee-ingress-manager/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+```
 
 ### Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts
 
@@ -104,16 +91,40 @@ Entornos (Environments):
 
 ```bash
 helm upgrade --install env-desa-ar apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-ar
+```
+
+```bash
 helm upgrade --install env-desa-py apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-py
+}
+```
+
+```bash
 helm upgrade --install env-desa-uy apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-uy
+
+```
+
+```bash
 helm upgrade --install env-test-ar apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=test-ar
+
+```
+
+```bash
 helm upgrade --install env-test-py apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=test-py
+
+```
+
+
+```bash
 helm upgrade --install env-test-uy apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=test-uy
+
 ```
 
 Virtual Hosts:
+
 ```bash
 helm upgrade --install vh-desa-test-ar apigee-virtualhost/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-ar
-helm upgrade --install vh-desa-test-py apigee-virtualhost/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-py
 ```
 
+```bash
+helm upgrade --install vh-desa-test-py apigee-virtualhost/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-py
+```bash

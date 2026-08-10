@@ -21,7 +21,6 @@
    - [Despliegue de Pod de Prueba (Nginx)](#despliegue-de-pod-de-prueba-nginx)
    - [Verificación de Montaje NFS y Persistencia de Datos](#verificación-de-montaje-nfs-y-persistencia-de-datos)
 
-
 # Introduccion 
 ## Escenario planteado
 Realize la instalacion de un cluster k8s vanilla al que le deploye un load balancer por software, a saber Metallb y se configo un servidor NFS para dar persistencia los POD's que lo requieran 

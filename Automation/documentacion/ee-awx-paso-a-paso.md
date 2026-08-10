@@ -3,7 +3,7 @@
 1. [Introducción](#introducción)
 2. [Flujo Completo](#flujo-completo)
 3. [Pasos de Construcción y Despliegue](#pasos-de-construcción-y-despliegue)
-   - [1. Clonar el repositorio](#1-clonar-el-repositorio)
+   - [1. Clonar el repositorio](1-clonar-el-repositorio)
    - [2. Instalar Ansible Builder](#2-instalar-ansible-builder)
    - [3. Instalar Docker (o Podman)](#3-instalar-docker-o-podman)
    - [4. Construir la imagen](#4-construir-la-imagen)

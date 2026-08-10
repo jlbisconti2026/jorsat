@@ -22,6 +22,7 @@ El proceso involucró la reinstalación manual de CRDs evitando límites de anot
 Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & Redis → 4. Recuperación de Cassandra → 5. Despliegue de Runtimes y VirtualHosts
 	
 ## 3. Detalle Paso a Paso de las Soluciones Aplicadas
+
 ### Paso 1: Reinstalación de Custom Resource Definitions (CRDs)
 
 Problema: Al intentar aplicar los CRDs mediante oc apply, la API Server de OpenShift rechazaba la petición por superar el límite de bytes en anotaciones (metadata.annotations: Too long: may not be more than 262144 bytes).

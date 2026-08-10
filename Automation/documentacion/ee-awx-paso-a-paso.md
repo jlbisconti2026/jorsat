@@ -26,7 +26,7 @@ Se utiliza únicamente como **fuente del código** para construir una **imagen D
 
 ---
 
-## 📌 Flujo completo
+#  Flujo completo
 
 ```text
 GitHub
@@ -56,7 +56,7 @@ GitHub
 
 ---
 
-## 1️⃣ Clonar el repositorio
+# Clonar el repositorio
 
 Supongamos que el repositorio se encuentra en GitHub:
 
@@ -115,7 +115,7 @@ additional_build_steps:
 
 ---
 
-## 2️⃣ Instalar Ansible Builder
+# Instalar Ansible Builder
 
 Actualizar el sistema:
 
@@ -137,7 +137,7 @@ pip install ansible-builder
 
 ---
 
-## 3️⃣ Instalar Docker (o Podman)
+# Instalar Docker (o Podman)
 
 Por ejemplo:
 
@@ -155,7 +155,7 @@ Cerrar sesión y volver a ingresar para aplicar el cambio.
 
 ---
 
-## 4️⃣ Construir la imagen
+# Construir la imagen
 
 Ejecutar:
 
@@ -192,7 +192,7 @@ Genera la Imagen Docker
 
 ---
 
-## 5️⃣ Verificar la imagen creada
+# Verificar la imagen creada
 
 Ejecutar:
 
@@ -209,7 +209,7 @@ awx-ee-jorsat   v1
 
 ---
 
-## 6️⃣ Publicar la imagen en el Registry Local
+# Publicar la imagen en el Registry Local
 
 Si ya existe un Registry local funcionando en:
 
@@ -227,7 +227,7 @@ docker push 10.10.100.35:5000/awx-ee-jorsat:v1
 
 ---
 
-## 7️⃣ Registrar el Execution Environment en AWX
+# Registrar el Execution Environment en AWX
 
 Crear un nuevo **Execution Environment** apuntando a:
 

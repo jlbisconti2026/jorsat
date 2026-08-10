@@ -40,7 +40,7 @@ El hipervisor utilizado para correr las VMs es VMware® Workstation 17 Pro 17.5.
 
 En este caso opte por la solucion nfs-provisioner. La misma es una implementación de un provisionador de almacenamiento para Kubernetes que utiliza el protocolo NFS para proporcionar almacenamiento persistente a las aplicaciones desplegadas en un clúster de Kubernetes.
 
-## Instalacion
+## Instalacion de paquetes requeridos
 
 ### Prerrequisito, Paquete cliente NFS en nodos de K8s
 Es fundamental que  que todos los nodos de Kubernetes tengan los paquetes cliente NFS disponibles.  En este caso necesitamos del paquete  nfs-common instalado en todos los nodos worker de K8s.

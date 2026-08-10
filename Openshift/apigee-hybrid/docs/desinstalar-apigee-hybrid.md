@@ -48,7 +48,7 @@ oc delete crd \
   secretrotations.apigee.cloud.google.com
 ````
 
-## 4.	Eliminar cert-manager
+## 4. Eliminar cert-manager
    ````
    oc  delete secret -n claro-apigee-hybrid-desa apigee-ca
    ````

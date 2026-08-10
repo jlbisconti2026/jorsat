@@ -56,7 +56,9 @@ GitHub
 
 ---
 
-# Clonar el repositorio
+# Pasos de Construcción y Despliegue
+
+## Clonar el repositorio
 
 Supongamos que el repositorio se encuentra en GitHub:
 

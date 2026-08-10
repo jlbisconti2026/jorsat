@@ -70,7 +70,7 @@ En nuestro caso la salida  obtenida  fue
 Export list for 10.10.150.2:
 /mnt/soho_storage/samba/shares/kubernetes *
 
-### Instalacion de Helm
+### Instalacion y configuracion de Helm
 #### ¿que es Helm?
 Helm es una herramienta de gestión de paquetes para Kubernetes que facilita la implementación, actualización y administración de aplicaciones en clústeres de Kubernetes. Permite definir, instalar y actualizar fácilmente aplicaciones complejas con múltiples componentes en Kubernetes utilizando un formato de paquete estandarizado llamado "chart".
 

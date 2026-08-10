@@ -18,7 +18,7 @@
 Tras la pérdida o eliminación de las definiciones de recursos personalizados (CRDs) y releases de Helm en el namespace gsve-apigee-hybrid-desa, se procedió a la reconstrucción ordenada de la arquitectura del cluster de Apigee Hybrid.
 El proceso involucró la reinstalación manual de CRDs evitando límites de anotaciones de Kubernetes, el desbloqueo de webhooks y finalizers trabados, la inicialización del clúster de almacenamiento Cassandra y el re-despliegue de los planos de control y ejecución por país (AR, PY, UY). El entorno se restableció al 100% de operatividad.
 
-## 2. Diagrama de la Secuencia de Recuperación
+## 2. Diagrama de la secuencia de Recuperacion
 
 Restauración de CRDs → 2. Desbloqueo de Webhooks → 3. Despliegue de Org & Redis → 4. Recuperación de Cassandra → 5. Despliegue de Runtimes y VirtualHosts
 	

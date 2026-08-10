@@ -5,7 +5,7 @@
 2. [Diagrama de la Secuencia de Recuperación](#2-diagrama-de-la-secuencia-de-recuperacion)
 3. [Detalle Paso a Paso de las Soluciones Aplicadas](#3-detalle-paso-a-paso-de-las-soluciones-aplicadas)
    - [Paso 1: Reinstalación de Custom Resource Definitions (CRDs)](#paso-1-reinstalacion-de-custom-resource-definitions-crds)
-   - [Paso 2: Eliminación de Webhooks Interceptores Bloqueantes](#paso-2-eliminacion-de-webhooks-interceptores-bloqueantes)
+   - [Paso 2:  Diagrama de la secuencia de Recuperacion](#paso-2-diagrama-de-la-secuencia-de-recuperacion)
    - [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3-limpieza-de-recursos-atascados-finalizers)
    - [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4-re-despliegue-de-componentes-base-e-infraestructura)
    - [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5-despliegue-de-entornos-environments-y-virtual-hosts)

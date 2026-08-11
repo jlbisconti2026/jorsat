@@ -13,9 +13,8 @@
   - [PreferNoSchedule](#prefernoschedule)
   - [Multiples taints y tolerations](#multiples-taints-y-tolerations)
   - [tolerationSeconds](#tolerationseconds)
-  - [Operadores numéricos](#operadores-numericos)
+  - [Operadores numericos](#operadores-numericos)
 - [Casos de uso](#casos-de-uso)
-  - [Nodos dedicados](#nodos-dedicados)
   - [Hardware especial (GPU)](#hardware-especial-gpu)
 - [Evictions basadas en taints](#evictions-basadas-en-taints)
 
@@ -126,7 +125,8 @@ Un effect vacío coincide con todos los effects para esa key.
 
 ## Tipos de effect
 
-NoExecute
+## NoExecute
+
 Afecta pods que ya están corriendo:
 
 Pods que no toleran el taint son expulsados inmediatamente.
@@ -135,15 +135,18 @@ Pods que toleran el taint sin tolerationSeconds permanecen indefinidamente.
 
 Pods con tolerationSeconds permanecen sólo el tiempo indicado y luego son expulsados.
 
-NoSchedule
+## NoSchedule
+
 No se programarán nuevos pods en el nodo salvo que tengan una toleration coincidente.
 
 Los pods ya existentes NO son expulsados.
 
-PreferNoSchedule
+## PreferNoSchedule
+
 Es una versión “soft” o preferencial de NoSchedule. El control plane intentará evitar programar pods sin toleration en el nodo, pero no es obligatorio.
 
-Múltiples taints y tolerations
+## Multiples taints y tolerations
+
 Un nodo puede tener múltiples taints y un pod múltiples tolerations. Kubernetes procesa esto como un filtro:
 
 Toma todos los taints del nodo.
@@ -199,7 +202,8 @@ tolerations:
 
 Esto significa que el pod permanecerá asociado al nodo durante 3600 segundos después de que se agregue el taint. Luego será expulsado.
 
-Operadores numéricos
+## Operadores numericos
+
 Además de Equal y Exists, Kubernetes soporta Gt (Greater than) y Lt (Less than) para comparar valores enteros en taints.
 
 Ejemplo:
@@ -212,6 +216,9 @@ kubectl taint nodes node1 servicelevel.organization.example/agreed-service-level
 Y luego agregar las tolerations correspondientes a los pods.
 
 Suele agregarse también una label dedicated=groupName junto con node affinity para asegurar que esos pods sólo corran en esos nodos dedicados.
+
+## Casos de uso
+
 
 ### Hardware especial (GPU)
 
@@ -230,7 +237,8 @@ node.kubernetes.io/memory-pressure
 
 node.kubernetes.io/disk-pressure
 
-tolerationSeconds para nodos caídos
+## tolerationSeconds 
+
 Podés definir cuánto tiempo un pod permanece asociado a un nodo inaccesible:
 
 ```yaml

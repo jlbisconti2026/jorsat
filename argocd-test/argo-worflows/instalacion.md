@@ -1,5 +1,5 @@
 ## Índice de Contenidos
-<<<<<<< HEAD
+
 
 1. [Resumen del Escenario de Red](#-resumen-del-escenario-de-red)
 2. [Paso 1: Exponer el Servidor con MetalLB](#-paso-1-exponer-el-servidor-con-metallb)
@@ -11,20 +11,6 @@
 5. [Paso 4: Verificación del Estado del Clúster](#-paso-4-verificación-del-estado-del-clúster)
 6. [Paso 5: Acceso al Portal](#-paso-5-acceso-al-portal)
 
-=======
->>>>>>> e8c03ec47f0d429b2983882e6dc871d2484ba075
-
-1. [Resumen del Escenario de Red](#1-resumen-del-escenario-de-red)
-2. [Paso 1: Exponer el Servidor con MetalLB](#paso-1-exponer-el-servidor-con-metallb)
-3. [Paso 2: Configuración del Dominio en FortiGate](#paso-2-configuración-del-dominio-en-fortigate)
-4. [Paso 3: Configuración Definitiva del Despliegue (Bypass de Login y HTTPS)](#paso-3-configuración-definitiva-del-despliegue-bypass-de-login-y-https)
-   - [1. Edición del Deployment](#1-edición-del-deployment)
-   - [2. Modificación de Argumentos (args)](#2-modificación-de-argumentos-args)
-   - [3. Ajuste de las Pruebas de Salud (Probes)](#3-ajuste-de-las-pruebas-de-salud-probes)
-5. [Paso 4: Verificación del Estado del Clúster](#paso-4-verificación-del-estado-del-clúster)
-6. [Paso 5: Acceso al Portal](#paso-5-acceso-al-portal)
-
----
 
 # Guía de Instalación y Configuración de Argo Workflows en Kubernetes
 

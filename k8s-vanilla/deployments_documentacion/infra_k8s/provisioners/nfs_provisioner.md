@@ -1,3 +1,25 @@
+
+# Guía de Instalación y Configuración de NFS Provisioner en Kubernetes
+
+## Índice de Contenidos
+
+1. [Introducción](#introducción)
+   - [Escenario Planteado](#escenario-planteado)
+   - [Solucion NFS Seleccionada](#solucion-nfs-seleccionada)
+2. [Instalacion de paquetes requeridos](#instalacion-de-paquetes-requeridos)
+   - [Paquete Cliente NFS y Configuracion de Red](#paquete-cliente-nfs-y-configuracion-de-red)
+3. [Instalación y Configuración de Helm](#instalacion-y-configuracion-de-helm)
+   - [¿Qué es Helm?](#que-es-helm)
+   - [Instalacion de Helm en el Nodo Master](#instalacion-de-helm-en-el-nodo-master)
+   - [Instalacion del Helm chart para NFS](#Intalacion-del-helm-chart-para-nfs)
+4. [Configuración de Almacenamiento Persistente](#configuración-de-almacenamiento-persistente)
+   - [Comprobación de StorageClass](#comprobación-de-storageclass)
+   - [Creación de Namespace para Aplicaciones](#creación-de-namespace-para-aplicaciones)
+   - [Creación de PVC (Persistent Volume Claim)](#creación-de-pvc-persistent-volume-claim)
+5. [Pruebas de Validación](#pruebas-de-validación)
+   - [Despliegue de Pod de Prueba (Nginx)](#despliegue-de-pod-de-prueba-nginx)
+   - [Verificación de Montaje NFS y Persistencia de Datos](#verificación-de-montaje-nfs-y-persistencia-de-datos)
+
 # Introduccion 
 ## Escenario planteado
 Realize la instalacion de un cluster k8s vanilla al que le deploye un load balancer por software, a saber Metallb y se configo un servidor NFS para dar persistencia los POD's que lo requieran 
@@ -17,7 +39,7 @@ El hipervisor utilizado para correr las VMs es VMware® Workstation 17 Pro 17.5.
 
 En este caso opte por la solucion nfs-provisioner. La misma es una implementación de un provisionador de almacenamiento para Kubernetes que utiliza el protocolo NFS para proporcionar almacenamiento persistente a las aplicaciones desplegadas en un clúster de Kubernetes.
 
-## Instalacion
+## Instalacion de paquetes requeridos
 
 ### Prerrequisito, Paquete cliente NFS en nodos de K8s
 Es fundamental que  que todos los nodos de Kubernetes tengan los paquetes cliente NFS disponibles.  En este caso necesitamos del paquete  nfs-common instalado en todos los nodos worker de K8s.
@@ -47,13 +69,13 @@ En nuestro caso la salida  obtenida  fue
 Export list for 10.10.150.2:
 /mnt/soho_storage/samba/shares/kubernetes *
 
-### Instalacion de Helm
+### Instalacion y configuracion de Helm
 #### ¿que es Helm?
 Helm es una herramienta de gestión de paquetes para Kubernetes que facilita la implementación, actualización y administración de aplicaciones en clústeres de Kubernetes. Permite definir, instalar y actualizar fácilmente aplicaciones complejas con múltiples componentes en Kubernetes utilizando un formato de paquete estandarizado llamado "chart".
 
 Los charts de Helm son como scripts que describen una aplicación de Kubernetes, incluyendo los recursos de Kubernetes necesarios (como despliegos, servicios, secretos, etc.), configuraciones predeterminadas y valores personalizables. Con Helm, los desarrolladores pueden crear charts para empaquetar y distribuir sus aplicaciones de Kubernetes de manera coherente y reutilizable.
 
-#### Instalacion
+#### Instalacion de helm en el nodo Master
 
 Para instalar Helm en nuestro nodo master  vamos a descragarlo de su sitio oficial con el el siguiente comando:
 

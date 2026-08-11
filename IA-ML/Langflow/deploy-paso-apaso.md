@@ -2,7 +2,7 @@
 
 Esta guía proporciona las instrucciones paso a paso para desplegar **Langflow** en un clúster de **Red Hat OpenShift 4.21** utilizando manifiestos nativos de Kubernetes/OpenShift y la CLI (`oc`).
 
----
+---x|
 
 ## Índice
 
@@ -54,7 +54,7 @@ spec:
 ```
 
 ## Paso 3: Definir el Despliegue (Deployment)
- 
+
 OpenShift asigna UIDs aleatorios por temas de seguridad (SecurityContextConstraints / SCC restricted-v2). La imagen oficial de Langflow soporta ejecutarse como usuario no-root.
 
 Crea un archivo llamado 02-deployment.yaml:
@@ -107,7 +107,8 @@ spec:
             claimName: langflow-pvc
  ```
 
- ## Paso 4: Crear el Servicio (Service)
+## Paso 4: Crear el Servicio (Service)
+
 El servicio permite la comunicación interna entre pods en el clúster.
 
 Crea un archivo llamado 03-service.yaml:
@@ -130,7 +131,9 @@ spec:
   selector:
     app: langflow
 ```
+
 ## Paso 5: Exponer la Aplicación (Route)
+
 En OpenShift, para exponer el servicio al exterior se utiliza un objeto nativo llamado Route.
 
 Crea un archivo llamado 04-route.yaml:
@@ -165,17 +168,16 @@ oc apply -f 03-service.yaml
 oc apply -f 04-route.yaml
 ```
 
-2. Verificar que el Pod esté en estado Running:
+1. Verificar que el Pod esté en estado Running:
 
 ```bash
 oc get pods -n langflow -w
 ```
 
-3. Obtener la URL pública de la aplicación:
+1. Obtener la URL pública de la aplicación:
 
 ```bash
 oc get route langflow-route -n langflow -o jsonpath='{.spec.host}'
 ```
 
-4. Abre la URL generada en tu navegador web para ingresar a la interfaz visual de Langflow.
-
+1. Abre la URL generada en tu navegador web para ingresar a la interfaz visual de Langflow.

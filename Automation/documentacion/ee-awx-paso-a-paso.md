@@ -1,4 +1,4 @@
-## Índice de Contenidos
+# Índice de Contenidos
 
 1. [Introducción][def]
 2. [Flujo Completo](#flujo-completo)
@@ -14,15 +14,12 @@
    - [9. Próximos Pasos Recomendados](#9-próximos-pasos-recomendados)
    - [10. Resultado Esperado](#10-resultado-esperado)
 
-# Introducción
-
 # Construcción de un Execution Environment (EE) para AWX
 
 El repositorio **Git no se usa directamente para que AWX ejecute el Execution Environment (EE)**.
 
 Se utiliza únicamente como **fuente del código** para construir una **imagen Docker/OCI**, que luego será utilizada por AWX para ejecutar los Jobs.
 
----
 
 # Flujo completo
 
@@ -209,7 +206,7 @@ awx-ee-jorsat   v1
 
 Si ya existe un Registry local funcionando en:
 
-```
+```text
 10.10.100.35:5000
 ```
 

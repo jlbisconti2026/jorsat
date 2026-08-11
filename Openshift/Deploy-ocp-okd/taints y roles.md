@@ -1,18 +1,19 @@
 # Taints y Tolerations en Kubernetes
 
 ## Tabla de contenido
+
 - [Taints y tolerations](#taints-y-tolerations)
 - [Ejemplo de Pod con tolerations](#ejemplo-de-pod-con-tolerations)
 - [Casos especiales](#casos-especiales)
-  - [Key vacía](#key-vacía)
-  - [Effect vacío](#effect-vacío)
+  - [Key vacía](#key-vacia)
+  - [Effect vacío](#effect-vacio)
 - [Tipos de effect](#tipos-de-effect)
   - [NoExecute](#noexecute)
   - [NoSchedule](#noschedule)
   - [PreferNoSchedule](#prefernoschedule)
-  - [Múltiples taints y tolerations](#múltiples-taints-y-tolerations)
+  - [Multiples taints y tolerations](#multiples-taints-y-tolerations)
   - [tolerationSeconds](#tolerationseconds)
-  - [Operadores numéricos](#operadores-numéricos)
+  - [Operadores numéricos](#operadores-numericos)
 - [Casos de uso](#casos-de-uso)
   - [Nodos dedicados](#nodos-dedicados)
   - [Hardware especial (GPU)](#hardware-especial-gpu)
@@ -47,9 +48,11 @@ effect: NoSchedule
 Esto significa que ningún pod podrá programarse sobre node1 a menos que tenga una toleration coincidente.
 
 Para remover el taint:
+
 ```bash
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
+
 Podés especificar una toleration para un pod dentro del PodSpec. Las siguientes tolerations coinciden con el taint anterior:
 
 ```yaml
@@ -59,6 +62,7 @@ tolerations:
   value: "value1"
   effect: "NoSchedule"
 ```
+
 O también:
 
 ```yaml
@@ -106,7 +110,8 @@ El operator es Equal y los values coinciden.
 
 ## Casos especiales
 
-## Key vacía
+## Key vacia
+
 Si la key está vacía:
 
 ```yaml
@@ -115,7 +120,7 @@ operator: Exists
 
 ebe utilizarse obligatoriamente y coincidirá con todas las keys y values.
 
-## Effect vacío
+## Effect vacio
 
 Un effect vacío coincide con todos los effects para esa key.
 

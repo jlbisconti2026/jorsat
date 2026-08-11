@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+ name: langflow-route
+ namespace: langflow
+ labels:
+   app: langflow
+spec:
+ to:
+   kind: Service
+   name: langflow-service
+ port:
+   targetPort: http
+ tls:
+   termination: edge
+   insecureEdgeTerminationPolicy: Redirect

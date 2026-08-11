@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: langflow
+  namespace: langflow
+  labels:
+    app: langflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: langflow
+  template:
+    metadata:
+      labels:
+        app: langflow
+    spec:
+      containers:
+        - name: langflow
+          image: langflowai/langflow:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7860
+              name: http
+          env:
+            - name: LANGFLOW_HOST
+              value: "0.0.0.0"
+            - name: LANGFLOW_PORT
+              value: "7860"
+            - name: LANGFLOW_DATABASE_URL
+              value: "sqlite:////app/langflow/langflow.db"
+          volumeMounts:
+            - name: langflow-data
+              mountPath: /app/langflow
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4Gi
+            requests:
+              cpu: "500m"
+              memory: 1Gi
+      volumes:
+        - name: langflow-data
+          persistentVolumeClaim:
+            claimName: langflow-pvc

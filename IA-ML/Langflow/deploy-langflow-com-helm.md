@@ -16,8 +16,6 @@ Esta guía proporciona las instrucciones paso a paso para desplegar **Langflow**
 
 ---
 
-<a id="1-prerrequisitos"></a>
-
 ## 1. Prerrequisitos
 
 * Clúster de **Red Hat OpenShift 4.21** en funcionamiento.
@@ -36,21 +34,25 @@ Primero, crea un namespace/proyecto dedicado para aislar los recursos de Langflo
 
 ```bash
 oc new-project langflow-prod --display-name="Langflow AI Engine - Production"
+
 ``` 
+
 ## Paso 2: Agregar el Repositorio de Helm
 
-# Agregar el repositorio del Chart de Langflow
+### Agregar el repositorio del Chart de Langflow
+
 
 ```bash
 helm repo add langflow [https://langflow-ai.github.io/langflow-helm-chart](https://langflow-ai.github.io/langflow-helm-chart)
 ```
 
-# Actualizar el repositorio para obtener las últimas versiones
+### Actualizar el repositorio para obtener las últimas versiones
 
 ```bash
 helm repo update
 ```
-## Paso 3: Crear el Archivo de Valores Corporativos (values.yaml)
+
+### Paso 3: Crear el Archivo de Valores Corporativos (values.yaml)
 
 Para asegurar que Langflow cumpla con los estándares de OpenShift 4.21 (como ejecutarse bajo el contexto de seguridad non-root / SCC restricted-v2), crea un archivo local llamado values-langflow.yaml:
 
@@ -62,7 +64,8 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 ```
-# Configuración de variables de entorno para Langflow
+
+### Configuración de variables de entorno para Langflow
 
 ```yaml
 env:
@@ -74,7 +77,7 @@ env:
     value: "sqlite:////app/langflow/langflow.db"
 ```
 
-# Persistencia de datos para la base de datos local y componentes
+### Persistencia de datos para la base de datos local y componentes
 
 ```yaml
 persistence:
@@ -83,8 +86,7 @@ persistence:
   accessMode: ReadWriteOnce
 ```
 
-# Asignación de recursos de CPUT y Memoria
-
+### Asignación de recursos de CPUT y Memoria
 
 ```yaml
 resources:
@@ -97,8 +99,7 @@ resources:
     
 ```
 
-# Deshabilitamos la creación de Ingress/Route desde el Chart 
-# para mantener la aplicación 100% privada dentro del clúster
+### Deshabilitamos la creación de Ingress/Route desde el Chart  para mantener la aplicación 100% privada dentro del clúster
 
 
 ```yaml
@@ -123,7 +124,6 @@ helm install langflow langflow/langflow \
 ```bash
 helm list -n langflow-prod
 ```
-
 2. Verificar que los Pods y Servicios estén correctamente desplegados:
 
 ```bash

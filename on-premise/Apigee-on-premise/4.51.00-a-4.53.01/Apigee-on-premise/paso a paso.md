@@ -1,5 +1,5 @@
 
-## Índice de Contenidos
+# Índice de Contenidos
 
 1. [Consideraciones Críticas Antes de Empezar](#1-consideraciones-críticas-antes-de-empezar)
    - [La Ruta de Upgrade Obligatoria (Secuencial)](#la-ruta-de-upgrade-obligatoria-secuencial)
@@ -17,7 +17,7 @@
 
 
 
-# GUÍA DE MIGRACIÓN Y UPGRADE: APIGEE PRIVATE CLOUD (ON-PREMISE)
+## GUÍA DE MIGRACIÓN Y UPGRADE: APIGEE PRIVATE CLOUD (ON-PREMISE)
 
 > **De la versión 4.51.00 a la versión 4.53.01**
 

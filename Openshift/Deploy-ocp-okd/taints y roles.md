@@ -70,7 +70,7 @@ tolerations:
 
 Nota: El scheduler por defecto de Kubernetes tiene en cuenta taints y tolerations cuando selecciona un nodo para ejecutar un Pod. Sin embargo, si especificás manualmente .spec.nodeName para un Pod, esa acción bypasséa el scheduler; el Pod queda asociado directamente al nodo indicado, incluso si existen taints NoSchedule en ese nodo. Si además el nodo tiene un taint NoExecute, el kubelet expulsará el Pod a menos que exista una toleration adecuada.
 
-# Ejemplo de Pod con tolerations
+## Ejemplo de Pod con tolerations
 
 ```yaml
 apiVersion: v1
@@ -104,8 +104,9 @@ El operator es Exists (sin especificar value), o
 
 El operator es Equal y los values coinciden.
 
-Casos especiales
-Key vacía
+## Casos especiales
+
+## Key vacía
 Si la key está vacía:
 
 ```yaml
@@ -114,10 +115,12 @@ operator: Exists
 
 ebe utilizarse obligatoriamente y coincidirá con todas las keys y values.
 
-Effect vacío
+## Effect vacío
+
 Un effect vacío coincide con todos los effects para esa key.
 
-Tipos de effect
+## Tipos de effect
+
 NoExecute
 Afecta pods que ya están corriendo:
 
@@ -196,6 +199,7 @@ Además de Equal y Exists, Kubernetes soporta Gt (Greater than) y Lt (Less than)
 
 Ejemplo:
 Aplicación del taint en el nodo:
+
 ```bash
 kubectl taint nodes node1 servicelevel.organization.example/agreed-service-level=950:NoSchedule
 ```
@@ -205,9 +209,11 @@ Y luego agregar las tolerations correspondientes a los pods.
 Suele agregarse también una label dedicated=groupName junto con node affinity para asegurar que esos pods sólo corran en esos nodos dedicados.
 
 ### Hardware especial (GPU)
+
 Los nodos con GPUs pueden tener taints para evitar que workloads normales usen esos recursos. Los pods que sí necesitan GPU agregan las tolerations adecuadas.
 
 ### Evictions basadas en taints
+
 El node controller agrega automáticamente taints cuando detecta problemas en un nodo.
 
 Ejemplos:

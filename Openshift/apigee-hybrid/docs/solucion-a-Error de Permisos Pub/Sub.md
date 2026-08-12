@@ -6,7 +6,7 @@
 
 [Diagnostico de Infraestructura](#diagnostico-de-infraestructura)
 
-[Pasos de la solucion aplicada](#pasos-de-la-solucion-aplicada)
+[Pasos de la solucion aplicada](#pasos-de-la-solución-aplicada)
 
 [Verificacion y Validacion](#verificacion-y-validacion)
 
@@ -39,6 +39,7 @@ Permisos de GCP IAM insuficientes: La cuenta de servicio de GCP <apigee-non-prod
 Excepción gRPC: La API de Pub/Sub rechazaba las peticiones provenientes del SDK Java de Apigee con un código HTTP/gRPC PERMISSION_DENIED (403).
 
 ## Diagnostico de Infraestructura
+
 Durante la resolución se clarificó la arquitectura del entorno:
 
 Entorno de Cómputo: Cluster On-Premises OpenShift (oseinfrait01.claro.amx), no Google Kubernetes Engine (GKE).
@@ -58,7 +59,7 @@ gcloud projects add-iam-policy-binding claup-apigee-hybrid-desa \
     --role="roles/pubsub.publisher"
  ```
 
- ## Confirmación de Políticas de IAM
+## Confirmación de Políticas de IAM
 
 Se validó la respuesta de la API de IAM garantizando que la vinculación quedara registrada correctamente:
 
@@ -68,7 +69,7 @@ Se validó la respuesta de la API de IAM garantizando que la vinculación quedar
   role: roles/pubsub.publisher
   ```
 
-  ## Verificacion y validacion
+## Verificacion y validacion
 
 ```json
   {
@@ -101,6 +102,3 @@ Consulta para Alerta de Errores de Permiso
 resource.type="k8s_container"
 jsonPayload.logger="PubSubDispatcher"
 jsonPayload.exceptionStackTrace:"PERMISSION_DENIED"
-
-
-

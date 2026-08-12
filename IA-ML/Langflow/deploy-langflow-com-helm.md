@@ -35,12 +35,11 @@ Primero, crea un namespace/proyecto dedicado para aislar los recursos de Langflo
 ```bash
 oc new-project langflow-prod --display-name="Langflow AI Engine - Production"
 
-``` 
+```
 
 ## Paso 2: Agregar el Repositorio de Helm
 
 ### Agregar el repositorio del Chart de Langflow
-
 
 ```bash
 helm repo add langflow [https://langflow-ai.github.io/langflow-helm-chart](https://langflow-ai.github.io/langflow-helm-chart)
@@ -101,7 +100,6 @@ resources:
 
 ### Deshabilitamos la creación de Ingress/Route desde el Chart  para mantener la aplicación 100% privada dentro del clúster
 
-
 ```yaml
 ingress:
   enabled: false}
@@ -124,13 +122,14 @@ helm install langflow langflow/langflow \
 ```bash
 helm list -n langflow-prod
 ```
-2. Verificar que los Pods y Servicios estén correctamente desplegados:
+
+1. Verificar que los Pods y Servicios estén correctamente desplegados:
 
 ```bash
 oc get all -n langflow-prod
 ```
 
-3. Verificar los logs de la aplicación:
+1. Verificar los logs de la aplicación:
 
 ```bash
 oc logs -f deployment/langflow -n langflow-prod

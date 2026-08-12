@@ -219,7 +219,6 @@ Suele agregarse también una label dedicated=groupName junto con node affinity p
 
 ## Casos de uso
 
-
 ### Hardware especial (GPU)
 
 Los nodos con GPUs pueden tener taints para evitar que workloads normales usen esos recursos. Los pods que sí necesitan GPU agregan las tolerations adecuadas.
@@ -237,7 +236,7 @@ node.kubernetes.io/memory-pressure
 
 node.kubernetes.io/disk-pressure
 
-## tolerationSeconds 
+## tolerationSeconds
 
 Podés definir cuánto tiempo un pod permanece asociado a un nodo inaccesible:
 

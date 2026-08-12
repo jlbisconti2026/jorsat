@@ -1,12 +1,12 @@
-Indice
+# Indice
 
- [Descripcion del Problema](#1-descripcion-del-problema)
- [Diagnóstico y Causa Raíz](#2-diagnostico-y-causa-raiz)
- [Pasos de la Solucion Aplicada](#3-pasos-de-la-solucion-aplicada)
- [Correccion de la estrategia de conversion en el crd](#correccion-de-la-estrategia-de-conversion-en-el-crd)
- [Inyeccion del certificado CA para TLS](#inyeccion-del-certificado-ca-para-tls)
- [Reinicio del Deployment](#reinicio-del-deployment)
- [Resultados y verificaccion](#resultados-y-verificacion)
+ * [Descripcion del Problema](#1-descripcion-del-problema)
+ * [Diagnóstico y Causa Raíz](#2-diagnostico-y-causa-raiz)
+ * [Pasos de la Solucion Aplicada](#3-pasos-de-la-solucion-aplicada)
+* [Correccion de la estrategia de conversion en el crd](#correccion-de-la-estrategia-de-conversion-en-el-crd)
+* [Inyeccion del certificado CA para TLS](#inyeccion-del-certificado-ca-para-tls)
+* [Reinicio del Deployment](#reinicio-del-deployment)
+* [Resultados y verificaccion](#resultados-y-verificacion)
 
 ## 1. Descripcion del Problema
 

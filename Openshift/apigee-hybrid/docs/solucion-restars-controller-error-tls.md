@@ -1,4 +1,4 @@
-#Indice
+# Indice
 
  [Descripcion del Problema](#1-descripcion-del-problema)
  [Diagnóstico y Causa Raíz](#2-diagnostico-y-causa-raiz)

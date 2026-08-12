@@ -26,8 +26,6 @@ Esta guía proporciona las instrucciones paso a paso para desplegar **Langflow**
 
 ---
 
-<a id="paso-1-crear-el-proyecto-en-openshift"></a>
-
 ## Paso 1: Crear el Proyecto en OpenShift
 
 Primero, crea un namespace/proyecto dedicado para aislar los recursos de Langflow en el clúster.

@@ -6,7 +6,7 @@
 
 [Diagnostico de Infraestructura](#diagnostico-de-infraestructura)
 
-[Pasos de la Solucion Aplicada](#pasos-de-la-solucion-aplicada)
+[Pasos de la solucion aplicada](#pasos-de-la-solucion-aplicada)
 
 [Verificacion y Validacion](#verificacion-y-validacion)
 

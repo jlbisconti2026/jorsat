@@ -10,10 +10,6 @@
 [VERIFICACIÓN FINAL DEL CLÚSTER](#verificación-final-del-clúster)
 
 
-
-
-
-
 ## DIAGNÓSTICO DEL BLOQUEO (TAINT)
 
 Los nodos de infraestructura dedicados (infra0, infra1, infra2) tienen activo el

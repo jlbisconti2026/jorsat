@@ -13,7 +13,7 @@ Incluye la creación del namespace, la asignación de permisos de seguridad (**S
 3. [Paso 2: Configurar la Cuenta de Servicio y SCC](#paso-2-configurar-la-cuenta-de-servicio-y-scc)
 4. [Paso 3: Crear el PersistentVolumeClaim (PVC)](#paso-3-crear-el-persistentvolumeclaim-pvc)
 5. [Paso 4: Desplegar n8n (Deployment)](#paso-4-desplegar-n8n-deployment)
-6. [Paso 5: Crear el Service](#paso-5-crear-el-service)
+6. [Paso 5: Crear el service](#paso-5-crear-el-service)
 7. [Paso 6: Creacion de route en openshift](#paso-6-creacion-de-route-en-openshift)
 8. [Paso 7: Exponer la Aplicación (Route con TLS)](#paso-7-exponer-la-aplicación-route-con-tls)
 9. [Paso 8: Verificación del Despliegue](#paso-8-verificación-del-despliegue)
@@ -137,7 +137,7 @@ Aplicar el manifesto:
 oc apply -f deployment-n8n.yaml
 ```
 
-## Paso 5: Crear el Service
+## Paso 5: Crear el service
 
 Creamos un servicio interno para exponer el puerto 5678 del pod:
 
@@ -165,7 +165,19 @@ Aplicar el manifesto:
 oc apply -f service-n8n.yaml
 ```
 
-## Paso 6: Exponer la Aplicación (Route con TLS)
+## Paso 6: Creacion de route en openshift
+
+Ejecutamos el comando:
+
+```bash
+oc create route edge n8n \
+  --service=n8n-service \
+  --port=http \
+  --insecure-policy=Redirect \
+  -n n8n-automation
+```
+
+## Paso 7: Exponer la Aplicación (Route con TLS)
 
 Creamos un Route de OpenShift utilizando la terminación TLS edge (el certificado comodín del Ingress Router del cluster cifrará el tráfico externo):
 
@@ -194,18 +206,6 @@ Aplicar el manifesto:
 
 ```bash
 oc apply -f route-n8n.yaml
-```
-
-## Paso 7: Creacion de route en openshift
-
-Ejecutamos el comando:
-
-```bash
-oc create route edge n8n \
-  --service=n8n-service \
-  --port=http \
-  --insecure-policy=Redirect \
-  -n n8n-automation
 ```
 
 

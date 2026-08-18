@@ -1,16 +1,14 @@
 ## Índice de Contenidos
 
-
-1. [Resumen del Escenario de Red](#-resumen-del-escenario-de-red)
-2. [Paso 1: Exponer el Servidor con MetalLB](#-paso-1-exponer-el-servidor-con-metallb)
-3. [Paso 2: Configuración del Dominio en FortiGate](#-paso-2-configuración-del-dominio-en-fortigate)
-4. [Paso 3: Configuración Definitiva del Despliegue (Bypass de Login y HTTPS)](#-paso-3-configuración-definitiva-del-despliegue-bypass-de-login-y-https)
+1. [Resumen del escenario de Red](#resumen-del-escenario-de-red)
+2. [Paso 1: Exponer el Servidor con MetalLB](#paso-1-exponer-el-servidor-con-metallb)
+3. [Paso 2: Configuración del Dominio en FortiGate](#paso-2-configuración-del-dominio-en-fortigate)
+4. [Paso 3: Configuración del despliegue (Bypass de Login y HTTPS)](#paso-3-configuración-del-despliegue-bypass-de-login-y-https)
    - [1. Edición del Deployment](#1-edición-del-deployment)
    - [2. Modificación de Argumentos (`args`)](#2-modificación-de-argumentos-args)
    - [3. Ajuste de las Pruebas de Salud (Probes)](#3-ajuste-de-las-pruebas-de-salud-probes)
-5. [Paso 4: Verificación del Estado del Clúster](#-paso-4-verificación-del-estado-del-clúster)
-6. [Paso 5: Acceso al Portal](#-paso-5-acceso-al-portal)
-
+5. [Paso 4: Verificacion del estado del cluster](#paso-4-verificacion-del-estado-del-cluster)
+6. [Paso 5: Acceso al Portal](#paso-5-acceso-al-portal)
 
 # Guía de Instalación y Configuración de Argo Workflows en Kubernetes
 
@@ -18,13 +16,13 @@ Esta guía detalla paso a paso el proceso de despliegue, exposición de red medi
 
 ---
 
-## 1. Resumen del Escenario de Red
+## Resumen del escenario de Red
 
-* **Servicio Expuesto:** `argo-server`
-* **Balanceador de Carga:** MetalLB
-* **IP Externa Asignada:** `10.10.100.54`
-* **Dominio FQDN Local:** `argo-workflows.gsve.locals`
-* **Puerto de Acceso:** `2746`
+- **Servicio Expuesto:** `argo-server`
+- **Balanceador de Carga:** MetalLB
+- **IP Externa Asignada:** `10.10.100.54`
+- **Dominio FQDN Local:** `argo-workflows.gsve.locals`
+- **Puerto de Acceso:** `2746`
 
 ---
 
@@ -63,7 +61,7 @@ ipconfig /flushdns
 nslookup argo-workflows.gsve.locals
 ```
 
-## Paso 3: Configuración Definitiva del Despliegue (Bypass de Login y HTTPS)
+## Paso 3: Configuración del despliegue (Bypass de Login y HTTPS)
 
 El comportamiento nativo de Argo bloquea los Readiness Probes si se usa el modo --auth-mode=server solitario bajo HTTPS. La solución óptima y definitiva es activar un modo híbrido (server y client) para que el clúster valide la salud del pod por HTTPS de forma anónima mientras deshabilita el login externo.
 
@@ -74,7 +72,7 @@ Ejecutar el comando de edición en vivo:
 kubectl edit deployment argo-server -n argo
 ```
 
-2. Modificación de Argumentos (args)
+1. Modificación de Argumentos (args)
 Localizar la sección de contenedores y estructurar los argumentos exactamente de la siguiente manera:
 
 ```yaml
@@ -84,8 +82,7 @@ args:
         - --auth-mode=client
 ```
 
-
-3. Ajuste de las Pruebas de Salud (Probes)
+1. Ajuste de las Pruebas de Salud (Probes)
 Asegurarse de mantener el esquema en HTTPS para que coincida con el transporte cifrado nativo del servidor:
 
 ```yaml
@@ -101,7 +98,7 @@ livenessProbe:
              scheme: HTTPS
 ```
 
-## Paso 4: Verificación del Estado del Clúster
+## Paso 4: Verificacion del estado del cluster
 
 Una vez guardado el archivo, Kubernetes realizará un Rolling Update eliminando progresivamente el nodo anterior y validando el nuevo pod una vez supere el tiempo de delay inicial.
 
@@ -115,7 +112,6 @@ kubectl get pod -n argo -o wide -w
 
 Para evitar arrastrar certificados antiguos o cookies corruptas de los rebotados previos, abrir una ventana de incógnito en el navegador e ingresar a:
 
-👉 https://argo-workflows.gsve.locals:2746
+👉 <https://argo-workflows.gsve.locals:2746>
 
 Nota: Al utilizar certificados TLS autofirmados de fábrica, se debe aceptar la advertencia del navegador ("Aceptar el riesgo y continuar"). El portal cargará el Dashboard administrativo de forma directa.
-

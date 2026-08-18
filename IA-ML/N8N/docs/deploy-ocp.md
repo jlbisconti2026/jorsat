@@ -181,7 +181,7 @@ oc create route edge n8n \
 
 Creamos un Route de OpenShift utilizando la terminación TLS edge (el certificado comodín del Ingress Router del cluster cifrará el tráfico externo):
 
-# route-n8n.yaml
+Creamos el archivo route-n8n.yaml
 
 ```yaml
 apiVersion: route.openshift.io/v1

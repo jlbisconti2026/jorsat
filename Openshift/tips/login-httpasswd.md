@@ -19,3 +19,9 @@ Ejecutamos el comando:
 oc delete secret kubeadmin -n kube-system
 ```
 
+# Borrado user local admin en openshift
+
+```bash
+oc delete user <nombre-usuario>
+oc delete identity <nombre-idp>:<nombre-usuario>
+```

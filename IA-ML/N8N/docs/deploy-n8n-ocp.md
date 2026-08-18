@@ -1,6 +1,6 @@
 # Guía de Despliegue de n8n en Red Hat OpenShift 4
 
-Esta guía detalla el procedimiento paso a paso para desplegar **n8n** (workflow automation) en un cluster de OpenShift 4.21+. 
+Esta guía detalla el procedimiento paso a paso para desplegar **n8n** (workflow automation) en un cluster de OpenShift 4.21+.
 
 Incluye la creación del namespace, la asignación de permisos de seguridad (**Security Context Constraints - SCC**), la persistencia de datos mediante **PVC** y la exposición del servicio a través de un **Route** con TLS/HTTPS.
 
@@ -64,6 +64,7 @@ spec:
     requests:
       storage: 10Gi
 ```
+
 Aplicar el manifesto:
 
 ```bash
@@ -208,7 +209,6 @@ Aplicar el manifesto:
 oc apply -f route-n8n.yaml
 ```
 
-
 ## Paso 8: Verificación del Despliegue
 
 Obtener la URL pública generada por OpenShift:
@@ -229,4 +229,4 @@ Revisar logs de inicio:
 oc logs -f deployment/n8n -n n8n-automation
 ```
 
-## Acceso: Navegá hacia https://<URL_DEL_ROUTE> en tu navegador para realizar la configuración inicial de la cuenta de usuario de n8n.
+## Acceso: Navegá hacia https://<URL_DEL_ROUTE> en tu navegador para realizar la configuración inicial de la cuenta de usuario de n8n

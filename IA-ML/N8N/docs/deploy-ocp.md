@@ -196,7 +196,7 @@ Aplicar el manifesto:
 oc apply -f route-n8n.yaml
 ```
 
-## Opcional: Creacion de route en openshift
+## Paso 7: Creacion de route en openshift
 
 Ejecutamos el comando:
 
@@ -209,7 +209,7 @@ oc create route edge n8n \
 ```
 
 
-## Paso 7: Verificación del Despliegue
+## Paso 8: Verificación del Despliegue
 
 Obtener la URL pública generada por OpenShift:
 

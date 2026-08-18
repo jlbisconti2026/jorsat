@@ -1,5 +1,16 @@
 # OKD / OpenShift 4.18 – Troubleshooting vSphere CSI Datastore
 
+[Resultado esperado](#contexto)
+[Sintoma](#sintoma)
+[Causa raíz (IMPORTANTÍSIMO)](#causa-raíz-importantísimo)
+[Obtener el Inventory Path correcto (PowerCLI)](#obtener-el-inventory-path-correcto-powercli)
+[Patch correcto en OKD / OpenShift](#patch-correcto-en-okd--openshift)
+[Reinicio del controlador CSI](#reinicio-del-controlador-csi)
+[Validaciones](#validaciones)
+[Conclusión](#conclusión)
+[Recomendaciones](#recomendaciones)
+
+
 ## Contexto
 
 Cluster **OKD 4.18** sobre **vSphere** con el operador **vmware-vsphere-csi-driver** en estado **Degraded**.
@@ -11,9 +22,7 @@ VMwareVSphereController reconciliation failed:
 unable to fetch default datastore url: datastore not found
 ```
 
----
-
-## Síntoma
+## Sintoma
 
 El ClusterOperator `storage` permanece en estado:
 
@@ -48,7 +57,7 @@ El CSI intenta resolver el datastore por jerarquía de carpetas, no por nombre p
 
 ---
 
-## Cómo obtener el Inventory Path correcto (PowerCLI)
+## Obtener el Inventory Path correcto (PowerCLI)
 
 ```powershell
 $dcName = "jorsat-IT"
@@ -72,7 +81,6 @@ Salida esperada:
 /jorsat-IT/datastore/OSDS-DESA01/DS-Cluster-DESA01-HUA/DS-DESA01-123-L003
 ```
 
----
 
 ## Patch correcto en OKD / OpenShift
 
@@ -86,7 +94,6 @@ oc patch infrastructure cluster --type='json' -p='[
 ]'
 ```
 
----
 
 ## Reinicio del controlador CSI
 
@@ -95,7 +102,6 @@ oc -n openshift-cluster-csi-drivers rollout restart \
   deploy/vmware-vsphere-csi-driver-controller
 ```
 
----
 
 ## Validaciones
 

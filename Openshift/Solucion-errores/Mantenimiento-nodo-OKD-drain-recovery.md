@@ -1,6 +1,20 @@
-# Mantenimiento y recuperación de nodo en OKD
+# Indice 
 
-## 1. Marcar el nodo como *Unschedulable*
+[Mantenimiento y recuperación de nodo en OKD](#mantenimiento-y-recuperación-de-nodo-en-okd)
+[ Retirar el nodo del clúster (Drain)](#retirar-el-nodo-del-clúster-drain)
+[Ingresar al nodo en falla](#ingresar-al-nodo-en-falla)
+[Detener servicios de Kubernetes](#detener-servicios-de-kubernetes)
+[Detener pods y contenedores](#detener-pods-y-contenedores)
+[Eliminar pods detenidos](#eliminar-pods-detenidos)
+[ Reinicializar CRI-O y limpiar contenedores](#reinicializar-cri-o-y-limpiar-contenedores)
+[Levantar servicios](#levantar-servicios)
+[Resultado esperado](#resultado-esperado)
+
+
+
+## Mantenimiento y recuperación de nodo en OKD
+
+ 1. Marcar el nodo como *Unschedulable*
 
 Se evita que el scheduler asigne nuevos pods al nodo.
 
@@ -10,7 +24,7 @@ oc adm cordon master2.gsve.locals
 
 ---
 
-## 2. Retirar el nodo del clúster (Drain)
+## Retirar el nodo del clúster (Drain)
 
 Se drenan los workloads existentes del nodo.
 
@@ -21,7 +35,7 @@ oc adm drain master2.gsve.locals \
 
 ---
 
-## 3. Ingresar al nodo en falla
+## Ingresar al nodo en falla
 
 ```bash
 ssh -l core master2.gsve.locals
@@ -35,7 +49,7 @@ sudo -i
 
 ---
 
-## 4. Detener servicios de Kubernetes
+## Detener servicios de Kubernetes
 
 ```bash
 systemctl stop kubelet
@@ -43,7 +57,7 @@ systemctl stop kubelet
 
 ---
 
-## 5. Detener pods y contenedores
+## Detener pods y contenedores
 
 ### Detener todos los pods
 
@@ -59,7 +73,7 @@ crictl stop `crictl ps -aq`
 
 ---
 
-## 6. Eliminar pods detenidos
+## Eliminar pods detenidos
 
 ```bash
 crictl rmp `crictl pods -q`
@@ -68,7 +82,7 @@ crictl rmp --force `crictl pods -q`
 
 ---
 
-## 7. Reinicializar CRI-O y limpiar contenedores
+## Reinicializar CRI-O y limpiar contenedores
 
 ```bash
 systemctl stop crio
@@ -78,7 +92,7 @@ crio wipe -f
 
 ---
 
-## 8. Levantar servicios
+## Levantar servicios
 
 ```bash
 systemctl start crio

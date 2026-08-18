@@ -4,9 +4,6 @@
 2. [Paso 1: Exponer el Servidor con MetalLB](#paso-1-exponer-el-servidor-con-metallb)
 3. [Paso 2: Configuración del Dominio en FortiGate](#paso-2-configuración-del-dominio-en-fortigate)
 4. [Paso 3: Configuración del despliegue (Bypass de Login y HTTPS)](#paso-3-configuración-del-despliegue-bypass-de-login-y-https)
-   - [1. Edición del Deployment](#1-edición-del-deployment)
-   - [2. Modificación de Argumentos (`args`)](#2-modificación-de-argumentos-args)
-   - [3. Ajuste de las Pruebas de Salud (Probes)](#3-ajuste-de-las-pruebas-de-salud-probes)
 5. [Paso 4: Verificacion del estado del cluster](#paso-4-verificacion-del-estado-del-cluster)
 6. [Paso 5: Acceso al Portal](#paso-5-acceso-al-portal)
 
@@ -66,13 +63,15 @@ nslookup argo-workflows.gsve.locals
 El comportamiento nativo de Argo bloquea los Readiness Probes si se usa el modo --auth-mode=server solitario bajo HTTPS. La solución óptima y definitiva es activar un modo híbrido (server y client) para que el clúster valide la salud del pod por HTTPS de forma anónima mientras deshabilita el login externo.
 
 1. Edición del Deployment
+
 Ejecutar el comando de edición en vivo:
 
 ```bash
 kubectl edit deployment argo-server -n argo
 ```
 
-1. Modificación de Argumentos (args)
+2. Modificación de Argumentos (args)
+
 Localizar la sección de contenedores y estructurar los argumentos exactamente de la siguiente manera:
 
 ```yaml

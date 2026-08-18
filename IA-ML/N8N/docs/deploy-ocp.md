@@ -14,9 +14,9 @@ Incluye la creación del namespace, la asignación de permisos de seguridad (**S
 4. [Paso 3: Crear el PersistentVolumeClaim (PVC)](#paso-3-crear-el-persistentvolumeclaim-pvc)
 5. [Paso 4: Desplegar n8n (Deployment)](#paso-4-desplegar-n8n-deployment)
 6. [Paso 5: Crear el Service](#paso-5-crear-el-service)
-7. [Paso 6: Creacion de route en openshift](#creacion-de-route-en-openshift)
-8. [Paso 7: Exponer la Aplicación (Route con TLS)](#paso-6-exponer-la-aplicación-route-con-tls)
-9. [Paso 8: Verificación del Despliegue](#paso-7-verificación-del-despliegue)
+7. [Paso 6: Creacion de route en openshift](#paso-6-creacion-de-route-en-openshift)
+8. [Paso 7: Exponer la Aplicación (Route con TLS)](#paso-7-exponer-la-aplicación-route-con-tls)
+9. [Paso 8: Verificación del Despliegue](#paso-8-verificación-del-despliegue)
 
 ---
 

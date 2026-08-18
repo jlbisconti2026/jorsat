@@ -1,7 +1,9 @@
 # Índice de Contenidos
 
-1. [Introducción][def]
-2. [Flujo Completo](#flujo-completo)
+## Índice de Contenidos
+
+1. [Construcción de un Execution Environment (EE) para AWX](#construcción-de-un-execution-environment-ee-para-awx)
+2. [Flujo completo](#flujo-completo)
 3. [Pasos de Construcción y Despliegue](#pasos-de-construcción-y-despliegue)
    - [1. Clonar el repositorio](#1-clonar-el-repositorio)
    - [2. Instalar Ansible Builder](#2-instalar-ansible-builder)
@@ -10,10 +12,9 @@
    - [5. Verificar la imagen creada](#5-verificar-la-imagen-creada)
    - [6. Publicar la imagen en el Registry Local](#6-publicar-la-imagen-en-el-registry-local)
    - [7. Registrar el Execution Environment en AWX](#7-registrar-el-execution-environment-en-awx)
-   - [8. Consideración Importante](#8-consideracion-importante)
-   - [9. Próximos Pasos Recomendados](#9-próximos-pasos-recomendados)
-   - [10. Resultado Esperado](#10-resultado-esperado)
-
+   - [8. Consideracion Importante](#8-consideracion-importante)
+   - [9. Próximos pasos recomendados](#9-próximos-pasos-recomendados)
+   - [10. Resultado esperado](#10-resultado-esperado)
 
 ---
 

@@ -1,10 +1,10 @@
-# 🚀 Guía Rápida: Instalación de AWX y Solución de Errores
 
-Esta guía contiene el paso a paso real que ejecutamos en el servidor, con los comandos limpios y las soluciones a los errores más comunes para dejar el clúster funcionando correctamente.
+# Indice
 
----
+[Solución al Instalador de Discos (Ubuntu Server)](#solución-al-instalador-de-discos-ubuntu-server)
+[Instalacion de dependencias y Kubernetes (K3s)](#instalacion-de-dependencias-y-kubernetes-k3s)
 
-# 1. Solución al Instalador de Discos (Ubuntu Server)
+## Solución al Instalador de Discos (Ubuntu Server)
 
 Si el botón **"Hecho" (Done)** aparece deshabilitado y muestra el mensaje:
 
@@ -19,9 +19,7 @@ seguí estos pasos:
 
 El mensaje desaparecerá y podrás continuar con la instalación.
 
----
-
-# 2. Instalación de Dependencias y Kubernetes (K3s)
+## Instalacion de dependencias y Kubernetes (K3s)
 
 Ejecutar como **root**:
 

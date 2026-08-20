@@ -1,7 +1,5 @@
 # Índice de Contenidos
 
-## Índice de Contenidos
-
 1. [Construcción de un Execution Environment (EE) para AWX](#construcción-de-un-execution-environment-ee-para-awx)
 2. [Flujo completo](#flujo-completo)
 3. [Pasos de Construcción y Despliegue](#pasos-de-construcción-y-despliegue)
@@ -16,15 +14,13 @@
    - [9. Próximos pasos recomendados](#9-próximos-pasos-recomendados)
    - [10. Resultado esperado](#10-resultado-esperado)
 
----
-
-# Construcción de un Execution Environment (EE) para AWX
+## Construcción de un Execution Environment (EE) para AWX
 
 El repositorio **Git no se usa directamente para que AWX ejecute el Execution Environment (EE)**.
 
 Se utiliza únicamente como **fuente del código** para construir una **imagen Docker/OCI**, que luego será utilizada por AWX para ejecutar los Jobs.
 
-# Flujo completo
+## Flujo completo
 
 ```text
 GitHub
@@ -54,7 +50,7 @@ GitHub
 
 ---
 
-# Pasos de Construcción y Despliegue
+## Pasos de Construcción y Despliegue
 
 ## 1. Clonar el repositorio
 
@@ -268,5 +264,3 @@ Si el nombre es incorrecto, **Ansible Builder no lo detectará automáticamente*
 ## 10. Resultado esperado
 
 En menos de una hora es posible disponer de un **Execution Environment personalizado**, versionado en Git, publicado en un Registry privado y reutilizable por todos los Jobs de AWX.
-
-[def]: #introducción

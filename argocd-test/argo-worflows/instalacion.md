@@ -1,4 +1,4 @@
-## Índice de Contenidos
+# Índice de Contenidos
 
 1. [Resumen del escenario de Red](#resumen-del-escenario-de-red)
 2. [Paso 1: Exponer el Servidor con MetalLB](#paso-1-exponer-el-servidor-con-metallb)
@@ -7,11 +7,7 @@
 5. [Paso 4: Verificacion del estado del cluster](#paso-4-verificacion-del-estado-del-cluster)
 6. [Paso 5: Acceso al Portal](#paso-5-acceso-al-portal)
 
-# Guía de Instalación y Configuración de Argo Workflows en Kubernetes
 
-Esta guía detalla paso a paso el proceso de despliegue, exposición de red mediante **MetalLB**, resolución DNS con **FortiGate**, y la configuración de autenticación sin contraseña para el dashboard de **Argo Workflows**.
-
----
 
 ## Resumen del escenario de Red
 
@@ -21,7 +17,6 @@ Esta guía detalla paso a paso el proceso de despliegue, exposición de red medi
 - **Dominio FQDN Local:** `argo-workflows.gsve.locals`
 - **Puerto de Acceso:** `2746`
 
----
 
 ## Paso 1: Exponer el Servidor con MetalLB
 

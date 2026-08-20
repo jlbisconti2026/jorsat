@@ -1,13 +1,14 @@
 
-# Configuración exitosa de Squid 6.8 en Debian 12/13
+# Indice 
+[1. Configurar IPs](#1-configurar-ips)
+[ 2. Squid compilado e instalado en `/opt/squid-6.8`](#2-squid-compilado-e-instalado-en-optsquid-68)
+[ 3. Certificados para interceptación SSL](#3-certificados-para-interceptación-ssl)
+[4. Configuración de `squid.conf` principal](#4-configuración-de-squidconf-principal)
+[5. Configuración de servicio systemd (`/etc/systemd/system/squid.service`)](#5-configuración-de-servicio-systemd-etcsystemdsystemsquidservice)
+[6. Arreglos adicionales](#6-arreglos-adicionales)
+[7. Resultado final](#7-resultado-final)
 
-> Última actualización: 2025-04-29 02:07:05
-
-Este repositorio documenta los pasos que llevaron a una **instalación funcional de Squid 6.8** como proxy HTTP(S) interceptado sobre Debian.
-
-## 🛠️ Pasos realizados
-
-### 1. Configurar IPs
+## 1. Configurar IPs
 
 - LAN: `10.10.10.5/24`
 - WAN: DHCP automático
@@ -92,6 +93,7 @@ WantedBy=multi-user.target
 ### 7. Resultado final
 
 ✅ Squid funcionando en:
+
 - HTTP intercept en `10.10.10.5:4555`
 - HTTPS intercept en `10.10.10.5:4556`
 
@@ -100,13 +102,3 @@ Verificación de puertos:
 ```bash
 ss -lntp | grep squid
 ```
-
----
-
-## 🎯 Créditos
-
-Trabajo en conjunto con **ChatGPT**  🚀 para lograr un Squid ninja listo para producción.
-
----
-
-> ¡Que viva Guemes, el proxy y la libertad de navegar seguros! 🇦🇷

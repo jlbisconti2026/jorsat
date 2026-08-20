@@ -1,6 +1,19 @@
-# Introduccion
+# Indice
 
-A contiuacion vemso los pasos para deshabilitar insigths tanto en OCP como en OKD
+[Introduccion](#introduccion)
+[Extraccion de pullsecret hacia archivo dockerconfigjson](#extraccion-de-pullsecret-hacia-archivo-dockerconfigjson)
+[Verificamos existencia de parametro cloud.openshift.com](#verificamos-existencia-de-parametro-cloudopenshiftcom)
+[Editamos archivo  (dockerconfigjson](#editamos-archivo--dockerconfigjson)
+[Verificamos que ya no tenga el parametro](#verificamos-que-ya-no-tenga-el-parametro)
+[Aplicamos nuevo pull secret](#aplicamos-nuevo-pull-secret)
+
+
+
+
+
+## Introduccion
+
+A contiuacion vemos los pasos para deshabilitar insigths tanto en OCP como en OKD. Este paso se incluye dentro del dia 2 posterior a la instalacion del cluster.
 
 
 ## Extraccion de pullsecret hacia archivo dockerconfigjson
@@ -37,7 +50,9 @@ Removemos parametro cloud.openshift.com
 
 .....
 
- ## Aplicamos nuevo pull secret
+
+## Aplicamos nuevo pull secret
+
 ```bash
 [root@labarq01adl bkp-pull-secret]# oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson=/root/bkp-pull-secret/.dockerconfigjson
 ```

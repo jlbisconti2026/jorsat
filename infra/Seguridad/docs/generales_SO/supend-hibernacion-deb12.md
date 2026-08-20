@@ -14,9 +14,7 @@ Este documento describe todos los pasos necesarios para evitar que el sistema en
 
 Ideal para servidores, gateways o firewalls que deben estar siempre activos, como el caso de **Guemes**.
 
----
-
-##  Paso 1: Modificar la configuración de `logind`
+## Paso 1: Modificar la configuración de `logind`
 
 Editamos el archivo de configuración de `systemd-logind`:
 
@@ -32,6 +30,7 @@ HandleHibernateKey=ignore
 HandleLidSwitch=ignore
 HandleLidSwitchExternalPower=ignore
 HandleLidSwitchDocked=ignore
+
  Si esas líneas ya existen pero están comentadas (# al inicio), eliminá el símbolo para activarlas.
 
 Guardá y cerrá (Ctrl+O, Enter, luego Ctrl+X).

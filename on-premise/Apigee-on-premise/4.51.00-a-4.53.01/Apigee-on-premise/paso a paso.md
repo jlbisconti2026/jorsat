@@ -12,11 +12,6 @@
    - [Paso 4.3: Actualizar los Componentes Específicos del Nodo](#paso-43-actualizar-los-componentes-específicos-del-nodo)
 5. [Recomendaciones de Operación](#5-recomendaciones-de-operación)
 
-
-
-
-
-
 ## GUÍA DE MIGRACIÓN Y UPGRADE: APIGEE PRIVATE CLOUD (ON-PREMISE)
 
 > **De la versión 4.51.00 a la versión 4.53.01**
@@ -35,9 +30,9 @@
 
 La versión 4.53 introduce cambios drásticos en la infraestructura subyacente de Apigee On-Premise, tales como:
 
-* Soporte nativo para Cassandra 4.0.
-* Actualizaciones estructurales en OpenLDAP y ZooKeeper.
-* Migración interna de scripts hacia Python 3.
+- Soporte nativo para Cassandra 4.0.
+- Actualizaciones estructurales en OpenLDAP y ZooKeeper.
+- Migración interna de scripts hacia Python 3.
 
 La versión intermedia (4.52.x) prepara, limpia y adapta los esquemas de datos existentes para que la transición final a la 4.53 no cause pérdida de información.
 

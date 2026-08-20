@@ -70,7 +70,7 @@ Ejecutar el comando de edición en vivo:
 kubectl edit deployment argo-server -n argo
 ```
 
-2. Modificación de Argumentos (args)
+1. Modificación de Argumentos (args)
 
 Localizar la sección de contenedores y estructurar los argumentos exactamente de la siguiente manera:
 

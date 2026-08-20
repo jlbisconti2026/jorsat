@@ -1,25 +1,34 @@
-# 🛡️ Suricata Multi-Hilo con NFQUEUE 0 y 1 + SuriWeb Dashboard
+
+# Indice
+
+[🛡️ Suricata Multi-Hilo con NFQUEUE 0 y 1 + SuriWeb Dashboard](#️-suricata-multi-hilo-con-nfqueue-0-y-1--suriweb-dashboard)
+[🎯 Objetivo](#-objetivo)
+[⚙️ Configuración de Suricata](#️-configuración-de-suricata)
+[Systemd Units](#systemd-units)
+[🔥 IPTABLES (rules.v4)](#-iptables-rulesv4)
+[🧠 SuriWeb Integración](#-suriweb-integración)
+[📦 Logrotate](#-logrotate)
+[🚀 Resultado](#-resultado)
+[✅ Recomendaciones Futuras](#-recomendaciones-futuras)
+
+## 🛡️ Suricata Multi-Hilo con NFQUEUE 0 y 1 + SuriWeb Dashboard
 
 Este proyecto implementa una arquitectura IPS/IDS de alto rendimiento usando **Suricata** con múltiples instancias concurrentes, cada una asociada a una cola NFQUEUE distinta. Se complementa con un sistema de visualización en tiempo real llamado **SuriWeb**, que recopila alertas y drops desde múltiples fuentes.
-
----
 
 ## 🎯 Objetivo
 
 Optimizar el procesamiento de tráfico en sistemas con múltiples núcleos separando el análisis de paquetes en **dos colas NFQUEUE (q0 y q1)**. Esto permite balancear la carga y aumentar la capacidad de análisis concurrente.
 
----
-
 ## ⚙️ Configuración de Suricata
 
-### Archivos de configuración:
+### Archivos de configuración
 
 - `/opt/suricata/etc/suricata/suricata.yaml` → instancia para **cola 0** (`q0`)
 - `/opt/suricata/etc/suricata/suricata-q1.yaml` → instancia para **cola 1** (`q1`)
 
 Cada archivo define rutas separadas para logs (`eve.json`, `fast.log`, etc.)
 
-### Systemd Units
+## Systemd Units
 
 `/etc/systemd/system/suricata-q0.service`
 
@@ -121,6 +130,3 @@ Archivo: `/etc/logrotate.d/suricata-multi`
 - Desplegar en múltiples hosts con agente federado
 
 ---
-
-Creado con ❤️ por un sysadmin paranoide 😎
-

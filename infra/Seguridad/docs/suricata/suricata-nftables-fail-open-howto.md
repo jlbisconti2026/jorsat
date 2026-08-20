@@ -1,4 +1,20 @@
-# Guía: Fail‑Open (bypass) con Suricata + NFQUEUE + nftables + Squid
+
+# Indice
+
+[Guía: Fail‑Open (bypass) con Suricata + NFQUEUE + nftables + Squid](#guía-failopen-bypass-con-suricata--nfqueue--nftables--squid)
+[0) Snapshot del entorno](#0-snapshot-del-entorno)
+[1) Kernel: activar `nf_queue_bypass`](#1-kernel-activar-nf_queue_bypass)
+[2) Base `nftables` **sin** reglas `queue` fijas](#2-base-nftables-sin-reglas-queue-fijas)
+[3) Scripts ON/OFF para **q0** (web: pre‑proxy + 4555/4556)](#3-scripts-onoff-para-q0-web-preproxy--45554556)
+[4) Scripts ON/OFF para **q1** (DNS/ICMP)](#4-scripts-onoff-para-q1-dnsicmp)
+[5) Drop‑ins de systemd (ON al iniciar, OFF al parar)](#5-dropins-de-systemd-on-al-iniciar-off-al-parar)
+[6) YAMLs clave (q0 como ejemplo)](#6-yamls-clave-q0-como-ejemplo)
+[7) Pruebas y validación](#7-pruebas-y-validación)
+[8) Troubleshooting rápido](#8-troubleshooting-rápido)
+[9) Anexos útiles](#9-anexos-útiles)
+[10) Resultado](#10-resultado)
+
+## Guía: Fail‑Open (bypass) con Suricata + NFQUEUE + nftables + Squid
 
 > **Objetivo:** Encolar *todo* (pre‑proxy y puertos de Squid 4555/4556) cuando Suricata está arriba **sin** que se corte el tráfico si alguna instancia cae.  
 > **Estrategia:** No dejar reglas `queue` fijas. En su lugar, añadirlas **dinámicamente** al iniciar cada servicio (`suricata-q0`/`suricata-q1`) y **quitarlas** al detenerlo. Además, habilitar `nf_queue_bypass` en el kernel y usar `queue flags bypass`.
@@ -38,6 +54,7 @@ sysctl net.netfilter.nf_queue_bypass   # → 1
 La idea es que tu `/etc/nftables.conf` mantenga **NAT/FILTERS** como los necesites, pero la *chain* `prerouting_mangle` **sin** `queue`. Las colas se inyectan en caliente con scripts.
 
 Ejemplo mínimo de `prerouting_mangle` base:
+
 ```nft
 table inet jlb {
   chain prerouting_mangle {
@@ -52,6 +69,7 @@ table inet jlb {
 ```
 
 Aplicar:
+
 ```bash
 sudo nft -c -f /etc/nftables.conf && sudo nft -f /etc/nftables.conf
 ```
@@ -63,6 +81,7 @@ sudo nft -c -f /etc/nftables.conf && sudo nft -f /etc/nftables.conf
 Estos scripts **añaden** o **eliminan** reglas `queue` con `flags bypass`, marcadas con comments (`q0-pre`, `q0-post`). Son **idempotentes** y **no fallan** si ya existen/no existen.
 
 **/usr/local/sbin/nft-q0-on.sh**
+
 ```bash
 #!/usr/bin/env bash
 set -u
@@ -79,6 +98,7 @@ exit 0
 ```
 
 **/usr/local/sbin/nft-q0-off.sh**
+
 ```bash
 #!/usr/bin/env bash
 set -u
@@ -94,6 +114,7 @@ exit 0
 ```
 
 Instalar y dar permisos:
+
 ```bash
 sudo tee /usr/local/sbin/nft-q0-on.sh >/dev/null <<'SH'
 #!/usr/bin/env bash
@@ -125,11 +146,10 @@ SH
 sudo chmod +x /usr/local/sbin/nft-q0-off.sh
 ```
 
----
-
 ## 4) Scripts ON/OFF para **q1** (DNS/ICMP)
 
 **/usr/local/sbin/nft-q1-on.sh**
+
 ```bash
 #!/usr/bin/env bash
 set -u
@@ -144,6 +164,7 @@ exit 0
 ```
 
 **/usr/local/sbin/nft-q1-off.sh**
+
 ```bash
 #!/usr/bin/env bash
 set -u
@@ -159,6 +180,7 @@ exit 0
 ```
 
 Instalar y dar permisos:
+
 ```bash
 sudo tee /usr/local/sbin/nft-q1-on.sh >/dev/null <<'SH'
 #!/usr/bin/env bash
@@ -197,6 +219,7 @@ sudo chmod +x /usr/local/sbin/nft-q1-off.sh
 Permiten ejecutar los scripts como **root** y **no** tumbar el servicio si el script falla (gracias al `-` al inicio).
 
 **/etc/systemd/system/suricata-q0.service.d/10-nft-toggle.conf**
+
 ```ini
 [Service]
 PermissionsStartOnly=true
@@ -205,6 +228,7 @@ ExecStopPost=-/usr/local/sbin/nft-q0-off.sh
 ```
 
 **/etc/systemd/system/suricata-q1.service.d/10-nft-toggle.conf**
+
 ```ini
 [Service]
 PermissionsStartOnly=true
@@ -213,6 +237,7 @@ ExecStopPost=-/usr/local/sbin/nft-q1-off.sh
 ```
 
 Aplicar:
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart suricata-q0 suricata-q1
@@ -223,6 +248,7 @@ sudo systemctl restart suricata-q0 suricata-q1
 ## 6) YAMLs clave (q0 como ejemplo)
 
 **/opt/suricata/etc/suricata-q0.yaml**
+
 ```yaml
 %YAML 1.1
 ---
@@ -261,12 +287,14 @@ outputs:
 ## 7) Pruebas y validación
 
 - **Ver reglas dinámicas** (con Suricata arriba):
+
   ```bash
   sudo nft -a list chain inet jlb prerouting_mangle | egrep 'q0-pre|q0-post|q1-dns|q1-icmp'
   sudo cat /proc/net/netfilter/nfnetlink_queue   # Deben aparecer líneas con 0 y 1
   ```
 
 - **Fail‑open de q0** (proxy explícito):
+
   ```bash
   sudo systemctl stop suricata-q0
   sudo nft -a list chain inet jlb prerouting_mangle | egrep 'q0-pre|q0-post' || echo "OK: sin reglas q0"
@@ -276,6 +304,7 @@ outputs:
   ```
 
 - **Fail‑open de q1** (si aplicaste toggle q1):
+
   ```bash
   sudo systemctl stop suricata-q1
   sudo nft -a list chain inet jlb prerouting_mangle | egrep 'q1-dns|q1-icmp' || echo "OK: sin reglas q1"
@@ -289,22 +318,28 @@ outputs:
 ## 8) Troubleshooting rápido
 
 - **Se corta al parar q0/q1:** asegurar que sus reglas `queue` desaparecieron.
+
   ```bash
   sudo nft -a list chain inet jlb prerouting_mangle | egrep 'q0-|q1-'
   sudo /usr/local/sbin/nft-q0-off.sh
   sudo /usr/local/sbin/nft-q1-off.sh
   ```
+
 - **Bypass no aplica:** revisar listeners:
+
   ```bash
   sudo cat /proc/net/netfilter/nfnetlink_queue   # Debe desaparecer la línea de la cola detenida
   sysctl net.netfilter.nf_queue_bypass           # → 1
   ```
+
 - **El servicio cae por post‑script:** usar drop‑in con:
+
   ```ini
   PermissionsStartOnly=true
   ExecStartPost=-/usr/local/sbin/nft-q0-on.sh
   ExecStopPost=-/usr/local/sbin/nft-q0-off.sh
   ```
+
 - **Counters NAT 80/443→4555/4556 en 0:** los clientes están usando **proxy explícito** (normal). Para “transparente”, desactivar proxy explícito en clientes y usar `redirect` en `prerouting_nat`.
 
 ---
@@ -312,15 +347,20 @@ outputs:
 ## 9) Anexos útiles
 
 - **Ver tráfico/decisiones en vivo**:
+
   ```bash
   sudo nft monitor trace | egrep 'prerouting|jlb' -A2
   ```
+
 - **Logs Suricata**:
+
   ```bash
   sudo tail -f /opt/suricata/var/log/suricata/eve-q0.json
   sudo tail -f /opt/suricata/var/log/suricata/eve-q1.json
   ```
+
 - **EVEBox Agent** (opcional, si usás EVEBox):
+
   ```yaml
   # /etc/evebox/agent.yaml
   server:
@@ -334,11 +374,10 @@ outputs:
     sensor-name: "guemes"
   ```
 
----
-
 ## 10) Resultado
 
 Con este esquema:
+
 - **Encogés TODO** (pre‑proxy y 4555/4556) cuando Suricata está **arriba**.
 - **No** se corta la navegación ni DNS/ICMP cuando **cualquier instancia cae** (las reglas `queue` se retiran y el kernel bypasséa).
 

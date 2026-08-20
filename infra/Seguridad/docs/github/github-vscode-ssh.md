@@ -1,13 +1,23 @@
-# 🚀 Guía rápida: Conectar y usar GitHub desde VSCode (SSH)
+# 🚀 Indice
+
+[Indice](#-indice)
+[🔐 Paso 1: Verificá tu clave SSH](#-paso-1-verificá-tu-clave-ssh)
+[🌐 Paso 2: Agregar la clave a GitHub](#-paso-2-agregar-la-clave-a-github)
+[🧪 Paso 3: Probar la conexión](#-paso-3-probar-la-conexión)
+[🧠 Paso 4: Clonar tu repositorio desde VSCode](#-paso-4-clonar-tu-repositorio-desde-vscode)
+[Paso 5: Usar Git desde VSCode](#-paso-5-usar-git-desde-vscode)
+[🖥️ Terminal integrada](#️-terminal-integrada)
 
 ## 🔐 Paso 1: Verificá tu clave SSH
+
 En PowerShell:
 
 ```powershell
 ls ~/.ssh/id_rsa.pub
 ```
 
-### 👉 Si no existe:
+### 👉 Si no existe
+
 ```powershell
 ssh-keygen -t rsa -b 4096 -C "tu-email@ejemplo.com"
 ```
@@ -17,37 +27,37 @@ ssh-keygen -t rsa -b 4096 -C "tu-email@ejemplo.com"
 ## 🌐 Paso 2: Agregar la clave a GitHub
 
 1. Copiá la clave pública:
+
 ```powershell
 Get-Content ~/.ssh/id_rsa.pub
 ```
 
-2. En GitHub:
+1. En GitHub:
+
    - Perfil → **Settings** → **SSH and GPG Keys** → **New SSH Key**
    - Pegá la clave, poné un nombre, y guardá.
 
----
-
 ## 🧪 Paso 3: Probar la conexión
+
 ```powershell
 ssh -T git@github.com
 ```
 
 Esperás algo como:
+
 ```
 Hi tu_usuario! You've successfully authenticated...
 ```
 
----
-
 ## 🧠 Paso 4: Clonar tu repositorio desde VSCode
 
 1. `Ctrl + Shift + P` → `Git: Clone`
+
 2. Pegá el link SSH del repo:
+
 ```
 git@github.com:tu_usuario/tu_repo.git
 ```
-
----
 
 ## 💾 Paso 5: Usar Git desde VSCode
 
@@ -63,6 +73,7 @@ git@github.com:tu_usuario/tu_repo.git
 ## 🖥️ Terminal integrada
 
 Abrila con:
+
 - `Ctrl + Ñ`
 - o `Ver → Terminal`
 - o `Ctrl + Shift + \``

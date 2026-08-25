@@ -1,7 +1,21 @@
-# Introduccion
+
+# Indice
+[Introduccion](#introduccion)
+[Escenario](#escenario)
+[Instalacion pre requisitos](#instalacion-pre-requisitos)
+[Instalacion nodos k8s](#instalacion-nodos-k8s)
+[Habilitamos  Netfilter para ContainerD](#habilitamos--netfilter-para-containerd)
+[Adaptamos  "overlay" y  "netfilter" para nuestro K8s](#adaptamos--overlay-y--netfilter-para-nuestro-k8s)
+[Instalacion de paquetes necesarios](#instalacion-de-paquetes-necesarios)
+[Inicializamos el cluster de kubernes ](#inicializamos-el-cluster-de-kubernes)
+[Pasos finales](#pasos-finales)
+
+## Introduccion
+
 El presente documento busca detallar la implementacion de un cluster k8s en alta disponibilidad. Aqui veremos como instalar cada nodo del cluster y  de una blanceadora con la solucion HAproxy.
 
-## Escenario planteado
+## Escenario
+
 En esta oportunidad utilice HyperV Versión: 10.0.22621.1 para correr las vms correspondientes a los nodos k8s y a la balanceadora HAproxy. Nuestra balanceadora va exponer con su propia IP el puerto 6443 a modo de VIP. Todos nuestros nodos master se van a deployar apuntando a nuestra balanceadora.
 La nueva infraestructura virtual consta de :
 
@@ -34,6 +48,8 @@ Ip planning
  - Master-02 10.10.100.23
  - master-03 10.10.100.24
 
+## Instalacion pre requisitos
+
 Para comenzar vamos a hacer la realizacion de los pre requisitos necesarios  a saber:
 
 > Pasos de instalacion y configuracion de HAproxy
@@ -47,19 +63,21 @@ Para comenzar vamos a hacer la realizacion de los pre requisitos necesarios  a s
 - Instalacion de paquetes necesarios.
 
 
-## Instalacion de HAproxy
+### Instalacion de HAproxy
 
 
 Comenzamos con la instalacion del paquete:
 
-```
+```bash
 sudo apt-get install haproxy -y
 ```
+
 Editamos la configuracion con el comando:
 
-```
+```bash
 sudo vim /etc/haproxy/haproxy.cfg
 ```
+
 Nuestra configuracion sera la siguiente:
 > Colocar las ips y nombres de host correspondientes para cada  caso
 
@@ -85,12 +103,13 @@ backend be-apiserver
    server master-03 10.10.100.24:6443 check fall 3 rise 2
 ```
 
-Reiniciamos el servicio:
+### Reiniciamos el servicio:
 
 ```bash
 systemctl restart haproxy
 systemctl status haproxy
 ```
+
 > Aseguremosnos que HAproxy tenga su servicio en estado running
 
 Comprobamos  con nc que responda en el puerto 6443
@@ -118,12 +137,14 @@ sudo apt-mark hold kubeadm kubelet kubectl
 > Los siguientes pasos de instalacion se realizaran tanto en nodos master como en workers
 
 En primer lugar deshabilitamos la particion swap:
-```
+
+```bash
 vi /etc/fstab # comentamos o borramos la linea referente a la particion swap
 ```
+
 ## Habilitamos  Netfilter para ContainerD
 
-```
+```bash
 sudo printf "overlay\nbr_netfilter\n" >> /etc/modules-load.d/containerd.conf
 sudo modprobe overlay
 sudo modprobe br_netfilter
@@ -153,17 +174,19 @@ sudo sysctl --system
 <br />
 <hr>
 
-# Instalacion de paquetes necesarios
+## Instalacion de paquetes necesarios
 
 > Agregramos el repo:
- ```
+
+ ```bash
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
  ```
 
 Instalamos containerd:
- ```
+
+ ```bash
 sudo apt-cache search containerd
 sudo apt install containerd -y
 sudo mkdir /etc/containerd
@@ -177,18 +200,20 @@ sudo systemctl restart containerd
  ```
 
 > confirmar si los paquetes requeridos están disponibles en el repositorio
- ```
+
+ ```bash
  apt-cache search kubeadm && apt-cache search kubelet && apt-cache search kubectl
  ```
+
 Instalar los paquetes:
 
-```
+```bash
 sudo apt install kubeadm kubelet kubectl -y
  ```
 
 > Marcar los paquetes  que no deben ser upgradeados en el proximo apt upgrade
 
- ```
+ ```bash
  sudo apt-mark hold kubeadm kubelet kubectl
  sudo systemctl enable kubelet.service
  sudo reboot

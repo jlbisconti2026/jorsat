@@ -4,9 +4,10 @@
 2. [Secretos y Configuración (Secret y ConfigMap)](#2-secretos-y-configuración-secret-y-configmap)
 3. [Almacenamiento Persistente (PVC)](#3-almacenamiento-persistente-pvc)
 4. [Deployment de n8n (Deployment)](#4-deployment-de-n8n-deployment)
-5. [Exposición de Servicios y Ruta de OpenShift (Service y Route)](#5-exposición-de-servicios-y-ruta-de-openshift-service-y-route)
+5. [Exposición de servicios de OpenShift](#5-exposición-de-servicios-de-openshift)
+[Consideraciones Clave para Producción On-Premise en OpenShift](#consideraciones-clave-para-producción-on-premise-en-openshift)
 
-# 1. Preparación del Proyecto (Namespace) y Permisos
+## 1. Preparación del Proyecto (Namespace) y Permisos
 
 Crea un proyecto dedicado y ajusta las políticas de contexto de seguridad (SCC) si es necesario:
 
@@ -21,7 +22,7 @@ oc new-project n8n-prod
  puedes otorgar acceso al serviceaccount (opcional según la versión de OpenShift):
  oc adm policy add-scc-to-user nonroot-v2 -z default -n n8n-prod
 
-# 2. Secretos y Configuración (Secret y ConfigMap)
+## 2. Secretos y Configuración (Secret y ConfigMap)
 
 Secret (n8n-secrets.yaml)
 Guarda la clave de encriptación de n8n y las credenciales de la base de datos PostgreSQL:
@@ -56,9 +57,13 @@ data:
   DB_POSTGRESDB_USER: "n8n_user"
   EXECUTIONS_DATA_PRUNE: "true"
   EXECUTIONS_DATA_MAX_AGE: "168" # Conservar ejecuciones por 7 días (168hs)
-3. Almacenamiento Persistente (PVC)
+```
+
+## 3. Almacenamiento Persistente (PVC)
+
 Crea el PVC para los datos de n8n. Asegúrate de usar la storageClassName correspondiente a tu almacenamiento empresarial en OpenShift (ej. Ceph, VMware vSphere CS, PureStorage, etc.).
-YAML
+
+```YAML
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -70,8 +75,12 @@ spec:
   resources:
     requests:
       storage: 20Gi
-  # storageClassName: tu-storageclass-onpremise
-4. Deployment de n8n (Deployment)
+storageClassName: tu-storageclass-onpremise
+```
+
+## 4. Deployment de n8n (Deployment)
+
+```yaml
 Manifest listo para OpenShift, respetando los límites de recursos y contextos de seguridad:
 YAML
 apiVersion: apps/v1
@@ -133,9 +142,10 @@ spec:
       - name: n8n-data
         persistentVolumeClaim:
           claimName: n8n-pvc-data
-          ```
+  ```
 
-# 5. Exposición de Servicios y Ruta de OpenShift (Service y Route)
+## 5. Exposición de servicios de OpenShift
+
 En OpenShift no se suele utilizar Ingress estándar de Kubernetes, sino el recurso nativo Route expuesto a través del Router de OpenShift (HAProxy).
 Service (service.yaml)
 
@@ -178,7 +188,7 @@ spec:
 ```
 
  
-Si prefieres usar Helm (que está integrado nativamente en la consola web de OpenShift 4.x), puedes usar el Helm Chart de la comunidad manteniendo estas configuraciones:
+<Si prefieres usar Helm (que está integrado nativamente en la consola web de OpenShift 4.x), puedes usar el Helm Chart de la comunidad manteniendo estas configuraciones:
 
 ```bash
 helm repo add n8n https://c8n.github.io/helm-charts/
@@ -194,7 +204,8 @@ helm install n8n n8n/n8n \
   --set externalPostgresql.password="TU_DB_PASSWORD"
 ```
 
-Consideraciones Clave para Producción On-Premise en OpenShift:
+## Consideraciones Clave para Producción On-Premise en OpenShift
+
 1.	Websockets: Si usas la consola gráfica de n8n detrás del Router de OpenShift, la versión 4.x de OpenShift soporta WebSockets nativamente en las Routes sin configuración extra.
 2.	Escalabilidad Futura (Queue Mode): Si vas a ejecutar un volumen masivo de flujos, la arquitectura arriba mostrada es "Single Instance". Para escalar a múltiples replicas necesitarás desplegar Redis y configurar los Pods de n8n en modo worker y main (usando EXECUTIONS_MODE=queue).
 

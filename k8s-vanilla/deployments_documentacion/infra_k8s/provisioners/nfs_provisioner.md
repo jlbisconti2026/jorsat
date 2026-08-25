@@ -3,37 +3,31 @@
 
 ## Índice de Contenidos
 
-1. [Introducción](#introducción)
-   - [Escenario Planteado](#escenario-planteado)
-   - [Solucion NFS Seleccionada](#solucion-nfs-seleccionada)
+1. [Introduccion](#introduccion)
+   [Solucion NFS Seleccionada](#solucion-nfs-seleccionada)
 2. [Instalacion de paquetes requeridos](#instalacion-de-paquetes-requeridos)
-   - [Paquete Cliente NFS y Configuracion de Red](#paquete-cliente-nfs-y-configuracion-de-red)
 3. [Instalación y Configuración de Helm](#instalacion-y-configuracion-de-helm)
-   - [¿Qué es Helm?](#que-es-helm)
-   - [Instalacion de Helm en el Nodo Master](#instalacion-de-helm-en-el-nodo-master)
-   - [Instalacion del Helm chart para NFS](#Intalacion-del-helm-chart-para-nfs)
-4. [Configuración de Almacenamiento Persistente](#configuración-de-almacenamiento-persistente)
-   - [Comprobación de StorageClass](#comprobación-de-storageclass)
-   - [Creación de Namespace para Aplicaciones](#creación-de-namespace-para-aplicaciones)
-   - [Creación de PVC (Persistent Volume Claim)](#creación-de-pvc-persistent-volume-claim)
-5. [Pruebas de Validación](#pruebas-de-validación)
-   - [Despliegue de Pod de Prueba (Nginx)](#despliegue-de-pod-de-prueba-nginx)
-   - [Verificación de Montaje NFS y Persistencia de Datos](#verificación-de-montaje-nfs-y-persistencia-de-datos)
+4. [4. Instalacion de repositorio nfs-provioner](#4-instalacion-de-repositorio-nfs-provioner))
+5. [5. Creacion de namespace nfs-provicioner en k8s-vanilla](#5-creacion-de-namespace-nfs-provicioner-en-k8s-vanilla) 
+6. [6.  Instalacion del Helm chart para NFS](#6--instalacion-del-helm-chart-para-nfs)
+7. [7. Comprobaciones](#7-comprobaciones)
+8. [8. Creacion de POD de prueba](#8-creacion-de-pod-de-prueba)
 
-# Introduccion 
-## Escenario planteado
-Realize la instalacion de un cluster k8s vanilla al que le deploye un load balancer por software, a saber Metallb y se configo un servidor NFS para dar persistencia los POD's que lo requieran 
+## Introduccion
+
+Realize la instalacion de un cluster k8s vanilla al que le deploye un load balancer por software, a saber Metallb y se configo un servidor NFS para dar persistencia los POD's que lo requieran
 
   Como comente anteriormente la infraestructura consta de:
 
 - 1 nodo Master
 - 2 nodos worker
-- SO Ubuntu 22.04 Server 
+- SO Ubuntu 22.04 Server
 
 El hipervisor utilizado para correr las VMs es VMware® Workstation 17 Pro 17.5.1 build-23298084. El flavor asignado a las VMs fue:
-  - 4 CPU
-  - 4 GB de RAM
-  - 120 GB de disco
+
+- 4 CPU
+- 4 GB de RAM
+- 120 GB de disco
 
 ## Solucion NFS seleccionada
 
@@ -42,6 +36,7 @@ En este caso opte por la solucion nfs-provisioner. La misma es una implementaci�
 ## Instalacion de paquetes requeridos
 
 ### Prerrequisito, Paquete cliente NFS en nodos de K8s
+
 Es fundamental que  que todos los nodos de Kubernetes tengan los paquetes cliente NFS disponibles.  En este caso necesitamos del paquete  nfs-common instalado en todos los nodos worker de K8s.
 Instalaremos el paquete nfs-common con el siguiente comando:
 
@@ -50,6 +45,7 @@ sudo apt update
 sudo apt install nfs-common -y
 sudo apt install iptables-persistent
 ```
+
 Agregamos reglas a iptables para permitir trafico NFS:
 
 ```bash
@@ -65,12 +61,15 @@ Una vez instalado el paquete nfs-common en todos los nodos worker vamos a utiliz
 ```bash
 showmount -e 10.10.10.24
 ```
-En nuestro caso la salida  obtenida  fue 
+
+En nuestro caso la salida  obtenida  fue
 Export list for 10.10.150.2:
 /mnt/soho_storage/samba/shares/kubernetes *
 
-### Instalacion y configuracion de Helm
-#### ¿que es Helm?
+## Instalacion y configuracion de Helm
+
+### ¿que es Helm?
+
 Helm es una herramienta de gestión de paquetes para Kubernetes que facilita la implementación, actualización y administración de aplicaciones en clústeres de Kubernetes. Permite definir, instalar y actualizar fácilmente aplicaciones complejas con múltiples componentes en Kubernetes utilizando un formato de paquete estandarizado llamado "chart".
 
 Los charts de Helm son como scripts que describen una aplicación de Kubernetes, incluyendo los recursos de Kubernetes necesarios (como despliegos, servicios, secretos, etc.), configuraciones predeterminadas y valores personalizables. Con Helm, los desarrolladores pueden crear charts para empaquetar y distribuir sus aplicaciones de Kubernetes de manera coherente y reutilizable.
@@ -82,6 +81,7 @@ Para instalar Helm en nuestro nodo master  vamos a descragarlo de su sitio ofici
 ```bash
 wget https://get.helm.sh/helm-v3.12.0-linux-amd64.tar.gz
 ```
+
 Luego vamos a descomprimir el archivo .tar.gz y moverlo a la carpeta /usr/local/bin para tenerlo disponible desde cualquier ubicacion:
 
 ```bash
@@ -89,11 +89,15 @@ tar -zxvf helm-v3.12.0-linux-amd64.tar.gz
 sudo mv linux-amd64/ /usr/local/bin/
 chmod +x /usr/local/bin/helm
 ```
-### Instalacion de repositorio nfs-provioner
+
+## 4. Instalacion de repositorio nfs-provioner
+
 ```bash
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
 ```
-### Creacion de namespace nfs-provicioner en k8s-vanilla
+
+## 5. Creacion de namespace nfs-provicioner en k8s-vanilla
+
 ```bash
 kubectl create namespace  nfs-provisioner
 ```
@@ -104,20 +108,22 @@ Luego cambiamos de namespace para trabajar en  nfs-provisioner con el comando:
  kubectl config set-context --current --namespace=nfs-provisioner
 ```
 
-### Instalacion del Helm chart para NFS
+## 6.  Instalacion del Helm chart para NFS
 
 El siguiente ejemplo corresponde a mi servidor NAS.
+
 ```bash
 helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --set nfs.server=10.10.10.24 --set nfs.path=/mnt/soho_storage/samba/shares/public --set storageClass.onDelete=true
 ```
 
-
-### Comprobaciones 
+## 7. Comprobaciones
 
 En primer lugar vamos a comprobar que se encuentre creado el storage class correspondiente:
+
 ```bash
  kubectl get storageclass nfs-client
 ```
+
 ```bash
 NAME         PROVISIONER                                     RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
 nfs-client   cluster.local/nfs-subdir-external-provisioner   Delete          Immediate           true                   27h
@@ -125,12 +131,12 @@ nfs-client   cluster.local/nfs-subdir-external-provisioner   Delete          Imm
 
 > Nota: En caso de querer setear el storage class nfs-client como default ejecutamos el comando kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
-
 #### Creamos namespace especifico para APPS
 
 ```bash
 kubectl create namespace  microservicios
 ```
+
 Luego cambiamos de namespace para trabajar en microservicios con el comando:
 
 ```bash
@@ -157,13 +163,14 @@ spec:
 ```
 
 Comprobamos el status del pv con el siguinte comando:
+
 ```bash
 kubectl get pvc -n nfs-provisioner
 NAME                  STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
 sc-nfs-pvc   Bound    nfs-pv   1Gi        RWX            nfs-storage    <unset>                 27h
 ```
 
-#### Creacion de POD de prueba
+## 8. Creacion de POD de prueba
 
 A manera de comprobar el funcionamiento de nfs-provicioner crearemos un POD de Nginx con storage persistente que creara su PV ( Phisical Volume) en el volumen NFS creado en nuestro NAS.
 
@@ -199,20 +206,26 @@ spec:
 ```
 
 Procedemos a la creacion del POD :
+
 ```bash
  kubectl create -f nginx-deployment-nfs-persist.yaml
 ```
 
-#### Verificamos el status del POD 
+#### Verificamos el status del POD
+
 ```bash
  kubectl get po -o wide
 sc-nfs-nginx-597dcd6447-6k4vj   1/1     Running   0          10m   192.168.37.201   worker-02   <none>      
 ```  
-#### Ingresamos al pod para verficar que el volumen NFS este montado:
+
+#### Ingresamos al pod para verficar que el volumen NFS este montado
+
 ```bash
  kubectl exec -it sc-nfs-nginx-597dcd6447-6k4vj /bin/bash
 ```
+
 Verificamos que el path /usr/share/nginx/html este montado en nuestro NFS
+
 ```bash
 root@sc-nfs-nginx-597dcd6447-6k4vj:/# df -ha /usr/share/nginx/html/
 Filesystem                                                                                      Size  Used Avail Use% Mounted on
@@ -225,27 +238,6 @@ Creamos archivo de prueba en la ruta de nginx
  touch /usr/share/nginx/html/index.html
 ```
 
-
-
-
 Verficamos en nuestro NAS la existencia del PV + archivo index.html creado
 
 ![NaS-vc-mas-fie](https://github.com/murdok2023/k8s-vanilla/assets/144631732/374b22c6-8cec-431b-b287-e2d73816c1c3)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,8 +1,51 @@
-# Laboratorio eBPF en Debian 12 — Proyecto Jorsat
+# Indice
+
+[Laboratorio eBPF en Debian 12 — Proyecto Jorsat](#laboratorio-ebpf-en-debian-12--proyecto-jorsat)
+[1. Conceptos clave](#1-conceptos-clave)
+[Tipos de hooks importantes](#tipos-de-hooks-importantes)
+[2. Verificar estado del sistema](#2-verificar-estado-del-sistema)
+[3. Verificar restricciones que pueden afectar eBPF](#3-verificar-restricciones-que-pueden-afectar-ebpf)
+[4. Desactivar AppArmor si se quiere laboratorio sin restricciones](#4-desactivar-apparmor-si-se-quiere-laboratorio-sin-restricciones)
+[5. Montar bpffs](#5-montar-bpffs)
+[6. Instalar herramientas base](#6-instalar-herramientas-base)
+[7. Validar soporte eBPF](#7-validar-soporte-ebpf)
+[8. Comandos inline con bpftrace](#8-comandos-inline-con-bpftrace)
+[8.1 Ver procesos que se ejecutan](#81-ver-procesos-que-se-ejecutan)
+[8.2 Ver creación de sockets](#82-ver-creación-de-sockets)
+[8.3 Ver intentos de connect()](#83-ver-intentos-de-connect)
+[8.4 Ver accept4()](#84-ver-accept4)
+[8.5 Ver read()](#85-ver-read)
+[8.6 Ver write()](#86-ver-write)
+[8.7 Ver apertura de archivos](#87-ver-apertura-de-archivos)
+[8.8 Ver borrado de archivos](#88-ver-borrado-de-archivos)
+[8.9 Ver ejecución de comandos sospechosos](#89-ver-ejecución-de-comandos-sospechosos)
+[8.10 Contar syscalls por proceso](#810-contar-syscalls-por-proceso)
+[Script 9 — latency_connect.bt](#script-9--latency_connectbt)
+[Script 1 — exec_monitor.bt](#script-1--exec_monitorbt)
+[Script 2 — socket_create.bt](#script-2--socket_createbt)
+[Script 3 — connect_monitor.bt](#script-3--connect_monitorbt)
+[Script 4 — accept_monitor.bt](#script-4--accept_monitorbt)
+[Script 5 — file_activity.bt](#script-5--file_activitybt)
+[Script 6 — suspicious_exec.bt](#script-6--suspicious_execbt)
+[Script 7 — syscall_counter.bt](#script-7--syscall_counterbt)
+[Script 8 — python_http_observer.bt](#script-8--python_http_observerbt)
+[Script 9 — latency_connect.bt](#script-9--latency_connectbt)
+[Script 10 — nmap_activity.bt](#script-10--nmap_activitybt)
+[10. Herramientas BCC listas](#10-herramientas-bcc-listas)
+[11. Prueba controlada con servidor HTTP](#11-prueba-controlada-con-servidor-http)
+[12. Prueba controlada con nmap desde Guemes](#12-prueba-controlada-con-nmap-desde-guemes)
+[13. Qué esperar con diferentes tipos de nmap](#13-qué-esperar-con-diferentes-tipos-de-nmap)
+[14. Mini metodología de análisis](#14-mini-metodología-de-análisis)
+[15. Estructura recomendada del repo](#15-estructura-recomendada-del-repo)
+[16. Script Bash para crear todos los .bt](#16-script-bash-para-crear-todos-los-bt)
+[17. Troubleshooting rápido](#17-troubleshooting-rápido)
+[18. Orden recomendado de práctica](#18-orden-recomendado-de-práctica)
+[19. Comandos finales de referencia](#19-comandos-finales-de-referencia)
+[20. Idea central](#20-idea-central)
+
+## Laboratorio eBPF en Debian 12 — Proyecto Jorsat
 
 > Objetivo: preparar una mini PC con Debian 12 como laboratorio eBPF puro para entender qué pasa a nivel sistema operativo cuando llega tráfico de red normal o “peligroso”.
-
----
 
 ## 0. Contexto del laboratorio
 
@@ -78,7 +121,7 @@ nmap_observer.bt
 ### Tipos de hooks importantes
 
 | Hook | Qué observa |
-|---|---|
+| --- | --- |
 | tracepoint | Eventos estables del kernel |
 | kprobe | Funciones internas del kernel |
 | kretprobe | Retorno de funciones del kernel |
@@ -515,7 +558,7 @@ cd ~/ebpf-lab/scripts
 
 ---
 
-# Script 1 — exec_monitor.bt
+## Script 1 — exec_monitor.bt
 
 Archivo:
 
@@ -560,7 +603,7 @@ sudo bpftrace exec_monitor.bt
 
 ---
 
-# Script 2 — socket_create.bt
+## Script 2 — socket_create.bt
 
 Archivo:
 
@@ -593,7 +636,7 @@ sudo bpftrace socket_create.bt
 
 ---
 
-# Script 3 — connect_monitor.bt
+## Script 3 — connect_monitor.bt
 
 Archivo:
 
@@ -638,7 +681,7 @@ curl https://example.com
 
 ---
 
-# Script 4 — accept_monitor.bt
+## Script 4 — accept_monitor.bt
 
 Archivo:
 
@@ -689,7 +732,7 @@ curl http://IP_MINIPC:8080
 
 ---
 
-# Script 5 — file_activity.bt
+## Script 5 — file_activity.bt
 
 Archivo:
 
@@ -728,7 +771,7 @@ sudo bpftrace file_activity.bt
 
 ---
 
-# Script 6 — suspicious_exec.bt
+## Script 6 — suspicious_exec.bt
 
 Archivo:
 
@@ -776,7 +819,7 @@ bash -c 'echo test'
 
 ---
 
-# Script 7 — syscall_counter.bt
+## Script 7 — syscall_counter.bt
 
 Archivo:
 
@@ -814,7 +857,7 @@ sudo bpftrace syscall_counter.bt
 
 ---
 
-# Script 8 — python_http_observer.bt
+## Script 8 — python_http_observer.bt
 
 Archivo:
 
@@ -878,7 +921,7 @@ nmap -sV -p 8080 IP_MINIPC
 
 ---
 
-# Script 9 — latency_connect.bt
+## Script 9 — latency_connect.bt
 
 Archivo:
 
@@ -925,7 +968,7 @@ curl https://example.com
 
 ---
 
-# Script 10 — nmap_activity.bt
+## Script 10 — nmap_activity.bt
 
 Archivo:
 

@@ -31,7 +31,7 @@ Vamos a montar plex dentro de nuestro cluster k8s vanilla. Nuestra infraestructu
 
 Comenzaremos creando el  configuracion de storage persistente de plex. Vamos a necesitar :
 
-- Instalar nfs-provisioner segun link https://github.com/jorsat2025/jorsat/blob/main/k8s-vanilla/deployments_documentacion/infra_k8s/provisioners/nfs_provisioner.md
+- Instalar nfs-provisioner segun link <https://github.com/jorsat2025/jorsat/blob/main/k8s-vanilla/deployments_documentacion/infra_k8s/provisioners/nfs_provisioner.md>
 - Crear el PVC
 - Aplicar los archvos yaml correspondientes
 
@@ -56,14 +56,14 @@ spec:
 
 Aplicamos las configuraciones:
 
-```
+```bash
 kubectl apply -f pv-plex.yaml
 kubectl apply -f  pvc-plex.yaml
 ```
 
 Ahora verificamos el status de ambos con el comando:
 
-```
+```bash
 kubectl get pv,pvc
 ```
 

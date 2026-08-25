@@ -1,8 +1,19 @@
-# Introduccion 
+
+# Indice
+
+[Introduccion](#introduccion)
+[Escenario planteado](#escenario-planteado)
+[Instalacion](#instalacion)
+[Deploy de POD nginx con pv residente en el volumen ISCSI](#deploy-de-pod-nginx-con-pv-residente-en-el-volumen-iscsi)
+
+
+## Introduccion 
+
 El motivo de este deploy es el de realizar la prueba de conexion de mi cluster k8s contra el volumen ISCSI creado en mi NAS Iomega. Esta prueba busca cumplir con dos objetivos. En primer lugar aprender mas sobre k8s y en segundo lugar proporcionar una opcion de storage adicional.
 
 
 ## Escenario planteado
+
  Tenemos un cluster que consta de:
 
  - 1 nodo Master
@@ -19,9 +30,11 @@ Vamos a cubrir la necesidad adicional de storage persistente para nuestros PODS 
 ## Instalacion
 
  Como primer paso   vamos a crear el namespace openenbs
+
  ```bash
  kubectl create namespace openebs
 ```
+
 Luego nos posisionaremos en el namspace creado:
 
  ```bash
@@ -29,19 +42,25 @@ Luego nos posisionaremos en el namspace creado:
 ```
 
 Ahora agregaremos el repositorio helm correspondiente a openebs:
+
  ```bash
  helm repo add openebs https://openebs.github.io/charts
 ```
+
 A continuacion instalamos el operador de openebs
+
  ```bash
 helm install openebs openebs/openebs --namespace openebs
 ```
+
 Verificamos la instalación del controlador:
+
  ```bash
 kubectl get pods -n openebs
 ```
 
 Esperamos a que todos los pods estén en estado "Running".
+
  ```text
 jlb@master-01:~/iscsi$ kubectl get pods -n openebs
 NAME                                           READY   STATUS   
@@ -53,6 +72,7 @@ openebs-ndm-sh7jj                              1/1     Running
 ```
 
 Ahora procedemos a crear el sorage class de openebs:
+
  ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -79,12 +99,15 @@ El primer paso va a ser obtener informacion de nuestro target ISCSI con el sigui
  ```bash
 sudo iscsiadm -m discovery -t st -p 10.10.150.2
 ```
+
 Este comando nos traera la siguiente informacion:
+
  ```bash
 10.10.150.2:3260,1 iqn.1992-04.com.emc:storage.Jorsat-NAS01.isci-nas
 ```
+
 Como podemos ver tenemos:
- 
+
 `IP del target (NAS): 10.10.150.2`
 `Puerto ISCSI: 3260`
 `IQN: iqn.1992-04.com.emc:storage.Jorsat-NAS01.isci-nas`
@@ -104,6 +127,7 @@ spec:
     requests:
       storage: 1Gi
 ```
+
  ```bash
  kubectl create -f pvc-iscsi.yaml
 ```
@@ -175,6 +199,7 @@ spec:
 ```bash
 kubectl create -f deployment-nginx-iscsi.yaml          
 ```
+
 Verficamos es status de nuestro POD:
 
 ```bash
@@ -188,6 +213,7 @@ Como ultimo paso ingresamos al POD:
 ```bash
 kubectl exec -it nginx-iscsi-58d445f4bf-xfh9l /bin/bash
 ```
+
 Veremos que en nuestro POD en el disco /dev/sdb esta montado el directorio de trabajo de NGINX:
 
 ```bash
@@ -200,7 +226,9 @@ shm                                 64M     0   64M   0% /dev/shm
 /dev/sdb                            49G   24K   49G   1% /usr/share/nginx/html
 
 ```
+
 Asimismo podemos verdificar en nuestro nodo worker-03, el nodo que corre el pod la misma informacion:
+
 ```bash
 jlb@worker-03:~$ lsblk
 NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS

@@ -1,4 +1,20 @@
-# Kubernetes HA (3 masters + 3 workers) con Vagrant + Hyper‑V (Windows 11)
+
+# Indice
+
+[Infra](#infra)
+[0) Prerrequisitos](#0-prerrequisitos)
+[1) `Vagrantfile` (copiar/pegar)](#1-vagrantfile-copiarpegar)
+[2) Levantar el cluster](#2-levantar-el-cluster)
+[3) Verificar](#3-verificar
+)
+[4) Post‑install: MetalLB + StorageClass + tests](#4-postinstall-metallb--storageclass--tests)
+[5) Limpieza de recursos de prueba](#5-limpieza-de-recursos-de-prueba)
+[6) Tips](#6-tips)
+
+## Infra
+
+### Kubernetes HA (3 masters + 3 workers) con Vagrant + Hyper‑V (Windows 11)
+
 **Red:** `10.10.100.0/25` (máscara `255.255.255.128`) – vSwitch externo **`net-vms`** (DHCP)  
 **VIP (kube‑vip):** `10.10.100.120`  
 **Pool MetalLB (L2):** `10.10.100.110–10.10.100.119`  
@@ -13,6 +29,7 @@
 ---
 
 ## 0) Prerrequisitos
+
 - Windows 11 con **Hyper‑V** habilitado
 - **Vagrant** instalado
 - vSwitch **externo** ya creado y llamado **`net-vms`** (bridge a tu NIC física)
@@ -276,10 +293,13 @@ vagrant up
 ## 3) Verificar
 
 Conectate al master `m1`:
+
 ```powershell
 vagrant ssh m1
 ```
+
 y dentro:
+
 ```bash
 kubectl get nodes -o wide
 kubectl get pods -A
@@ -418,6 +438,7 @@ echo "✅ Post-install terminado."
 ```
 
 **Uso:**
+
 ```bash
 nano post-install.sh
 chmod +x post-install.sh
@@ -429,6 +450,7 @@ chmod +x post-install.sh
 ---
 
 ## 5) Limpieza de recursos de prueba
+
 ```bash
 kubectl delete svc echo deploy echo pvc test-pvc pod test-pod --ignore-not-found
 ```
@@ -436,6 +458,7 @@ kubectl delete svc echo deploy echo pvc test-pvc pod test-pod --ignore-not-found
 ---
 
 ## 6) Tips
+
 - Si tu DHCP entrega direcciones que chocan con `10.10.100.110–119` o `10.10.100.120`, reconfigurá el pool/ VIP o reservá esos IPs para evitar colisiones.
 - Para bajar consumo: reducí RAM (p.ej., masters 3GB, workers 2GB; o menos workers).
 - Si ves issues de red (MTU), avisame y te paso el parche de Calico en dos líneas.

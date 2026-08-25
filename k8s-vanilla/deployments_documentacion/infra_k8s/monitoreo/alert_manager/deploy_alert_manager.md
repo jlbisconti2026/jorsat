@@ -1,8 +1,19 @@
-# Introduccion
+# Indice
+[Introduccion](#introduccion)
+[Deploy de alert-manager](#deploy-de-alert-manager)
+[Verificamos la ip externa obtenida por aler-manager](#verificamos-la-ip-externa-obtenida-por-aler-manager)
+[Probamos acceder via browser a la url](#probamos-acceder-via-browser-a-la-url)
+[Creamos el servicio de tipo LoadBalancer](#creamos-el-servicio-de-tipo-loadbalancer)
+[Verificamos la ip externa obtenida por aler-manager](#verificamos-la-ip-externa-obtenida-por-aler-manager)
+[Probamos acceder via browser a la url](#probamos-acceder-via-browser-a-la-url)
+
+
+
+## Introduccion
 
 Como parte de la solucion de monitoreo de alertas voy a deplegar alert-manager en mi cluster k8s. Mas adelante configurare alert manager para que mande alertas via gmail.
 
-## Deploy de alert-manager 
+## Deploy de alert-manager
 
 Para comenzar vamos a ingresar al namespace monitoring creado en el documento Grafana_prometheus_node_exporter.md publicado anteriormente.
 
@@ -39,14 +50,13 @@ data:
         auth_identity: ''
 ```
 
-Aplicamos configmap:
+### Aplicamos configmap:
 
 ```bash
 kubectl apply -f alertmanager-config.yaml
 ```
 
 Ahora vamos a crear el deployment aplicando el archivo deployment_alert-manager.yaml:
-
 
 ```yaml
 apiVersion: apps/v1
@@ -87,14 +97,11 @@ spec:
         emptyDir: {}
 ```
 
-
-
 ```bash
 kubectl apply -f deployment_alert-manager.yaml
 ```
 
-
-Por ultimo creamos el servicio de tipo LoadBalancer:
+## Creamos el servicio de tipo LoadBalancer
 
 
 ```yaml
@@ -112,9 +119,9 @@ spec:
       targetPort: 9093
   type: LoadBalancer
 ```
-Verificamos la ip externa obtenida por aler-manager:
 
-ype: LoadBalancer
+## Verificamos la ip externa obtenida por aler-manager
+ 
 
 ```bash
 kubectl get svc   -n monitoring
@@ -126,7 +133,7 @@ NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S
 alertmanager               LoadBalancer   10.107.130.55    10.10.100.36   9093:32203/TCP   10s
 ```
 
-Luego probamos acceder via browser a la url: 
+## Probamos acceder via browser a la url
 
 [http://10.10.100.36:9093/#/alerts](URL)
 

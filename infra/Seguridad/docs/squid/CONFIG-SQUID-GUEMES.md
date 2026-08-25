@@ -1,8 +1,9 @@
 
-# Indice 
+# Indice
+
 [1. Configurar IPs](#1-configurar-ips)
-[ 2. Squid compilado e instalado en `/opt/squid-6.8`](#2-squid-compilado-e-instalado-en-optsquid-68)
-[ 3. Certificados para interceptación SSL](#3-certificados-para-interceptación-ssl)
+[2. Squid compilado e instalado en `/opt/squid-6.8`](#2-squid-compilado-e-instalado-en-optsquid-68)
+[3. Certificados para interceptación SSL](#3-certificados-para-interceptación-ssl)
 [4. Configuración de `squid.conf` principal](#4-configuración-de-squidconf-principal)
 [5. Configuración de servicio systemd (`/etc/systemd/system/squid.service`)](#5-configuración-de-servicio-systemd-etcsystemdsystemsquidservice)
 [6. Arreglos adicionales](#6-arreglos-adicionales)

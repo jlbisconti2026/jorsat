@@ -1,3 +1,9 @@
+# Indice
+
+[Introduccion](#introduccion)
+[Escenario planteado](#escenario-planteado)
+[Deploy de plex](#deploy-de-plex)
+
 ## Introduccion
 
 Esta es una guia breve orientada al deploy de la plataforma multimedia plex dentro de un  cluster k8s vanilla.
@@ -25,12 +31,11 @@ Vamos a montar plex dentro de nuestro cluster k8s vanilla. Nuestra infraestructu
 
 Comenzaremos creando el  configuracion de storage persistente de plex. Vamos a necesitar :
 
- - Instalar nfs-provisioner segun link https://github.com/jorsat2025/jorsat/blob/main/k8s-vanilla/deployments_documentacion/infra_k8s/provisioners/nfs_provisioner.md
- - Crear el PVC
+- Instalar nfs-provisioner segun link https://github.com/jorsat2025/jorsat/blob/main/k8s-vanilla/deployments_documentacion/infra_k8s/provisioners/nfs_provisioner.md
+- Crear el PVC
 - Aplicar los archvos yaml correspondientes
 
 > Nos situamos en el namespace tv ya creado en las guias anteriores con el comando: kubectl config set-context --current --namespace=tv
-
 
 A continuacion creamos nuestro PVC ( Persistent Volume Claim) generando el archivo  pvc-plex.yaml:
 
@@ -102,7 +107,7 @@ spec:
           claimName: plex-pvc
   ```
 
- ```
+ ```bash
 kubectl apply -f deployment_plex_nfs.yaml
 ```
 
@@ -146,20 +151,11 @@ NAME               TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)
 plex-service       LoadBalancer   10.106.181.249   10.10.100.34   80:31224/TCP     
 ```
 
-
 > Nota: Nuestro NAS no debe no debe tener habilitada la opcion Allow root acount acces. Por otor lado cuando la carpeta config de plex esta en 3.9 MB de tamaño podremos ver que ya estara accesible plex. 
-
-
 
 Como podemos ver el servicio se creo. Nuestra balanceadora metallb le proporciono la ip 10.10.100.34 de nuestra LAN con acceso al puerto 80. Con este informacion podemos comprobar en nuestro browser preferido:
 
 ![image](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/a9bc4069-b928-4041-80d4-34ea00ff8405)
-
-
-
-
-
-
 
 Exitos!!!!
 

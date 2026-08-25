@@ -7,8 +7,6 @@
 5. [Paso 4: Verificacion del estado del cluster](#paso-4-verificacion-del-estado-del-cluster)
 6. [Paso 5: Acceso al Portal](#paso-5-acceso-al-portal)
 
-
-
 ## Resumen del escenario de Red
 
 - **Servicio Expuesto:** `argo-server`
@@ -16,7 +14,6 @@
 - **IP Externa Asignada:** `10.10.100.54`
 - **Dominio FQDN Local:** `argo-workflows.gsve.locals`
 - **Puerto de Acceso:** `2746`
-
 
 ## Paso 1: Exponer el Servidor con MetalLB
 

@@ -1,14 +1,16 @@
 # ✅ Solución: Permitir que Kubernetes Dashboard vea todos los namespaces con un ServiceAccount personalizado
 
+
+[🔍 Problema](#-problema)
+[🛠️ Solución completa paso a paso](#️-solución-completa-paso-a-paso)(
+[Acceder al Dashboard](#acceder-al-dashboard))
+
 ## 🔍 Problema
 
 Después de instalar el Kubernetes Dashboard y acceder con el método **Token**, el panel solo mostraba el namespace `default`. Además, al remover el flag `--namespace=kubernetes-dashboard` para liberar la vista global, el Dashboard crasheaba con errores relacionados a la falta de acceso a secrets:
 
-```
-panic: secrets "kubernetes-dashboard-csrf" not found
-```
 
----
+panic: secrets "kubernetes-dashboard-csrf" not found
 
 ## 🛠️ Solución completa paso a paso
 
@@ -89,7 +91,7 @@ Copiar el token resultante.
 
 ---
 
-### 6. Acceder al Dashboard
+## Acceder al Dashboard
 
 - Ingresar a `https://<IP o DNS>:<NodePort o LoadBalancer>`
 - Seleccionar método **"Token"**

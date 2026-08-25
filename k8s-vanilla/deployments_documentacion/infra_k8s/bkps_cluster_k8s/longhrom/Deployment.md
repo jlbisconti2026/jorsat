@@ -1,6 +1,10 @@
-# Introduccion
+# Indice
 
-## Longhorn
+[Introduccion](#introduccion)
+[Deploy](#deploy)
+[Verificacion](#verificacion)
+
+## Introduccion
 
 Longhorn es una solución robusta y escalable para proporcionar almacenamiento persistente confiable dentro de clústeres de Kubernetes, orientada a simplificar la gestión y protección de datos para aplicaciones distribuidas en entornos de contenedores.
 
@@ -25,14 +29,14 @@ En este documento vamos a detrallar los pasos para el deploy de Longhorn en k8s 
 
 Vamos a optar por helm para realizar el despliegue de Longhorm dentro de nuestro cluster k8s llamado jorsat. Para ello vamos a utilizar los comandos:
 
-```
+```bash
 helm repo add longhorn https://charts.longhorn.io
 helm repo update
 ```
 
 Con estos comandos agregamos el repo helm de Longhorn y lo actualizamos. Luego vamos a crear el namespace:
 
-```
+```bash
 kubectl create namespace longhorn-system
 ```
 
@@ -42,10 +46,14 @@ Ahora procedemos a deployar Longhorn:
 helm install longhorn longhorn/longhorn --namespace longhorn-system
 ```
 
+## Verificacion
+
  Podemos verficar el estatus de todos los pods:
 
-```
+```bash
  jlb@haproxy:~$ kubectl get po
+ ```
+
 NAME                                                READY   STATUS      RESTARTS      AGE
 backing-image-manager-b2c6-d317                     1/1     Running     0             15s
 c-1tmzo5-28637280-dg48s                             0/1     Completed   0             15s
@@ -82,11 +90,11 @@ longhorn-manager-bfhbk                              1/1     Running     0       
 longhorn-manager-cfdks                              1/1     Running     0             48s
 longhorn-ui-b5c5fc79c-jf7tt                         1/1     Running     0             48s
 longhorn-ui-b5c5fc79c-nlgdn                         1/1     Running     0             48s
-```
+
 
 Ahora vamos a modificar el servicio longhorn-frontend para que obtenga una IP externa de nuestra LB metallb:
 
-```
+```bash
 kubectl edit svc longhorn-frontend
 ```
 
@@ -139,8 +147,8 @@ Vamos a cambiar el valor type de ClusterIp a LoadBalancer y nos quedara de la si
       ingress:
       - ip: 10.10.100.40
 ```
-Ingresamos  a la GUI de Longhorn desde nuestro browser a la IP 10.10.100.40 tal como lo muestra la siguiente imagen:
 
+Ingresamos  a la GUI de Longhorn desde nuestro browser a la IP 10.10.100.40 tal como lo muestra la siguiente imagen:
 
 
 ![gui-longhron](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/bc9dbe68-8e0d-4533-82e1-380a3332cd56)

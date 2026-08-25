@@ -1,6 +1,14 @@
 
 # 🧱 Día 2 - Continuación del despliegue del clúster Kubernetes
 
+[🔗 Unión de nodos al clúster](#-unión-de-nodos-al-clúster)
+[Seteo de rol de los nodos worker](#seteo-de-rol-de-los-nodos-worker
+)
+[✅ Verificación de nodos](#-verificación-de-nodos)
+[🖥️ Despliegue de Kubernetes Dashboard](#️-despliegue-de-kubernetes-dashboard)
+[📌 Notas adicionales](#-notas-adicionales)
+
+
 ## 🔗 Unión de nodos al clúster
 
 Después de inicializar correctamente el nodo `master-01` como nodo de control del clúster con `kubeadm init`, se procedió a unir los demás nodos:
@@ -33,7 +41,6 @@ kubectl get nodes
 
 Resultado:
 
-```
 NAME        STATUS   ROLES           AGE   VERSION
 master-01   Ready    control-plane   130m  v1.29.15
 master-02   Ready    control-plane   128m  v1.29.15
@@ -41,7 +48,7 @@ master-03   Ready    control-plane   75m   v1.29.15
 worker-01   Ready    worker          72m   v1.29.15
 worker-02   Ready    worker          72m   v1.29.15
 worker-03   Ready    worker          72m   v1.29.15
-```
+
 
 ## 🖥️ Despliegue de Kubernetes Dashboard
 

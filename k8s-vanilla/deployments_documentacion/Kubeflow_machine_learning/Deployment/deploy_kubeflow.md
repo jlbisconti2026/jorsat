@@ -1,8 +1,15 @@
-# Introduccion
+
+# Indice 
+
+[Introduccion](#introduccion)
+[Instalacion](#instalacion)
+[Acceso al dashboard](#acceso-al-dashboard)
+
+## Introduccion
 
 En este documento breve voy a describir los pasos para deployar la plataforma de machine learning llamada kubeflow. En una proxima documentacion voy a abarcar pruebas desde la plataforma ya instalada.
 
-## Escenario planteado
+### Escenario planteado
 
 Frente a a la necesidad de la realizacion de pruebas de plataformas de machine learning  y redes neuronales, se decidio comenzar por kubeflow.
 
@@ -16,6 +23,7 @@ Nuestra  infraestructura consta de:
 El flavor asignado a las VMs fue:
 
 Nodos k8s:
+
 - Masters:
 - 4 CPU
 - 4 GB de RAM
@@ -45,40 +53,41 @@ Ip planning:
 
 EL primer paso sera  crear una carpeta llamada kubeflow y posicionarnos en ella :
 
-```
+```bash
 mkdir kubeflow
 cd kubeflow
 ```
 
 Luego clonamos el repositorio de kubeflow en github:
 
-```
+```bash
 git clone https://github.com/kubeflow/manifests.git
 ```
 
 Nos movemos al directorio manifiests:
 
-```
+```bash
 cd manifests
 ```
 
 Como siguiente paso vamos a instalar kustomize con el comando:
 
-```
+```bash
 sudo snap install  kustomize
 ```
 
 Ahora vamos a crear todos los recuros de kubeflow utilizando las herramientas  kustomize y kubectl:
 
-```
+```bash
 while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 ```
 
 Luego verificamos los pods creados y en estado running:
 
-```
+```bash
 kubectl get po -A
 ```
+
 Vamos a poder ver el status de los pods de manera similar a la siguiente imagen:
 
 
@@ -90,12 +99,14 @@ Podemos verificar que se crearon todos los namespaces y pods necesarios y que to
 ## Acceso al dashboard
 
 En este paso vamos a editar el servicio  llamado istio-ingressgateway para setear el type como LoadBalancer y asi obetener una ip de nuestra LAN a travez de metallb:
-```
+
+```bash
 kubectl edit svc/istio-ingressgateway -n istio-system
 ```
+
 Dentro de specs vamos a cambiar el valor Clusterip por LoadBalancer y luego guardar y salir. De esta forma vamos a verificar que dicho servicio ya tiene una ip externa:
 
-```
+```bash
 kubectl get svc -n istio-system
 ```
 

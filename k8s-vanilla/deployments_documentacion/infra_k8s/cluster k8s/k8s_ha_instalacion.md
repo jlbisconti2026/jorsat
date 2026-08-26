@@ -1,14 +1,15 @@
 
 # Indice
-[Introduccion](#introduccion)
-[Escenario](#escenario)
-[Instalacion pre requisitos](#instalacion-pre-requisitos)
-[Instalacion nodos k8s](#instalacion-nodos-k8s)
-[Habilitamos  Netfilter para ContainerD](#habilitamos--netfilter-para-containerd)
-[Adaptamos  "overlay" y  "netfilter" para nuestro K8s](#adaptamos--overlay-y--netfilter-para-nuestro-k8s)
-[Instalacion de paquetes necesarios](#instalacion-de-paquetes-necesarios)
-[Inicializamos el cluster de kubernes ](#inicializamos-el-cluster-de-kubernes)
-[Pasos finales](#pasos-finales)
+
+1. [Introduccion](#introduccion)
+2. [Escenario](#escenario)
+3. [Instalacion pre requisitos](#instalacion-pre-requisitos)
+4. [Instalacion nodos k8s](#instalacion-nodos-k8s)
+5. [Habilitamos  Netfilter para ContainerD](#habilitamos--netfilter-para-containerd)
+6. [Adaptamos  "overlay" y  "netfilter" para nuestro K8s](#adaptamos--overlay-y--netfilter-para-nuestro-k8s)
+7. [Instalacion de paquetes necesarios](#instalacion-de-paquetes-necesarios)
+8. [Inicializamos el cluster de kubernes ](#inicializamos-el-cluster-de-kubernes)
+9. [Pasos finales](#pasos-finales)
 
 ## Introduccion
 
@@ -31,9 +32,9 @@ La nueva infraestructura virtual consta de :
   - 4 CPU
   - 4 GB de RAM
   - 120 GB de disco
-    
- Workers:
- - 4 CPU
+  
+  Workers:
+  - 4 CPU
   - 16 GB de RAM
   - 120 GB de disco
  Balanceadora Haproxy:
@@ -43,28 +44,28 @@ La nueva infraestructura virtual consta de :
 
 Ip planning
 
- - Balanceadora HAproxy : 10.10.100.21
- - Master-01 10.10.100.22
- - Master-02 10.10.100.23
- - master-03 10.10.100.24
+- Balanceadora HAproxy : 10.10.100.21
+- Master-01 10.10.100.22
+- Master-02 10.10.100.23
+- master-03 10.10.100.24
 
 ## Instalacion pre requisitos
 
 Para comenzar vamos a hacer la realizacion de los pre requisitos necesarios  a saber:
 
 > Pasos de instalacion y configuracion de HAproxy
- - Instalamos paquete HAproxy
- - Realizamos la configuracion del balanceo
- - Posterior a la instalacion de los nodos master copiaremos .kube/config y certificados
+
+- Instalamos paquete HAproxy
+- Realizamos la configuracion del balanceo
+- Posterior a la instalacion de los nodos master copiaremos .kube/config y certificados
 
 > Hacerlo en  Masters y Workers
+
 - Deshabiltar la particion swap de todos los futuros nodos k8s.
 - Confiruracion de reglas iptables y de sysctl.
 - Instalacion de paquetes necesarios.
 
-
 ### Instalacion de HAproxy
-
 
 Comenzamos con la instalacion del paquete:
 
@@ -103,7 +104,7 @@ backend be-apiserver
    server master-03 10.10.100.24:6443 check fall 3 rise 2
 ```
 
-### Reiniciamos el servicio:
+### Reiniciamos el servicio
 
 ```bash
 systemctl restart haproxy
@@ -121,16 +122,16 @@ Comprobamos  con nc que responda en el puerto 6443
 
 Instalamos los paquetes de kubernestes :
 
- ```
+ ```bash
  sudo apt-cache search kubeadm && apt-cache search kubelet && apt-cache search kubectl
  sudo apt install kubeadm kubelet kubectl -y
   ```
+
 Marcamos los paquetes para que no sean upgradeables
 
-```
+```bash
 sudo apt-mark hold kubeadm kubelet kubectl
 ```
-
 
 ## Instalacion nodos k8s
 
@@ -154,8 +155,7 @@ sudo sysctl --system
 
 ## Adaptamos  "overlay" y  "netfilter" para nuestro K8s
 
-
-```
+```bash
  cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
  overlay
  br_netfilter
@@ -221,11 +221,11 @@ sudo apt install kubeadm kubelet kubectl -y
  sudo systemctl restart kubelet.service
  ```
 
-## Inicializamos el cluster de kubernes 
+## Inicializamos el cluster de kubernes
 
 Comenzamos con nuestro nodo master-01:
 
-```
+```bash
 sudo kubeadm init --control-plane-endpoint 10.10.100.21:6443 --upload-certs --pod-network-cidr=192.168.0.0/16 
 ```
 
@@ -233,20 +233,21 @@ Luego de tener nuestro nodo master-01 vamos a instalar calico como CNI para el m
 
 Descargamos calico:
 
-```
+```bash
 wget https://docs.projectcalico.org/manifests/calico.yaml
 ```
 
 Luego aplicamos el archivo calico.yaml:
 
-```
+```bash
 kubectl apply -f calico.yaml
 ```
+
 En unos minutos veremos que nuestro nodo esta en estado ready:
-```
+
 NAME        STATUS   ROLES           AGE    VERSION
 master-01   Ready    control-plane   2m    v1.29.4
-```
+
 A continuacion  procedemos a joinear los nodos master-02 y master-03 con el siguiente comando:
 
 ```bash
@@ -254,17 +255,20 @@ sudo kubeadm join 10.10.100.24:6443 --token 152el8.p0ajifpi371yawc0 \
         --discovery-token-ca-cert-hash sha256:c352f0b3740a2db9448dd438921bb350113b459447a2bddbbce9a80ae86c9e9d \
         --control-plane --certificate-key 187bb2675840bb108b5293aec3ab9c301996ff31a5b61f4059537ccc5245068f
 ```
+
 > Siempre tener en cuenta que los valores de los flags token, --discovery-token-ca-cert-has y -certificate-key son unicos en cada join de nodos con lo cual deben  colocar los valores resultantes del comando  kubeadm init de nuestro primer nodo master.
 
 Ahora chequiemos que los pod del namespace kube-system esten distribuidos en los tres nodos master. 
 
-Ejecutamos el comando 
+Ejecutamos el comando
 
 ```bash
  kubectl get po -n kube-system 
 ```
+
 Deberemos ver que tenemos lso siguintes pods criticos:
-```
+
+```bash
 kube-scheduler-master-01                  
 kube-scheduler-master-02                
 kube-scheduler-master-03
@@ -283,14 +287,15 @@ etcd-master-03
 ```
 
 Join de nuestro nodo worker:
-```
+
+```bash
 sudo kubeadm join 10.10.100.24:6443 --token 152el8.p0ajifpi371yawc0 \
         --discovery-token-ca-cert-hash sha256:187bb2675840bb108b5293aec3ab9c301996ff31a5b61f4059537ccc5245068f
 ```
 
- labeleo d elso workers 
+ labeleo d elso workers
 
-```
+```bash
 kubectl label node worker-01 node-role.kubernetes.io/worker=worker
 
 kubectl label node worker-02 node-role.kubernetes.io/worker=worker
@@ -302,12 +307,9 @@ kubectl label node worker-03 node-role.kubernetes.io/worker=worker
 
 AL final de este doc lo que haremos es copiar el path .kube/config desde cualquier nodo master del cluster hacia el home de nuestra balanceadora HAproxy ya que necesita la config de auth de los api server
 
-```
+```bash
 scp -r .kube/ jlb@10.10.100.21:/home/jlb/
 
 ```
 
 Finalmnete resta probar reiniciando nodos mater para comprobar que el cluster sigue disponible. Podemos chequear los logs de Haproxy para verificar que marque como DOWN el master reiniciado y los demas UP.
-
-
-

@@ -1,9 +1,10 @@
 
 # Indice
-[Introducción](#introducción)
-[Componentes de MetalLB](#componentes-de-metallb)
-[Infraestructura](#infraestructura)
-[Instalación](#instalación)
+
+1. [Introducción](#introducción)
+2. [Componentes de MetalLB](#componentes-de-metallb)
+3. [Infraestructura](#infraestructura)
+4. [Instalación](#instalación)
 
 ## Introducción
 
@@ -30,10 +31,9 @@ Esta documentación es referente al despliegue de MetalLB en un clúster Kuberne
 
 El hipervisor utilizado para correr las VMs es VMware® Workstation 17 Pro 17.5.1 build-23298084. El flavor asignado a las VMs fue:
 
-  - 4 CPU
-  - 4 GB de RAM
-  - 120 GB de disco
-  - 
+- 4 CPU
+- 4 GB de RAM
+- 120 GB de disco
 
 ## Instalación
 
@@ -62,6 +62,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.4/confi
 Como tercer paso, vamos a crear los archivos YAML correspondientes al pool de IP's que asignará MetalLB y al archivo L2Advertisement para indicar que vamos a usar capa 2 con ARP como forma de anunciar las IP.
 
 IPPOOL
+
 ```yaml
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -72,7 +73,9 @@ spec:
   addresses:
   - 10.10.100.30-10.10.100.60
 ```
+
 L2Advertisement
+
 ```yaml
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -83,12 +86,14 @@ spec:
   ipAddressPools:
   - first-pool
 ```
+
 Después de generar estos archivos, los aplicamos con los comandos:
 
 ```bash
 kubectl create -f ippool.yaml
 kubectl create -f L2Advertisement.yaml
 ```
+
 Luego, verificamos que los pods estén corriendo correctamente:
 
 ```bash
@@ -164,20 +169,5 @@ Deberías obtener una salida similar a esta:
 NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)         AGE
 kubernetes-dashboard   LoadBalancer   10.103.93.204   10.10.20.20   443:31796/TCP   46h
 
-Como puedes ver, MetalLB asignó una IP externa del rango creado. Ahora Podemos acceder a nuestro kubernetes-dashboard tipeando https://10.10.20.20/#/login. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Como puedes ver, MetalLB asignó una IP externa del rango creado. Ahora Podemos acceder a nuestro kubernetes-dashboard tipeando https://10.10.20.20/#/login.
 

@@ -1,7 +1,8 @@
 # Indice
+
 [3.1 Permisos globales (equivalente a cluster-admin)](#31-permisos-globales-equivalente-a-cluster-admin)
 [3.2 Permisos críticos para Apigee hybrid](#32-permisos-críticos-para-apigee-hybrid)
-[4. Verificación estructural ](#4-verificación-estructural)
+[4. Verificación estructural](#4-verificación-estructural)
 [5. Prueba final (solo si EXA67846 puede loguearse)](#5-prueba-final-solo-si-exa67846-puede-loguearse)
 
 

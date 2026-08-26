@@ -1,7 +1,7 @@
 # Error de credenciales de OKD contra vCenter
 
-[Síntoma](#sintoma)
-[Causa](#Causa)
+1. [Síntoma](#sintoma)
+2. [Causa](#Causa)
 
 
 ## Síntoma

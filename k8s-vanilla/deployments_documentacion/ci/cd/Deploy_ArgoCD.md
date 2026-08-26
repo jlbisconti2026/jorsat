@@ -1,13 +1,13 @@
 
 # Indice
 
-[Despliegue de ArgoCD con MetalLB en Kubernetes (GitOps)](#despliegue-de-argocd-con-metallb-en-kubernetes-gitops)
-[🚀 Paso 1: Creación del Namespace Dedicado](#-paso-1-creación-del-namespace-dedicado)
-[Paso 2: Despliegue e Instalación de Manifiestos (Server-Side Apply)](#paso-2-despliegue-e-instalación-de-manifiestos-server-side-apply)
-[🔄 Paso 3: Reinicio y Sincronización en Orden de los Componentes](#-paso-3-reinicio-y-sincronización-en-orden-de-los-componentes)
-[🌐 Paso 4: Exposición del Servicio mediante MetalLB (LoadBalancer)](#-paso-4-exposición-del-servicio-mediante-metallb-loadbalancer)
-[🔑 Paso 5: Recuperación de la Contraseña de Administrador](#-paso-5-recuperación-de-la-contraseña-de-administrador)
-[🖥️ Paso 6: Acceso a la Interfaz Web y Bypass de Seguridad en Brave](#️-paso-6-acceso-a-la-interfaz-web-y-bypass-de-seguridad-en-brave)
+1. [Despliegue de ArgoCD con MetalLB en Kubernetes (GitOps)](#despliegue-de-argocd-con-metallb-en-kubernetes-gitops)
+2. [🚀 Paso 1: Creación del Namespace Dedicado](#-paso-1-creación-del-namespace-dedicado)
+3. [Paso 2: Despliegue e Instalación de Manifiestos (Server-Side Apply)](#paso-2-despliegue-e-instalación-de-manifiestos-server-side-apply)
+4. [🔄 Paso 3: Reinicio y Sincronización en Orden de los Componentes](#-paso-3-reinicio-y-sincronización-en-orden-de-los-componentes)
+5. [🌐 Paso 4: Exposición del Servicio mediante MetalLB (LoadBalancer)](#-paso-4-exposición-del-servicio-mediante-metallb-loadbalancer)
+6. [🔑 Paso 5: Recuperación de la Contraseña de Administrador](#-paso-5-recuperación-de-la-contraseña-de-administrador)
+7. [🖥️ Paso 6: Acceso a la Interfaz Web y Bypass de Seguridad en Brave](#️-paso-6-acceso-a-la-interfaz-web-y-bypass-de-seguridad-en-brave)
 
 
 

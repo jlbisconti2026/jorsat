@@ -11,23 +11,23 @@ Si usas el modelo recomendado de cuentas separadas, estos son los roles exactos 
 | **UDCA** | `roles/apigee.analyticsAgent` | Recolecta y sube los datos analíticos de las llamadas (comparte rol con Runtime). |
 | **Connect Agent** | `roles/apigee.runtimeAgent` | Mantiene el túnel de conexión activo (comparte rol con Watcher). |
 
-
 Entorno actual de DESA / TEST:
 
-Como unificaste las funciones en apigee-non-prod@claup-apigee-hybrid-desa.iam.gserviceaccount.com, asegúrate de que esa única cuenta tenga asignados en IAM estos 4 roles en paralelo:
-1.	Administrador de Apigee Synchronizer (roles/apigee.synchronizerManager)
-2.	Agente de tiempo de ejecución de Apigee (roles/apigee.runtimeAgent)
-3.	Agente de analítica de Apigee (roles/apigee.analyticsAgent)
-4.	Procesador de entradas de Apigee (roles/apigee.entriesProcessor)
+Como unificaste las funciones en <apigee-non-prod@claup-apigee-hybrid-desa.iam.gserviceaccount.com>, asegúrate de que esa única cuenta tenga asignados en IAM estos 4 roles en paralelo:
+
+1. Administrador de Apigee Synchronizer (roles/apigee.synchronizerManager)
+2. Agente de tiempo de ejecución de Apigee (roles/apigee.runtimeAgent)
+3. Agente de analítica de Apigee (roles/apigee.analyticsAgent)
+4. Procesador de entradas de Apigee (roles/apigee.entriesProcessor)
 En tu futuro entorno de PROD:
 Por políticas de seguridad corporativa y auditoría en producción, la recomendación estricta es crear cuatro Service Accounts distintas en el proyecto de producción:
-•	apigee-synchronizer@claro-apigee-hybrid-prod... ➔ Con el rol synchronizerManager
-•	apigee-watcher@claro-apigee-hybrid-prod... ➔ Con el rol runtimeAgent
-•	apigee-runtime@claro-apigee-hybrid-prod... ➔ Con el rol analyticsAgent
-•	apigee-mart@claro-apigee-hybrid-prod... ➔ Con el rol entriesProcessor
+• apigee-synchronizer@claro-apigee-hybrid-prod... ➔ Con el rol synchronizerManager
+• apigee-watcher@claro-apigee-hybrid-prod... ➔ Con el rol runtimeAgent
+• apigee-runtime@claro-apigee-hybrid-prod... ➔ Con el rol analyticsAgent
+• apigee-mart@claro-apigee-hybrid-prod... ➔ Con el rol entriesProcessor
 💡 Recordatorio de Oro: No importa si usas una sola cuenta o cuentas separadas, cada vez que crees la SA del Synchronizer en cualquier ambiente, el paso final e indispensable será ejecutar el comando setSyncAuthorization que descubrimos hoy para darle luz verde en la nube.
 
-# Component Service Accounts and IAM Roles
+## Component Service Accounts and IAM Roles
 
 | Component / Service Account Name | Predefined IAM Role | IAM Role Reference String | Purpose & Permissions |
 | :--- | :--- | :--- | :--- |
@@ -39,6 +39,3 @@ Por políticas de seguridad corporativa y auditoría en producción, la recomend
 | **apigee-metrics** | Monitoring Metric Writer | `roles/monitoring.metricWriter` | Writes health metrics directly into Cloud Monitoring. |
 | **apigee-cassandra** | Storage Object Admin | `roles/storage.objectAdmin` | Used optionally for backing up and restoring database cluster snapshots into Cloud Storage. |
 | **apigee-runtime** | Optional Roles Only | `roles/cloudtrace.agent` (Optional) | Requires no default role, but requires Cloud Trace Agent if using Google Distributed Tracing. |
-
-
-

@@ -9,7 +9,6 @@
 [SOLUCIÓN PARA EL REGISTRO DE IMÁGENES (IMAGE REGISTRY)](#solución-para-el-registro-de-imágenes-image-registry)
 [VERIFICACIÓN FINAL DEL CLÚSTER](#verificación-final-del-clúster)
 
-
 ## DIAGNÓSTICO DEL BLOQUEO (TAINT)
 
 Los nodos de infraestructura dedicados (infra0, infra1, infra2) tienen activo el
@@ -66,6 +65,7 @@ Guardá y salí del editor (:wq). El operador recreará los pods en tus nodos in
 ```bash
 oc get po -n openshift-ingress | grep router-default
 ```
+
 La salida debe ser similar a la siguiente:
 
 router-default-5bc8685474-jtdql                                   2/2     Running   0
@@ -83,7 +83,7 @@ no puede ingresar a los nodos de infraestructura para completar el despliegue.
    oc edit configs.imageregistry.operator.openshift.io/cluster
 ```
 
-2.  Buscá el bloque 'spec' y agregá la tolerancia exacta (si ya existen toleraciones,
+1. Buscá el bloque 'spec' y agregá la tolerancia exacta (si ya existen toleraciones,
    añadila como un elemento más de la lista):
 
 ```yaml

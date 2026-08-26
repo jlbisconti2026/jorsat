@@ -1,4 +1,4 @@
-## Índice de Contenidos
+# Índice de Contenidos
 
 1. [Resumen Ejecutivo](#1-resumen-ejecutivo)
 2. [Diagrama de la Secuencia de Recuperación](#2-diagrama-de-la-secuencia-de-recuperación)
@@ -8,9 +8,9 @@
    - [Paso 3: Limpieza de Recursos Atascados (Finalizers)](#paso-3-limpieza-de-recursos-atascados-finalizers)
    - [Paso 4: Re-despliegue de Componentes Base e Infraestructura](#paso-4-re-despliegue-de-componentes-base-e-infraestructura)
    - [Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts](#paso-5-despliegue-de-entornos-environments-y-virtual-hosts)
----
 
-# Recuperación de Entorno Apigee Hybrid
+
+## Recuperación de Entorno Apigee Hybrid
 
 ## 1. Resumen Ejecutivo
 
@@ -38,6 +38,7 @@ oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeeis
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeerouteconfigs.yaml
 oc create -f apigee-operator/etc/crds/crd/bases/apigee.cloud.google.com_apigeedatastores.yaml
 ```
+
 ### Paso 2: Eliminación de Webhooks Interceptores Bloqueantes
 
 Problema: Los comandos de Helm rebotaban con el error failed calling webhook: no endpoints available for service "apigee-webhook-service".

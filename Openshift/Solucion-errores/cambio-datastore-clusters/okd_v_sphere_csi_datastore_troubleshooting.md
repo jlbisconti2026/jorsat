@@ -10,7 +10,6 @@
 [Conclusión](#conclusión)
 [Recomendaciones](#recomendaciones)
 
-
 ## Contexto
 
 Cluster **OKD 4.18** sobre **vSphere** con el operador **vmware-vsphere-csi-driver** en estado **Degraded**.

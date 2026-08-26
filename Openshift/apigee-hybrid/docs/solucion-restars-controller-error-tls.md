@@ -1,12 +1,12 @@
 # Indice
 
- * [Descripcion del Problema](#1-descripcion-del-problema)
- * [Diagnóstico y Causa Raíz](#2-diagnostico-y-causa-raiz)
- * [Pasos de la Solucion Aplicada](#3-pasos-de-la-solucion-aplicada)
-* [Correccion de la estrategia de conversion en el crd](#correccion-de-la-estrategia-de-conversion-en-el-crd)
-* [Inyeccion del certificado CA para TLS](#inyeccion-del-certificado-ca-para-tls)
-* [Reinicio del Deployment](#reinicio-del-deployment)
-* [Resultados y verificaccion](#resultados-y-verificacion)
+ 1. [Descripcion del Problema](#1-descripcion-del-problema)
+ 2. [Diagnóstico y Causa Raíz](#2-diagnostico-y-causa-raiz)
+ 3. [Pasos de la Solucion Aplicada](#3-pasos-de-la-solucion-aplicada)
+ 4. [Correccion de la estrategia de conversion en el crd](#correccion-de-la-estrategia-de-conversion-en-el-crd)
+ 5. [Inyeccion del certificado CA para TLS](#inyeccion-del-certificado-ca-para-tls)
+ 6. [Reinicio del Deployment](#reinicio-del-deployment)
+ 7. [Resultados y verificaccion](#resultados-y-verificacion)
 
 ## 1. Descripcion del Problema
 
@@ -46,11 +46,11 @@ Se cambió la estrategia de conversión del CRD de None a Webhook, asociándolo 
 
 Se extrajo el certificado TLS desde el secreto webhook-server-cert y se aplicó un parche directo (oc patch) sobre el CRD para incluir explícitamente la CA y la configuración del webhook:
 
-# 1. Extraer el certificado del secreto
+### 1. Extraer el certificado del secreto
 
 EXPORTED_CA=$(oc get secret webhook-server-cert -n claro-apigee-hybrid-desa -o jsonpath='{.data.tls\.crt}')
 
-# 2. Aplicar el parche al CRD
+### 2. Aplicar el parche al CRD
 
 ```yaml
 oc patch crd apigeedeployments.apigee.cloud.google.com --type=merge -p "{

@@ -1,18 +1,18 @@
 
 # Indice
 
-[Guía: Fail‑Open (bypass) con Suricata + NFQUEUE + nftables + Squid](#guía-failopen-bypass-con-suricata--nfqueue--nftables--squid)
-[0) Snapshot del entorno](#0-snapshot-del-entorno)
-[1) Kernel: activar `nf_queue_bypass`](#1-kernel-activar-nf_queue_bypass)
-[2) Base `nftables` **sin** reglas `queue` fijas](#2-base-nftables-sin-reglas-queue-fijas)
-[3) Scripts ON/OFF para **q0** (web: pre‑proxy + 4555/4556)](#3-scripts-onoff-para-q0-web-preproxy--45554556)
-[4) Scripts ON/OFF para **q1** (DNS/ICMP)](#4-scripts-onoff-para-q1-dnsicmp)
-[5) Drop‑ins de systemd (ON al iniciar, OFF al parar)](#5-dropins-de-systemd-on-al-iniciar-off-al-parar)
-[6) YAMLs clave (q0 como ejemplo)](#6-yamls-clave-q0-como-ejemplo)
-[7) Pruebas y validación](#7-pruebas-y-validación)
-[8) Troubleshooting rápido](#8-troubleshooting-rápido)
-[9) Anexos útiles](#9-anexos-útiles)
-[10) Resultado](#10-resultado)
+1. [Guía: Fail‑Open (bypass) con Suricata + NFQUEUE + nftables + Squid](#guía-failopen-bypass-con-suricata--nfqueue--nftables--squid)
+2. [0) Snapshot del entorno](#0-snapshot-del-entorno)
+3. [1) Kernel: activar `nf_queue_bypass`](#1-kernel-activar-nf_queue_bypass)
+4. [2) Base `nftables` **sin** reglas `queue` fijas](#2-base-nftables-sin-reglas-queue-fijas)
+5. [3) Scripts ON/OFF para **q0** (web: pre‑proxy + 4555/4556)](#3-scripts-onoff-para-q0-web-preproxy--45554556)
+6. [4) Scripts ON/OFF para **q1** (DNS/ICMP)](#4-scripts-onoff-para-q1-dnsicmp)
+7. [5) Drop‑ins de systemd (ON al iniciar, OFF al parar)](#5-dropins-de-systemd-on-al-iniciar-off-al-parar)
+8. [6) YAMLs clave (q0 como ejemplo)](#6-yamls-clave-q0-como-ejemplo)
+9. [7) Pruebas y validación](#7-pruebas-y-validación)
+10. [8) Troubleshooting rápido](#8-troubleshooting-rápido)
+11. [9) Anexos útiles](#9-anexos-útiles)
+12. [10) Resultado](#10-resultado)
 
 ## Guía: Fail‑Open (bypass) con Suricata + NFQUEUE + nftables + Squid
 

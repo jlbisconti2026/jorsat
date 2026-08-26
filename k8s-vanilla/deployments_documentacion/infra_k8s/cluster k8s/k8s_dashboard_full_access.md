@@ -1,9 +1,8 @@
-# ✅ Solución: Permitir que Kubernetes Dashboard vea todos los namespaces con un ServiceAccount personalizado
+# Indice
 
-
-[🔍 Problema](#-problema)
-[🛠️ Solución completa paso a paso](#️-solución-completa-paso-a-paso)(
-[Acceder al Dashboard](#acceder-al-dashboard))
+1. [🔍 Problema](#-problema)
+2. [🛠️ Solución completa paso a paso](#️-solución-completa-paso-a-paso)(
+3. [Acceder al Dashboard](#acceder-al-dashboard))
 
 ## 🔍 Problema
 

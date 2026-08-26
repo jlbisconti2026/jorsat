@@ -1,8 +1,8 @@
 # Indice
 
-[Introduccion](#introduccion)
-[Deploy](#deploy)
-[Verificacion](#verificacion)
+1. [Introduccion](#introduccion)
+2. [Deploy](#deploy)
+3. [Verificacion](#verificacion)
 
 ## Introduccion
 

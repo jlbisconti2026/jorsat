@@ -1,5 +1,14 @@
 
-# 🧱 Día 2 - Continuación del despliegue del clúster Kubernetes
+# Indice
+
+1. [🧱 Día 2 - Continuación del despliegue del clúster Kubernetes](#-día-2---continuación-del-despliegue-del-clúster-kubernetes)
+
+2. [✅ Verificación de nodos](#-verificación-de-nodos)
+
+3. [🖥️ Despliegue de Kubernetes Dashboard](#️-despliegue-de-kubernetes-dashboard)
+4. [📌 Notas adicionales](#-notas-adicionales)
+
+## 🧱 Día 2 - Continuación del despliegue del clúster Kubernetes
 
 [🔗 Unión de nodos al clúster](#-unión-de-nodos-al-clúster)
 [Seteo de rol de los nodos worker](#seteo-de-rol-de-los-nodos-worker

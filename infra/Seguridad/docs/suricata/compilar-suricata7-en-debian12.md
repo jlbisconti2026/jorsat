@@ -10,7 +10,6 @@
 7. [🧪 Paso 7: Ejecutar Suricata](#-paso-7-ejecutar-suricata)
 8. [🧹 Paso 8: Variables útiles (opcional)](#-paso-8-variables-útiles-opcional)
 
-
 Este documento detalla cómo compilar e instalar **Suricata 7.x** desde código fuente en **Debian 12**, incluyendo soporte para NFQUEUE, eBPF, y más, con instalación final en `/opt`.
 
 ## 📦 Paso 1: Instalar dependencias necesarias

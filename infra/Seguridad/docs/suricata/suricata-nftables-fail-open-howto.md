@@ -226,7 +226,6 @@ sudo chmod +x /usr/local/sbin/nft-q1-off.sh
 
 Permiten ejecutar los scripts como **root** y **no** tumbar el servicio si el script falla (gracias al `-` al inicio).
 
-
 ```bash
 /etc/systemd/system/suricata-q0.service.d/10-nft-toggle.conf
 ```

@@ -1,15 +1,15 @@
 
 # Indice
 
-[🛡️ Suricata Multi-Hilo con NFQUEUE 0 y 1 + SuriWeb Dashboard](#️-suricata-multi-hilo-con-nfqueue-0-y-1--suriweb-dashboard)
-[🎯 Objetivo](#-objetivo)
-[⚙️ Configuración de Suricata](#️-configuración-de-suricata)
-[Systemd Units](#systemd-units)
-[🔥 IPTABLES (rules.v4)](#-iptables-rulesv4)
-[🧠 SuriWeb Integración](#-suriweb-integración)
-[📦 Logrotate](#-logrotate)
-[🚀 Resultado](#-resultado)
-[✅ Recomendaciones Futuras](#-recomendaciones-futuras)
+1. [🛡️ Suricata Multi-Hilo con NFQUEUE 0 y 1 + SuriWeb Dashboard](#️-suricata-multi-hilo-con-nfqueue-0-y-1--suriweb-dashboard)
+2. [🎯 Objetivo](#-objetivo)
+3. [⚙️ Configuración de Suricata](#️-configuración-de-suricata)
+4. [Systemd Units](#systemd-units)
+5. [🔥 IPTABLES (rules.v4)](#-iptables-rulesv4)
+6. [🧠 SuriWeb Integración](#-suriweb-integración)
+7. [📦 Logrotate](#-logrotate)
+8. [🚀 Resultado](#-resultado)
+9. [✅ Recomendaciones Futuras](#-recomendaciones-futuras)
 
 ## 🛡️ Suricata Multi-Hilo con NFQUEUE 0 y 1 + SuriWeb Dashboard
 

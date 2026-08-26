@@ -80,7 +80,9 @@ sudo nft -c -f /etc/nftables.conf && sudo nft -f /etc/nftables.conf
 
 Estos scripts **añaden** o **eliminan** reglas `queue` con `flags bypass`, marcadas con comments (`q0-pre`, `q0-post`). Son **idempotentes** y **no fallan** si ya existen/no existen.
 
-**/usr/local/sbin/nft-q0-on.sh**
+```bash
+/usr/local/sbin/nft-q0-on.sh**
+```
 
 ```bash
 #!/usr/bin/env bash
@@ -97,7 +99,9 @@ add_rule "q0-post" 'iifname "lan" tcp dport {4555,4556} counter queue flags bypa
 exit 0
 ```
 
-**/usr/local/sbin/nft-q0-off.sh**
+```bash
+/usr/local/sbin/nft-q0-off.sh
+```
 
 ```bash
 #!/usr/bin/env bash
@@ -148,7 +152,9 @@ sudo chmod +x /usr/local/sbin/nft-q0-off.sh
 
 ## 4) Scripts ON/OFF para **q1** (DNS/ICMP)
 
-**/usr/local/sbin/nft-q1-on.sh**
+```bash
+/usr/local/sbin/nft-q1-on.sh
+```
 
 ```bash
 #!/usr/bin/env bash
@@ -163,7 +169,9 @@ add_rule "q1-icmp" 'iifname "lan" ip protocol icmp counter queue flags bypass to
 exit 0
 ```
 
-**/usr/local/sbin/nft-q1-off.sh**
+```bash
+/usr/local/sbin/nft-q1-off.sh
+```
 
 ```bash
 #!/usr/bin/env bash
@@ -218,7 +226,10 @@ sudo chmod +x /usr/local/sbin/nft-q1-off.sh
 
 Permiten ejecutar los scripts como **root** y **no** tumbar el servicio si el script falla (gracias al `-` al inicio).
 
-**/etc/systemd/system/suricata-q0.service.d/10-nft-toggle.conf**
+
+```bash
+/etc/systemd/system/suricata-q0.service.d/10-nft-toggle.conf
+```
 
 ```ini
 [Service]
@@ -227,7 +238,9 @@ ExecStartPost=-/usr/local/sbin/nft-q0-on.sh
 ExecStopPost=-/usr/local/sbin/nft-q0-off.sh
 ```
 
+```bash
 **/etc/systemd/system/suricata-q1.service.d/10-nft-toggle.conf**
+```
 
 ```ini
 [Service]
@@ -247,7 +260,9 @@ sudo systemctl restart suricata-q0 suricata-q1
 
 ## 6) YAMLs clave (q0 como ejemplo)
 
-**/opt/suricata/etc/suricata-q0.yaml**
+```bash
+/opt/suricata/etc/suricata-q0.yaml
+```
 
 ```yaml
 %YAML 1.1

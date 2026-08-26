@@ -1,9 +1,15 @@
 # Error de credenciales de OKD contra vCenter
 
+<<<<<<< HEAD
 [Síntoma](#síntoma)
 [Causa](#causa)
 [Resolución](#resolución)
 [Resultado esperado](#resultado-esperado)
+=======
+1. [Síntoma](#sintoma)
+2. [Causa](#Causa)
+
+>>>>>>> 48b138753a239916105916f9325aa329ad020f7b
 
 ## Síntoma
 

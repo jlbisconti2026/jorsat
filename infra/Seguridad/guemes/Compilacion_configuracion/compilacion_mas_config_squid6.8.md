@@ -1,3 +1,16 @@
+# Indice
+
+1. [Introduccion](#introduccion)
+2. [Escenario planteado](#escenario-planteado)
+3. [Descarga y compilacion de Squid 6.8](#descarga-y-compilacion-de-squid-68)
+4. [Armado de archivo squid.conf](#armado-de-archivo-squidconf)
+5. [Creacion de servicio systemd parab Squid](#creacion-de-servicio-systemd-parab-squid)
+6. [Descripción del servicio](#descripción-del-servicio)
+7. [Generacion de certificados y keys](#generacion-de-certificados-y-keys)
+8. [Habilitar el servicio](#habilitar-el-servicio)
+9. [Comprobar la persistencia](#comprobar-la-persistencia)
+10. [Comandos para gestionar Squid](#comandos-para-gestionar-squid)
+
 ## Introduccion
 
 En esta oportunidad vamos a realizar la copilacion y configuracion de el proxy Squid en la version 6.8. Tambien conforme avancen los dias se van a realizar diversar pruebas y customizaciones. Fundamentalmente voy a  a compilar y configurar Squid para funcionar en modo intercept de ssl a la par  de utilizarlo como nuevo servidor proxy de mi red.
@@ -20,19 +33,19 @@ En cuanto al Software utilizado el detalle es el siguiente:
 
 Comenzamos por descargar Squid 6.8 con el siguiente comando:
 
-```
+```bash
 wget https://www.squid-cache.org/Versions/v6/squid-6.8.tar.gz
 ```
 
 Una vez descargado lo descomprimimos en la carpeta destino elegida. En mi caso opte por usar /opt:
 
-```
+```bash
 tar -zxvf squid-6.8.tar.gz
 ```
 
 Ahora ingresamos en la carpeta generada por la  descompresion:
 
-```
+```bash
 cd squid-6.8
 ```
 
@@ -40,7 +53,7 @@ cd squid-6.8
 
 Para realizar la compilacion de Squid 6.8 con los features que necesitamos vamos correr primero el comando ./configure con los flags nevesarios:
 
-```
+```bash
  ./configure --with-openssl --enable-ssl-crtd --prefix=/opt/squid-6.8 --enable-ssl-bump --enable-transparent
 ```
 
@@ -54,12 +67,11 @@ En este comando vamos a configurar la instalacion con las opciones especificas q
 
 Luego de que el comando ./configure con los flags necesarios corremos los comandos:
 
-```
+```bash
  make && make install
 ```
 
-> Nota: Podemos correr los comandos por separado como forma de asegurarnos que ambos terminen sin errores. 
-
+> Nota: Podemos correr los comandos por separado como forma de asegurarnos que ambos terminen sin errores.
 
 Al finalizar el proceso de compilacion vamos a poder verficar como quedaron los distintas carpetas:
 
@@ -187,9 +199,9 @@ Este es el detalle de lso campos de mi archivo squid.conf:
 - `max_filedescriptors 4096`: Configura el número máximo de descriptores de archivo.
 - `reply_body_max_size 4096 MB`: Define el tamaño máximo de respuesta permitido.
 
-# Creacion de servicio systemd parab Squid
+## Creacion de servicio systemd parab Squid
 
-## Paso 1: Crear el archivo de servicio
+### Paso 1: Crear el archivo de servicio
 
 Crear el archivo correspondiente en la ruta `/etc/systemd/system/squid.service` con el siguiente contenido:
 
@@ -211,8 +223,10 @@ Group=nogroup
 WantedBy=multi-user.target
 ```
 
-## Descripción del servicio.
-### After: Indica que el servicio debe iniciarse después de que el objetivo network-online.target esté activo.
+## Descripción del servicio
+
+### After: Indica que el servicio debe iniciarse después de que el objetivo network-online.target esté activo
+
 [Service]
 
 - `Type=forking`: Indica que el servicio se inicia con un proceso padre que se bifurca (fork).
@@ -227,7 +241,7 @@ WantedBy=multi-user.target
 
 Ejecutar el siguiente comando para recargar los archivos de configuración de systemd:
 
-```
+```bash
 systemctl daemon-reload
 
 ```
@@ -236,7 +250,7 @@ systemctl daemon-reload
 
 Antes de iniciar el nuevo servicio Squid necesitamos crear certificados y keys. Los comandos son los siguientes:
 
-```
+```bash
 /opt/squid-6.8/libexec/security_file_certgen -c -s /opt/squid-6.8/ssl -M 128MB
  mkdir cassl
  openssl genrsa -out private.key 4096
@@ -248,23 +262,25 @@ Antes de iniciar el nuevo servicio Squid necesitamos crear certificados y keys. 
  cat private.key >>proxyca.pem
 ```
 
-
 ## Habilitar el servicio
+
 Ejecutar el siguiente comando para habilitar el servicio de Squid para que se inicie automáticamente al arrancar el sistema:
 
-```
+```bash
 systemctl enable squid --now
 ```
+
 ## Comprobar la persistencia
+
 Para comprobar que el servicio se inicia correctamente después de un reinicio, reiniciar el sistema con:
 
-```
+```bash
 reboot
 ```
 
-# Comandos para gestionar Squid
+## Comandos para gestionar Squid
 
-## Reconfigurar Squid después de realizar cambios en squid.conf
+### Reconfigurar Squid después de realizar cambios en squid.conf
 
 Ejecutar el siguiente comando para recargar la configuración de Squid sin detener el servicio:
 
@@ -272,6 +288,3 @@ Ejecutar el siguiente comando para recargar la configuración de Squid sin deten
 /opt/squid-6.8/sbin/squid -f /opt/squid-6.8/etc/squid.conf -k reconfigure
 
 ```
-
-
-

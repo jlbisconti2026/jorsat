@@ -1,16 +1,14 @@
-# Indice 
+# Indice
 
 [Mantenimiento y recuperación de nodo en OKD](#mantenimiento-y-recuperación-de-nodo-en-okd)
-[ Retirar el nodo del clúster (Drain)](#retirar-el-nodo-del-clúster-drain)
+[Retirar el nodo del clúster (Drain)](#retirar-el-nodo-del-clúster-drain)
 [Ingresar al nodo en falla](#ingresar-al-nodo-en-falla)
 [Detener servicios de Kubernetes](#detener-servicios-de-kubernetes)
 [Detener pods y contenedores](#detener-pods-y-contenedores)
 [Eliminar pods detenidos](#eliminar-pods-detenidos)
-[ Reinicializar CRI-O y limpiar contenedores](#reinicializar-cri-o-y-limpiar-contenedores)
+[Reinicializar CRI-O y limpiar contenedores](#reinicializar-cri-o-y-limpiar-contenedores)
 [Levantar servicios](#levantar-servicios)
 [Resultado esperado](#resultado-esperado)
-
-
 
 ## Mantenimiento y recuperación de nodo en OKD
 

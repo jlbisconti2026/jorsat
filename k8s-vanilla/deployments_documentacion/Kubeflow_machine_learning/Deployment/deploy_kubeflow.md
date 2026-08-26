@@ -1,9 +1,9 @@
 
 # Indice 
 
-[Introduccion](#introduccion)
-[Instalacion](#instalacion)
-[Acceso al dashboard](#acceso-al-dashboard)
+1. [Introduccion](#introduccion)
+2. [Instalacion](#instalacion)
+3. [Acceso al dashboard](#acceso-al-dashboard)
 
 ## Introduccion
 

@@ -1,10 +1,11 @@
 
 # Indice
-[Kubeflow Multi-Tenancy](#kubeflow-multi-tenancy)
-[Profiles de Kubeflow](#profiles-de-kubeflow)
-[Creacion de profile](#creacion-de-profile)
-[Creacion de las credenciales  de acceso al profile/namespace creado](#creacion-de-las-credenciales--de-acceso-al-profilenamespace-creado)
-[ Comprobacion final](#comprobacion-final)
+
+1. [Kubeflow Multi-Tenancy](#kubeflow-multi-tenancy)
+2. [Profiles de Kubeflow](#profiles-de-kubeflow)
+3. [Creacion de profile](#creacion-de-profile)
+4. [Creacion de las credenciales  de acceso al profile/namespace creado](#creacion-de-las-credenciales--de-acceso-al-profilenamespace-creado)
+5. [Comprobacion final](#comprobacion-final)
 
 ## Kubeflow Multi-Tenancy
 
@@ -50,6 +51,7 @@ spec:
      persistentvolumeclaims: "1"
      requests.storage: "5Gi"
 ```
+
 > Nota: Si necesesitamos que nuestro profile no tenga limitacion de recursos no colocamos el campo resourceQuotaSpec en nuestro yaml.
 
 Luego, como  siguiente paso,  voy a aplicar el archivo  profile-jlb.yaml con el comando
@@ -143,7 +145,7 @@ kubectl crea configmap dex --from-file = config.yaml =dex-yaml.yaml -n auth \
 ```
 
 Después de aplicar el configmap, reinicie la aplicación Dex para configurar los nuevos usuarios utilizando el siguiente comando:
- 
+
 ```bash
 kubectl rollout restart deployment dex -n auth
 ```
@@ -152,7 +154,7 @@ kubectl rollout restart deployment dex -n auth
 
 Como paso final vamos a probar el login en el Kubeflow central dashboard . a travez de dex, con las credenciales agregadas en el configmap editado.
 
-Ingresamos a la gui en nuestro browser 
+Ingresamos a la gui en nuestro browser
 
 
 ![kubeflow-central-dashboard-profile-gsve-login](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/b0dc1521-ae09-40ef-ba70-0d793bb63c92)
@@ -163,5 +165,4 @@ Podemos comprobar que las credenciales funcionan y ademas ingresamos a nuestro p
 ![kubeflow-central-dashboard-profile-gsve-adentro](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/3722fe8d-2ad5-4e4d-bffe-7fac7c96bce5)
 
 Hasta la proxima!!!!
-
 

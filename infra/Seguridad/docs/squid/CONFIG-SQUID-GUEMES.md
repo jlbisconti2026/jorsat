@@ -1,13 +1,13 @@
 
 # Indice
 
-[1. Configurar IPs](#1-configurar-ips)
-[2. Squid compilado e instalado en `/opt/squid-6.8`](#2-squid-compilado-e-instalado-en-optsquid-68)
-[3. Certificados para interceptación SSL](#3-certificados-para-interceptación-ssl)
-[4. Configuración de `squid.conf` principal](#4-configuración-de-squidconf-principal)
-[5. Configuración de servicio systemd (`/etc/systemd/system/squid.service`)](#5-configuración-de-servicio-systemd-etcsystemdsystemsquidservice)
-[6. Arreglos adicionales](#6-arreglos-adicionales)
-[7. Resultado final](#7-resultado-final)
+1. [1. Configurar IPs](#1-configurar-ips)
+2. [2. Squid compilado e instalado en `/opt/squid-6.8`](#2-squid-compilado-e-instalado-en-optsquid-68)
+3. [3. Certificados para interceptación SSL](#3-certificados-para-interceptación-ssl)
+4. [4. Configuración de `squid.conf` principal](#4-configuración-de-squidconf-principal)
+5. [5. Configuración de servicio systemd (`/etc/systemd/system/squid.service`)](#5-configuración-de-servicio-systemd-etcsystemdsystemsquidservice)
+6. [6. Arreglos adicionales](#6-arreglos-adicionales)
+7. [7. Resultado final](#7-resultado-final)
 
 ## 1. Configurar IPs
 
@@ -29,8 +29,11 @@ Ruta: `/opt/squid-6.8/ssl/cassl/cert-and-key.pem`
 # Generar certificado raíz y firmar
 openssl req -new -x509 -days 3650 -keyout private.key -out ca.crt
 openssl x509 -in ca.crt -out proxyca.pem
+```
 
-# Crear certificado combinado
+### Crear certificado combinado
+
+```bash
 cat proxyca.pem private.key > cert-and-key.pem
 ```
 

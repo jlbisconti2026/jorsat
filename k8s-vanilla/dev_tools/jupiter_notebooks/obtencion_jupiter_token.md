@@ -27,9 +27,7 @@ Ese token es el que colocamos en el acceso web de jupiter notebooks.
 
 Una alternativa  mas directa es ejecutar el comando jupyter notebook list a travez del comando kubect exec de la siguiente manera:
 
-
 jlb@haproxy:~/jupiter-notebooks$ kubectl exec -it pod/jupyter-notebook-68979cff46-ghd9h -n jorsat-dev jupyter notebook list
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 Currently running servers:
 <http://jupyter-notebook-68979cff46-ghd9h:8888/?token=dadff6c61903e32bc212c08a18f94a9396715f65bfbf05b6> :: /home/jovyan
-

@@ -1,4 +1,12 @@
-# Kubeflow Multi-Tenancy
+
+# Indice
+[Kubeflow Multi-Tenancy](#kubeflow-multi-tenancy)
+[Profiles de Kubeflow](#profiles-de-kubeflow)
+[Creacion de profile](#creacion-de-profile)
+[Creacion de las credenciales  de acceso al profile/namespace creado](#creacion-de-las-credenciales--de-acceso-al-profilenamespace-creado)
+[ Comprobacion final](#comprobacion-final)
+
+## Kubeflow Multi-Tenancy
 
 Kubeflow multi-tenancy es la capacidad de  Kubeflow para  aislar a múltiples usuarios independientes o equipos. En una implementación de Kubeflow de múltiples tenants, cada tenant tiene sus propios recursos dedicados y puede acceder y usar la plataforma Kubeflow sin interferir con otros tenants . Kubeflow admite multi-tenancy utilizando espacios de nombres en Kubernetes. Cada tenant  tiene un espacio de nombres dedicado, que proporciona un aislamiento lógico de los recursos.
 
@@ -8,7 +16,7 @@ Profile de Kubeflow: Un profile en Kubeflow es similar al namespace en Kubernete
 
 Para ver los perfiles existentes en el clúster, utilizamos el  siguiente comando:
 
-```
+```bash
 kubectl get profiles
 ```
 
@@ -139,7 +147,9 @@ Después de aplicar el configmap, reinicie la aplicación Dex para configurar lo
 ```bash
 kubectl rollout restart deployment dex -n auth
 ```
+
 ## Comprobacion final
+
 Como paso final vamos a probar el login en el Kubeflow central dashboard . a travez de dex, con las credenciales agregadas en el configmap editado.
 
 Ingresamos a la gui en nuestro browser 

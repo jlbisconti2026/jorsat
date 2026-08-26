@@ -1,5 +1,15 @@
 # OKD 4.18 – Uso de OpenShift Internal Registry con Backend S3
 
+[✨ Objetivo](#-objetivo)
+[1. ⚙️ Configuración del bucket S3](#1-️-configuración-del-bucket-s3)
+[2. 🚀 Validar que la Registry esté funcionando](#2--validar-que-la-registry-esté-funcionando)
+[3. 🌍 Acceso externo a la registry](#3--acceso-externo-a-la-registry)
+[4. 🏠 Crear una app para validar uso de la registry](#4--crear-una-app-para-validar-uso-de-la-registry)
+[5. 🌐 Desplegar y probar la app](#5--desplegar-y-probar-la-app)
+[✅ Confirmación](#-confirmación)
+[🚀 Conclusión](#-conclusión)
+
+
 ## ✨ Objetivo
 
 Configurar la **image-registry** en **OKD 4.18** para que utilice un **bucket S3** como backend de almacenamiento, validar su correcto funcionamiento y probarlo mediante una build personalizada.

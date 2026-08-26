@@ -1,5 +1,13 @@
 # BACKUP - CONFIGURACIÓN DE INFRAESTRUCTURA OPENSHIFT (CLARO)
+
 Fecha de exportación: 2026
+
+[1. JSON ORIGINAL (Raw Data)](#1-json-original-raw-data)
+[2. DATOS DE CONEXIÓN Y ACCESO (vCenter)](#2-datos-de-conexión-y-acceso-vcenter)
+[3. TOPOLOGÍA DEL CLÚSTER (Cómputo y Recursos)](#3-topología-del-clúster-cómputo-y-recursos)
+[4. RED (Networking)](#4-red-networking)
+[5. ALMACENAMIENTO (Ruta Posta para StorageClass)](#5-almacenamiento-ruta-posta-para-storageclass)
+[6. TEMPLATE DE STORAGECLASS LISTO PARA APLICAR (Basado en estos datos)](#6-template-de-storageclass-listo-para-aplicar-basado-en-estos-datos)
 
 ## 1. JSON ORIGINAL (Raw Data)
 
@@ -39,6 +47,7 @@ Fecha de exportación: 2026
 ```
 
 ## 2. DATOS DE CONEXIÓN Y ACCESO (vCenter)
+
 * **Servidor vCenter:** openstack-vcenter.claro.amx
 * **Puerto:** 443
 * **Datacenter Virtual:** Olleros-IT

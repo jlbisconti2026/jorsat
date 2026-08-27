@@ -1,4 +1,5 @@
 # Indice
+
 [Introduccion](#introduccion)
 [Deploy de alert-manager](#deploy-de-alert-manager)
 [Verificamos la ip externa obtenida por aler-manager](#verificamos-la-ip-externa-obtenida-por-aler-manager)
@@ -6,8 +7,6 @@
 [Creamos el servicio de tipo LoadBalancer](#creamos-el-servicio-de-tipo-loadbalancer)
 [Verificamos la ip externa obtenida por aler-manager](#verificamos-la-ip-externa-obtenida-por-aler-manager)
 [Probamos acceder via browser a la url](#probamos-acceder-via-browser-a-la-url)
-
-
 
 ## Introduccion
 
@@ -50,7 +49,7 @@ data:
         auth_identity: ''
 ```
 
-### Aplicamos configmap:
+### Aplicamos configmap
 
 ```bash
 kubectl apply -f alertmanager-config.yaml
@@ -103,7 +102,6 @@ kubectl apply -f deployment_alert-manager.yaml
 
 ## Creamos el servicio de tipo LoadBalancer
 
-
 ```yaml
 apiVersion: v1
 kind: Service
@@ -121,24 +119,25 @@ spec:
 ```
 
 ## Verificamos la ip externa obtenida por aler-manager
- 
+
+Ejecutamos el comando:
 
 ```bash
-kubectl get svc   -n monitoring
+kubectl get svc -n monitoring
 ```
 
-```txt
+```bash
 jlb@haproxy:~$ kubectl get svc   -n monitoring
+```
+
 NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)          AGE
 alertmanager               LoadBalancer   10.107.130.55    10.10.100.36   9093:32203/TCP   10s
-```
 
 ## Probamos acceder via browser a la url
 
 [http://10.10.100.36:9093/#/alerts](URL)
 
 La siguinte imagen ilustra la interfaz web de alert-manager:
-
 
 ![alert-manager](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/9262f731-47cc-4bfd-9c15-1af22452d667)
 

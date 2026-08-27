@@ -42,7 +42,7 @@ kubectl create namespace longhorn-system
 
 Ahora procedemos a deployar Longhorn:
 
-```
+```bash
 helm install longhorn longhorn/longhorn --namespace longhorn-system
 ```
 
@@ -90,7 +90,6 @@ longhorn-manager-bfhbk                              1/1     Running     0       
 longhorn-manager-cfdks                              1/1     Running     0             48s
 longhorn-ui-b5c5fc79c-jf7tt                         1/1     Running     0             48s
 longhorn-ui-b5c5fc79c-nlgdn                         1/1     Running     0             48s
-
 
 Ahora vamos a modificar el servicio longhorn-frontend para que obtenga una IP externa de nuestra LB metallb:
 
@@ -150,8 +149,6 @@ Vamos a cambiar el valor type de ClusterIp a LoadBalancer y nos quedara de la si
 
 Ingresamos  a la GUI de Longhorn desde nuestro browser a la IP 10.10.100.40 tal como lo muestra la siguiente imagen:
 
-
 ![gui-longhron](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/bc9dbe68-8e0d-4533-82e1-380a3332cd56)
 
 Hasta el proximo Documento!!!
-

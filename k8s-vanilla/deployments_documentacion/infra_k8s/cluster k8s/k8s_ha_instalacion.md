@@ -21,7 +21,7 @@ En esta oportunidad utilice HyperV Versión: 10.0.22621.1 para correr las vms co
 La nueva infraestructura virtual consta de :
 
 - 3 nodo Master
-- 3 nodos worker 
+- 3 nodos worker
 - 1 Balancerador HAproxy
 - SO Ubuntu 22.04 Server en todas las vms
   
@@ -171,9 +171,6 @@ sudo sysctl --system
 
 ```
 
-<br />
-<hr>
-
 ## Instalacion de paquetes necesarios
 
 > Agregramos el repo:
@@ -312,4 +309,4 @@ scp -r .kube/ jlb@10.10.100.21:/home/jlb/
 
 ```
 
-Finalmnete resta probar reiniciando nodos mater para comprobar que el cluster sigue disponible. Podemos chequear los logs de Haproxy para verificar que marque como DOWN el master reiniciado y los demas UP.
+Finalmente resta probar reiniciando nodos mater para comprobar que el cluster sigue disponible. Podemos chequear los logs de Haproxy para verificar que marque como DOWN el master reiniciado y los demas UP.

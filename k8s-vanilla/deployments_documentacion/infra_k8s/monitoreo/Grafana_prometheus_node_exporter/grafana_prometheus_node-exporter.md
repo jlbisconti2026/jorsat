@@ -1,4 +1,11 @@
-# Introduccion
+# Indice
+
+[Introduccion](#introduccion)
+[Escenario planteado](#escenario-planteado)
+[Deploy de prometheus-server](#deploy-de-prometheus-server)
+[Deploy de node-exporter](#deploy-de-node-exporter)
+
+## Introduccion
 
 En este documento vamos a conectar un servidor grafana con Pods de prometheus y nodo-exporter de nuestro cluster k8s.
 
@@ -41,7 +48,7 @@ Ip planning
 - Worker-02 10.10.100.28
 - Worker-03 10.10.100.29
 
-### Deploy de prometheus-server
+## Deploy de prometheus-server
 
 El primer paso es implementar  prometheus en nuestro cluster. Para esto vamos a utilizar el arhivo prometheus-deployment.yaml alojado en la url:
 
@@ -106,16 +113,13 @@ Probamos ingreasar a prometheus via browser:
 
 [http://10.10.100.35:9090/](URL)
 
-> Nota: La ip para acceder a prometheus, en mi caso 10.10.100.35, la obtenemos verificando el svc creado con el comando kubectl get svc. Es la ip externa proporcionada por metallb nuestra LB interna. 
+> Nota: La ip para acceder a prometheus, en mi caso 10.10.100.35, la obtenemos verificando el svc creado con el comando kubectl get svc. Es la ip externa proporcionada por metallb nuestra LB interna.
 
 Asi podemos ver como se ve la gui de prometheus:
 
-
 ![gui-prometheus](https://github.com/jlbisconti/k8s-vanilla/assets/144631732/e9663f1a-b89e-441b-9cb2-b4d3732481f8)
 
-
-
-### Deploy de node-exporter
+## Deploy de node-exporter
 
 Con motivo de poder tener metricas de los nodos  k8s, a saber uso de CPU, RAM, red, etc, necesitamos deployar pods de node-exporter en cada uno de los nodos. En este caso utilizaremos helm para realizar el deploy mencionado con los siguintes comandos:
 
@@ -143,6 +147,7 @@ Para verificar el funcionamiento de los pods de node-exporter vamos a ejecutar e
 ```bash
  curl http://10.10.100.22:9100/metrics
 ```
+
 En este caso la verificacion la realice  sobre el nodo  master-01 . Una fraccion de la salida obtenida con esta prueba fue la siguiente:
 
 ```txt
@@ -163,5 +168,3 @@ go_goroutines 8
 # TYPE go_info gauge
 go_info{version="go1.22.2"} 1
 ```
-
-En proximas entregas vamos a probar querys de Prometheus para hacer graficos de Grafana.

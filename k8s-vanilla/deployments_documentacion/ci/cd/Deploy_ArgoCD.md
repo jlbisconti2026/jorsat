@@ -79,6 +79,6 @@ Contraseña: (Guarda el chorizo de caracteres alfanuméricos devuelto por la ter
 
 Abre tu navegador Brave e ingresa mediante una de las siguientes opciones utilizando tu IP configurada:
 
-Opción Recomendada (HTTPS): https://10.10.100.53
+Opción Recomendada (HTTPS): <https://10.10.100.53>
 
-Opción Directa (HTTP): http://10.10.100.53
+Opción Directa (HTTP): <http://10.10.100.53>

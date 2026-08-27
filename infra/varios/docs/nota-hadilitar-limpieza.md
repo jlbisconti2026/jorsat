@@ -1,4 +1,10 @@
-# 🧹 Script de Mantenimiento y Limpieza para Windows 11
+# Indice
+
+[🧹 Script de Mantenimiento y Limpieza para Windows 11](#-script-de-mantenimiento-y-limpieza-para-windows-11)
+[🚀 Creación y Ejecución en un solo paso](#-creación-y-ejecución-en-un-solo-paso)
+
+
+## 🧹 Script de Mantenimiento y Limpieza para Windows 11
 
 Este script automatizado limpia en profundidad las carpetas de archivos temporales del sistema, los temporales del usuario actual, el caché de `Prefetch` y los instaladores remanentes de Windows Update (`SoftwareDistribution`). Al finalizar, fuerza el vaciado de la Papelera de Reciclaje.
 

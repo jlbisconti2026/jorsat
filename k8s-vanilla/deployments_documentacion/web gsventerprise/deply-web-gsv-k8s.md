@@ -1,5 +1,13 @@
 
-# Despliegue de gsventerprise.com.ar en Kubernetes Vanilla
+# Indice 
+
+1. [Despliegue de gsventerprise.com.ar en Kubernetes Vanilla](#despliegue-de-gsventerprisecomar-en-kubernetes-vanilla)
+2. [1. Estructura del Proyecto](#-1-estructura-del-proyecto)
+3. [🐳 2. Dockerfile utilizado](#-2-dockerfile-utilizado)
+4. [ 3. Build y Push de la imagen a DockerHub](#-3-build-y-push-de-la-imagen-a-dockerhub)
+5. [🚀 5. Despliegue en el clúster](#-5-despliegue-en-el-clúster)
+
+## Despliegue de gsventerprise.com.ar en Kubernetes Vanilla
 
 Este documento describe los pasos que seguí para levantar el sitio web `gsventerprise.com.ar` en mi clúster Kubernetes Vanilla (sobre Ubuntu 22.04).
 

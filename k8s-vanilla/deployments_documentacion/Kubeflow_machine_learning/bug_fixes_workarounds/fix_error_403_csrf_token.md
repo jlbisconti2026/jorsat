@@ -1,4 +1,9 @@
-# Introduccion
+# Indice
+
+
+
+
+## Introduccion
 
 En el documento anterior creamos un profile y agregamos a dex las credenciales de acceso al mismo. Una vez que probamos el acceso a nuestro dahsboard de Kubeflow podemos comenzar a probar los distintos compponentes de Kubeflow tales como:
 

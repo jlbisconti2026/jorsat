@@ -1,5 +1,5 @@
 
-# Indice 
+# Indice
 
 1. [Introduccion](#introduccion)
 2. [Instalacion](#instalacion)

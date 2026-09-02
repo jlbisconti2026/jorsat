@@ -1,11 +1,11 @@
 # Indice
 
-[Introduccion](#introduccion)
-[Extraccion de pullsecret hacia archivo dockerconfigjson](#extraccion-de-pullsecret-hacia-archivo-dockerconfigjson)
-[Verificamos existencia de parametro cloud.openshift.com](#verificamos-existencia-de-parametro-cloudopenshiftcom)
-[Editamos archivo  (dockerconfigjson](#editamos-archivo--dockerconfigjson)
-[Verificamos que ya no tenga el parametro](#verificamos-que-ya-no-tenga-el-parametro)
-[Aplicamos nuevo pull secret](#aplicamos-nuevo-pull-secret)
+1. [Introduccion](#introduccion)
+2. [Extraccion de pullsecret hacia archivo dockerconfigjson](#extraccion-de-pullsecret-hacia-archivo-dockerconfigjson)
+3. [Verificamos existencia de parametro cloud.openshift.com](#verificamos-existencia-de-parametro-cloudopenshiftcom)
+4. [Editamos archivo  (dockerconfigjson](#editamos-archivo--dockerconfigjson)
+5. [Verificamos que ya no tenga el parametro](#verificamos-que-ya-no-tenga-el-parametro)
+6. [Aplicamos nuevo pull secret](#aplicamos-nuevo-pull-secret)
 
 ## Introduccion
 

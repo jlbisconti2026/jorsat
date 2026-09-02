@@ -18,7 +18,7 @@
 15. [Crear bucket en GCP](#crear-bucket-en-gcp)
 16. [Otras opciones de gcloud storage](#otras-opciones-de-gcloud-storage)
 17. [Exportar envs y grupos de envs](#exportar-envs-y-grupos-de-envs)
-18. [Asignar iam policy para error con pubsub.publisher (afecta analíticas)]19,(#asignar-iam-policy-para-error-con-pubsubpublisher-afecta-analíticas)
+18. [Asignar iam policy para error con pubsub.publisher (afecta analíticas)](#asignar-iam-policy-para-error-con-pubsubpublisher-afecta-analíticas)
 
 
 ## Login de gcloud a GCP 

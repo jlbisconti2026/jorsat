@@ -1,5 +1,9 @@
 
-# Guía para Resetear e Instalar T-Pot desde Cero en el Servidor "volder"
+# Indice
+
+1. [🧹 1. Limpiar completamente la instalación actual de T‑Pot](#-1-limpiar-completamente-la-instalación-actual-de-tpot)
+2. [🧰 2. Instalar T‑Pot desde cero](#-2-instalar-tpot-desde-cero)
+3. [ 🪜 3. Plan recomendado](#-3-plan-recomendado)
 
 ---
 
@@ -33,17 +37,20 @@ Basado en la guía: https://learnoci.cloud/install-t-pot-honey-pot-in-oci-c583cd
 ### Pasos:
 
 1. **Instalar dependencias**:
+
    ```bash
    sudo apt update && sudo apt install -y git curl
    ```
 
 2. **Clonar el repositorio oficial**:
+
    ```bash
    git clone https://github.com/telekom-security/tpotce.git
    cd tpotce/iso/installer
    ```
 
 3. **Ejecutar el instalador**:
+
    ```bash
    ./install.sh --type=user
    ```
@@ -53,6 +60,7 @@ Basado en la guía: https://learnoci.cloud/install-t-pot-honey-pot-in-oci-c583cd
    - Se descargan contenedores, se configura y reinicia el sistema
 
 5. **Verificar estado**:
+
    ```bash
    sudo systemctl status tpot
    docker ps

@@ -46,9 +46,9 @@ Problema: Los comandos de Helm rebotaban con el error failed calling webhook: no
 Solución: Se removieron temporalmente las reglas de validación y mutación para permitir que Helm registre las nuevas entregas mientras el operador se estabilizaba:
 
 ```bash
-oc delete mutatingwebhookconfiguration apigee-mutating-webhook-configuration-claro-apigee-hybrid-desa
-oc delete validatingwebhookconfiguration apigee-validating-webhook-configuration-claro-apigee-hybrid-desa
-oc rollout restart deployment/apigee-controller-manager -n claro-apigee-hybrid-desa
+oc delete mutatingwebhookconfiguration apigee-mutating-webhook-configuration-claro-apigeeh-desa
+oc delete validatingwebhookconfiguration apigee-validating-webhook-configuration-claro-apigeeh-desa
+oc rollout restart deployment/apigee-controller-manager -n claro-apigeeh-desa
 ```
 
 ### Paso 3: Limpieza de Recursos Atascados (Finalizers)
@@ -58,30 +58,30 @@ Problema: El recurso apigeedatastore.apigee.cloud.google.com/default se mantení
 Solución: Se forzó la remoción del finalizer para liberar la API de Kubernetes:
 
 ```bash
-oc patch apigeedatastore default -n claro-apigee-hybrid-desa -p '{"metadata":{"finalizers":null}}' --type=merge
+oc patch apigeedatastore default -n claro-apigeeh-desa -p '{"metadata":{"finalizers":null}}' --type=merge
 ```
 
 ### Paso 4: Re-despliegue de Componentes Base e Infraestructura
 
 ```bash
 
-helm upgrade --install org apigee-org/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+helm upgrade --install org apigee-org/ -n claro-apigeeh-desa -f overrides-desa.yaml
 ```
 
 ```bash
-helm upgrade --install apigee-datastore apigee-datastore/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+helm upgrade --install apigee-datastore apigee-datastore/ -n claro-apigeeh-desa -f overrides-desa.yaml
 ```
 
 ```bash
-helm upgrade --install redis apigee-redis/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+helm upgrade --install redis apigee-redis/ -n claro-apigeeh-desa -f overrides-desa.yaml
 ```
 
 ```bash
-helm upgrade --install apigee-telemetry apigee-telemetry/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+helm upgrade --install apigee-telemetry apigee-telemetry/ -n claro-apigeeh-desa -f overrides-desa.yaml
 ```
 
 ```bash
-helm upgrade --install ingress-manager apigee-ingress-manager/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml
+helm upgrade --install ingress-manager apigee-ingress-manager/ -n claro-apigeeh-desa -f overrides-desa.yaml
 ```
 
 ### Paso 5: Despliegue de Entornos (Environments) y Virtual Hosts
@@ -91,41 +91,40 @@ Finalmente, se re-instalaron los entornos de ejecución para Argentina, Paraguay
 Entornos (Environments):
 
 ```bash
-helm upgrade --install env-desa-ar apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-ar
+helm upgrade --install env-desa-ar apigee-env/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=desa-ar
 ```
 
 ```bash
-helm upgrade --install env-desa-py apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-py
+helm upgrade --install env-desa-py apigee-env/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=desa-py
 }
 ```
 
 ```bash
-helm upgrade --install env-desa-uy apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-uy
+helm upgrade --install env-desa-uy apigee-env/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=desa-uy
 
 ```
 
 ```bash
-helm upgrade --install env-test-ar apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=test-ar
+helm upgrade --install env-test-ar apigee-env/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=test-ar
 
 ```
 
 ```bash
-helm upgrade --install env-test-py apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=test-py
+helm upgrade --install env-test-py apigee-env/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=test-py
 
 ```
 
-
 ```bash
-helm upgrade --install env-test-uy apigee-env/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=test-uy
+helm upgrade --install env-test-uy apigee-env/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=test-uy
 
 ```
 
 Virtual Hosts:
 
 ```bash
-helm upgrade --install vh-desa-test-ar apigee-virtualhost/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-ar
+helm upgrade --install vh-desa-test-ar apigee-virtualhost/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=desa-ar
 ```
 
 ```bash
-helm upgrade --install vh-desa-test-py apigee-virtualhost/ -n claro-apigee-hybrid-desa -f overrides-desa.yaml --set env=desa-py
+helm upgrade --install vh-desa-test-py apigee-virtualhost/ -n claro-apigeeh-desa -f overrides-desa.yaml --set env=desa-py
 ```bash

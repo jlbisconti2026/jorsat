@@ -54,6 +54,7 @@ Fecha de exportación: 2026
 * **Datacenter Virtual:** Olleros-IT
 
 ## 3. TOPOLOGÍA DEL CLÚSTER (Cómputo y Recursos)
+
 * **Cluster ESXi (Compute):** /Olleros-IT/host/FSO-Clu06-MC (Mission Critical)
 * **Resource Pool:** /Olleros-IT/host/FSO-Clu06-MC/Resources
 * **Plantilla base de OS (RHCOS Template):** /Olleros-IT/vm/osepaihub-mbx4q-rhcos-generated-failure-domain
@@ -61,14 +62,18 @@ Fecha de exportación: 2026
 * **Zona Lógica:** generated-zone
 
 ## 4. RED (Networking)
+
 * **PortGroup / VLAN vSphere:** PG-Olleros-VLAN0613
 
+
 ## 5. ALMACENAMIENTO (Ruta Posta para StorageClass)
+
 * **Datastore Path:** /Olleros-IT/datastore/OSDS-Cluster06-Mission Critical/OSDS-Cluster-CL06MC-VSP/OSDS-CL06MC-VSP-L035
 
 ---
 
 ## 6. TEMPLATE DE STORAGECLASS LISTO PARA APLICAR (Basado en estos datos)
+
 Si necesitas recrear la StorageClass predeterminada para este entorno, usa este manifiesto:
 
 ```yaml

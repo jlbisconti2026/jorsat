@@ -1,8 +1,11 @@
 # Indice
 
+1. [1. Cambiar el orden de arranque (Boot Order) en la BIOS/UEFI](#1-cambiar-el-orden-de-arranque-boot-order-en-la-biosuefi)
+2. [2. Reparar el inicio si el disco no arranca](#2-reparar-el-inicio-si-el-disco-no-arranca)
+3. [3. Verificar el estado del disco y la pila de la placa madre](#3-verificar-el-estado-del-disco-y-la-pila-de-la-placa-madre)
 
+## 1. Cambiar el orden de arranque (Boot Order) en la BIOS/UEFI
 
-1. Cambiar el orden de arranque (Boot Order) en la BIOS/UEFI
 Encendé la PC e ingresá a la BIOS/UEFI presionando repetidamente la tecla correspondiente (usualmente F2, Del/Supr, F12 o F10 apenas da video).
 
 Buscá la pestaña o sección llamada Boot, Boot Order o Boot Priority.
@@ -11,7 +14,8 @@ Asegurate de que la primera opción de arranque sea Windows Boot Manager (asocia
 
 Guardá los cambios (generalmente con F10) y reiniciá.
 
-2. Reparar el inicio si el disco no arranca
+## 2. Reparar el inicio si el disco no arranca
+
 Si la BIOS vuelve a desconfigurarse o el disco del sistema no levanta automáticamente, podés reparar los archivos de arranque desde un medio de instalación o consola de recuperación:
 
 Ingresá a las Opciones avanzadas de recuperación de Windows (o iniciá desde un pendrive de instalación de Windows 11 y elegí Reparar el equipo).
@@ -24,7 +28,9 @@ DOS
 bootrec /fixmbr
 bootrec /fixboot
 bootrec /rebuildbcd
-3. Verificar el estado del disco y la pila de la placa madre
+
+## 3. Verificar el estado del disco y la pila de la placa madre
+
 Si este problema ocurre de forma recurrente cada vez que se corta la luz:
 
 Pila CR2032 de la motherboard: Si la pila tipo botón de la placa madre está agotada, la BIOS pierde su configuración de arranque y vuelve a los valores de fábrica cada vez que la PC se queda sin corriente eléctrica. Reemplazar la pila CR2032 suele corregir este comportamiento de forma permanente.

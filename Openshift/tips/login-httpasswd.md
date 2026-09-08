@@ -1,5 +1,8 @@
 # Creación de credenciales locales admin OCP/OKD
 
+[]
+
+
 ## Creamos el archivo htpasswd con las credenciales de admin hasheadas
 
 ```bash

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8nworker
+  namespace: arquitectura
+  labels:
+    app: n8nworker
+spec:
+  replicas: 2 # Podés escalar la cantidad de workers según la carga
+  selector:
+    matchLabels:
+      app: n8nworker
+  template:
+    metadata:
+      labels:
+        app: n8nworker
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: n8nworker
+        image: harbor.apps-atl.rke2.claro.amx/n8n/n8n:2.30.8
+        imagePullPolicy: Always
+        # Comando explícito para iniciar el proceso en modo worker
+        command: ["n8n", "worker"]
+        
+        env:
+          # Ajustes para UIDs dinámicos de OpenShift (evita errores de permisos)
+          - name: HOME
+            value: /home/node/.n8n
+          - name: N8N_USER_FOLDER
+            value: /home/node/.n8n
+          - name: XDG_CACHE_HOME
+            value: /home/node/.n8n/.cache
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: "0"
+          - name: EXECUTIONS_MODE
+            value: "queue"
+
+        # Reutilizamos los mismos ConfigMaps y Secrets de la app principal
+        envFrom:
+        - configMapRef:
+            name: n8n-common-config
+        - configMapRef:
+            name: n8n-main-config
+        - secretRef:
+            name: n8n-common-secrets
+
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+
+        volumeMounts:
+        - name: n8n-pvc
+          mountPath: /home/node/.n8n
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+
+      volumes:
+      - name: n8n-pvc
+        persistentVolumeClaim:
+          claimName: n8n-main

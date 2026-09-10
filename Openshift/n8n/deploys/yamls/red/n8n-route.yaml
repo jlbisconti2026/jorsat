@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: n8n-route
+  namespace: arquitectura
+  labels:
+    app: n8nmain
+  annotations:
+    # Optimización para conexiones WebSocket continuas en la UI de n8n
+    haproxy.router.openshift.io/timeout: "60s"
+spec:
+  # Reemplaza con la URL o FQDN corporativo asignado para tu n8n
+  host: n8n-arquitectura.apps.labokdipi.claro.amx
+  to:
+    kind: Service
+    name: n8n-service
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

@@ -1,0 +1,286 @@
+# --- Enterprise license ---
+  enabled: true
+  activationKey: ""  # <-- REPLACE
+
+# ----- Image -----
+image:
+  repository: docker.n8n.id/n8nio/n8n
+  tag: "2.38.5"
+
+# ----- Worker -----
+queueMode:
+  enabled: true
+  workerReplicaCount: 6
+  # Worker concurrency (number of jobs each worker can handle simultaneously)
+  workerConcurrency: 15
+  # Additional environment variables injected into worker pods only.
+  # Use for worker-specific tuning that must not affect main or webhook-processor pods.
+  # For env vars that should apply to all pods, use `config.extraEnv` instead.
+  # Example:
+  # workerExtraEnv:
+  #   - name: N8N_CONCURRENCY_PRODUCTION_LIMIT
+  #     value: "10"
+  workerExtraEnv:
+     - name: N8N_METRICS_PREFIX
+       value: "n8n_worker_" 
+     - name: N8N_REINSTALL_MISSING_PACKAGES
+       value: "true"      
+     - name: NODE_OPTIONS
+       value: "--max-old-space-size=4096 --max-semi-space-size=64"
+
+# ----- Task Runners (external mode with sidecar containers) -----
+taskRunners:
+  # Enable task runners for executing user-provided JavaScript and Python code
+  # When enabled, a sidecar container (n8nio/runners) is added to main and worker pods
+  enabled: true
+
+  # Task runner image configuration
+  image:
+    repository: n8nio/runners
+    # Tag must match n8n version
+    # Leave empty to automatically use the same tag as the main n8n image
+    # Set explicitly only if you need a different version (not recommended)
+    tag: ""
+
+  # Task runner mode (only external mode is supported in this chart)
+  mode: external
+
+  # Authentication token for task runners to connect to the broker
+  # This should be a random secure shared secret
+  # You can generate one with: openssl rand -base64 32
+  authToken:
+    # Use existing secret for auth token
+    existingSecret: ""
+    existingSecretKey: ""
+    # Or provide the token directly (not recommended for production)
+    value: "Opensh1111...qu3?"
+
+  # Task broker configuration (runs within n8n main/worker containers)
+  broker:
+    # Listen address for the task broker (0.0.0.0 allows external connections from sidecar)
+    listenAddress: "0.0.0.0"
+    # Port for task broker to listen on
+    port: 5679
+
+  # Launcher configuration
+  launcher:
+    # Log level for the launcher (debug, info, warn, error)
+    logLevel: info
+    # Number of seconds of inactivity before shutting down task runner process
+    # The launcher will automatically start the runner again when there are new tasks
+    # Set to 0 to disable automatic shutdown
+    autoShutdownTimeout: 0
+
+  # Enable native Python runner (required for Python support, currently in beta)
+  nativePythonRunner: true
+
+  # Custom launcher configuration file
+  # You can mount a custom n8n-task-runners.json to allowlist additional packages
+  customConfig:
+    enabled: false
+    # ConfigMap name containing the custom launcher config
+    configMapName: ""
+    # Key in the ConfigMap containing the config file
+    configMapKey: "n8n-task-runners.json"
+
+  # Resource limits for task runner sidecar containers
+  resources:
+    requests:
+      cpu: 100m
+      memory: 1Gi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+
+  # Additional environment variables for task runners
+  # Example:
+  # extraEnv:
+  #   - name: N8N_RUNNERS_LAUNCHER_LOG_LEVEL
+  #     value: debug
+  extraEnv:
+     - name: N8N_RUNNERS_TASK_BROKER_URI
+       value: "http://localhost:5679"
+     - name: N8N_RUNNERS_MAX_CONCURRENCY
+       value: "5"
+     - name: NODE_FUNCTION_ALLOW_EXTERNAL
+       value: "yaml"
+     - name: NODE_OPTIONS
+       value: "--max-old-space-size=768"
+
+# ----- Main replicas (when multi-main is disabled) -----
+replicaCount: 1
+
+# --- Webhook processors ---
+webhookProcessor:
+  # Enable dedicated webhook processing pods for high-throughput webhook scenarios
+  enabled: true
+  replicaCount: 1
+  # Disable webhook processing in main process when webhook processors are enabled
+  disableProductionWebhooksOnMainProcess: true
+  # Additional environment variables injected into webhook-processor pods only.
+  # Use this when a variable must NOT also be set on the main pod.
+  # For webhook-related env vars that apply to both webhook-handling pods
+  # (main + webhook-processor), use `webhook.extraEnv` instead.
+  # Example:
+  # extraEnv:
+  #   - name: N8N_LOG_LEVEL
+  #     value: "debug"
+  extraEnv: []
+
+# ----- Resources -----
+resources:
+  main:
+    requests:
+      cpu: "2"
+      memory: 8Gi
+    limits:
+      cpu: "3"
+      memory: 8Gi
+  worker:
+    requests:
+      cpu: "3"
+      memory: 6Gi
+    limits:
+      cpu: "3"
+      memory: 6Gi
+  webhookProcessor:
+    requests:
+      cpu: "3"
+      memory: 6Gi
+    limits:
+      cpu: "3"
+      memory: 6Gi
+
+# ----- External Volumes -----
+extraVolumeMounts: []
+# Examples:
+# extraVolumeMounts:
+#   - name: ssl-certs
+#     mountPath: /usr/local/share/ca-certificates
+#     readOnly: true
+#   - name: custom-config
+#     mountPath: /app/config
+#     readOnly: true
+
+# --- Service account --- <a href="#service-account" id="service-account"></a>
+serviceAccount:
+  create: true
+  name: n8n
+
+# ----- Webhook config -----
+webhook:
+  # Enable webhook functionality
+  enabled: true
+  # Custom webhook URL base domain (if not set, will use ingress host)
+  # Format: https://your-domain.com (n8n adds /webhook path automatically)
+  url: "https://wfia-noprod.claro.amx"
+  # Timeout for webhook requests in milliseconds
+  timeout: 120000
+  # Additional webhook-related environment variables.
+  # Applied to BOTH main and webhook-processor pods. For variables that should
+  # only apply to webhook-processor pods, use `webhookProcessor.extraEnv` instead.
+  extraEnv: []
+  
+# ----- App config -----
+config:
+  timezone: America/Argentina/Buenos_Aires
+  # Additional environment variables for n8n container
+  # All n8n environment variables can be set here including:
+  # Proxy: HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY
+  # Core: N8N_EDITOR_BASE_URL, N8N_CONFIG_FILES, N8N_USER_FOLDER, etc.
+  # Features: N8N_DISABLE_UI, N8N_PREVIEW_MODE, N8N_TEMPLATES_ENABLED, etc.
+  # Network: N8N_LISTEN_ADDRESS, N8N_SSL_KEY, N8N_SSL_CERT, etc.
+  # Telemetry: N8N_DIAGNOSTICS_ENABLED, N8N_VERSION_NOTIFICATIONS_ENABLED, etc.
+  # API: N8N_PUBLIC_API_DISABLED, N8N_PUBLIC_API_ENDPOINT, etc.
+  # System: N8N_GRACEFUL_SHUTDOWN_TIMEOUT, N8N_PROXY_HOPS, etc.
+  # Dev: N8N_DEV_RELOAD, N8N_REINSTALL_MISSING_PACKAGES, etc.
+  # See documentation for complete list of supported variables
+  # Example:
+  # extraEnv:
+  #   - name: HTTP_PROXY
+  #     value: "http://proxy.example.com:8080"
+  #   - name: N8N_EDITOR_BASE_URL
+  #     value: "https://n8n.example.com"
+  #   - name: N8N_DISABLE_UI
+  #     value: "false"
+  extraEnv:
+     - name: NODE_EXTRA_CA_CERTS
+       value: "/etc/ssl/certs/certnew.crt"
+     - name: N8N_EDITOR_BASE_URL
+       value: "https://n8neditor-noprod.claro.amx"
+     - name: N8N_LOG_LEVEL
+       value: "debug"
+     - name: N8N_LOG_OUTPUT
+       value: "console"
+     - name: EXECUTIONS_MODE
+       value: "queue"
+     - name: OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS
+       value: "true"
+     - name: N8N_SECURE_COOKIE
+       value: "false"
+     - name: N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE
+       value: "true"
+     - name: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+       value: "false"
+     - name: NODE_TLS_REJECT_UNAUTHORIZED
+       value: "0"
+     - name: NODES_EXCLUDE
+       value: "[]"
+     - name: GENERIC_TIMEZONE
+       value: "America/Argentina/Buenos_Aires"
+     - name: TZ
+       value: "America/Argentina/Buenos_Aires"
+     - name: N8N_METRICS
+       value: "true"
+     - name: N8N_METRICS_INCLUDE_DEFAULT_METRICS
+       value: "true"
+     - name: N8N_METRICS_INCLUDE_WORKFLOW_ID_LABEL
+       value: "true"
+     - name: N8N_METRICS_INCLUDE_NODE_TYPE_LABEL
+       value: "true"
+     - name: N8N_METRICS_INCLUDE_QUEUE_METRICS
+       value: "true"
+     - name: N8N_METRICS_INCLUDE_API_ENDPOINTS
+       value: "true"
+     - name: N8N_METRICS_QUEUE_METRICS_INTERVAL
+       value: "300"
+     - name: N8N_TRUST_PROXY
+       value: "true"
+  extraEnvFrom: []
+
+# --- PostgreSQL (in-cluster) ---
+database:
+  type: postgresdb
+  useExternal: true
+  host: "n8n-enterprise-ha.n8n.svc.cluster.local"   # <-- REPLACE YOUR_NAMESPACE
+  port: 5432
+  database: n8n-enterprise
+  schema: "public"
+  user: n8n-enterprise
+  passwordSecret:
+    name: "n8n-enterprise-pguser-n8n-enterprise"
+    key: "password"
+
+# --- Redis (in-cluster, no TLS) ---
+redis:
+  enabled: true
+  useExternal: true
+  host: "redb.redis-enterprise.svc.cluster.local"  # <-- REPLACE YOUR_NAMESPACE
+  port: 13605
+  tls: false
+
+# --- MinIO (S3-compatible, in-cluster) ---
+s3:
+  enabled: true
+  bucket:
+    name: "n8n-ia-noprod"
+    region: "BSAS-ARGENTINA-1"
+  host: "http://10.202.36.116"
+  auth:
+    autoDetect: false
+    accessKeyId: "BDCC0CE302462F054D96"
+    secretAccessKey: "9mpxT08V4+Rmx7CjG449uBlklvQAAAGaAkYvBg62"
+  storage:
+    mode: "s3"
+    availableModes: "s3"
+  forcePathStyle: true

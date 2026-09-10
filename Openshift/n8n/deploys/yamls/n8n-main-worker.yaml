@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n-worker
+  namespace: arquitectura
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: n8n-worker
+  template:
+    metadata:
+      labels:
+        app: n8n-worker
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5678"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        #fsGroup: 1000
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: n8n-worker
+        image: harbor.atlas-tkgs.claro.amx/atlasreg/n8n:2.30.8
+        args: ["worker", "--concurrency=15"]
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 5678
+        resources:
+          limits:
+            cpu: "3"
+            memory: "6Gi"
+          requests:
+            cpu: "3"
+            memory: "6Gi"
+        volumeMounts:
+        - name: ca-cert
+          mountPath: /etc/ssl/certs
+          readOnly: true
+        securityContext:
+          #runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        envFrom:
+        - configMapRef:
+            name: n8n-common-config
+        - configMapRef:
+            name: n8n-worker-config
+        - secretRef:
+            name: n8n-common-secrets
+        - secretRef:
+            name: n8n-runner-secrets
+      - name: n8n-runners
+        image: harbor.atlas-tkgs.claro.amx/atlasreg/n8n-runners:2.30.8
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        resources:
+          limits:
+            memory: "1Gi"
+          requests:
+            memory: "1Gi"
+        envFrom:
+        - configMapRef:
+            name: n8n-runner-config
+        - secretRef:
+            name: n8n-runner-secrets
+      volumes:
+      - name: ca-cert
+        secret:
+          secretName: certnew

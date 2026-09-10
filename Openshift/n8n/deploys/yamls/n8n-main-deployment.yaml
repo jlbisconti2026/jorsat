@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8nmain
+  namespace: arquitectura
+  labels:
+    app: n8nmain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: n8nmain
+  template:
+    metadata:
+      labels:
+        app: n8nmain
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: n8nmain
+        image: harbor.apps-atl.rke2.claro.amx/n8n/n8n:2.30.8
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 5678
+          protocol: TCP
+        
+        env:
+          # Ajuste de rutas para UIDs aleatorios en OpenShift (evita EACCES)
+          - name: HOME
+            value: /home/node/.n8n
+          - name: N8N_USER_FOLDER
+            value: /home/node/.n8n
+          - name: XDG_CACHE_HOME
+            value: /home/node/.n8n/.cache
+          # Permite a Node.js ignorar errores de certificados autofirmados / CAs desconocidas en integraciones
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: "0"
+
+        envFrom:
+        - configMapRef:
+            name: n8n-common-config
+        - configMapRef:
+            name: n8n-main-config
+        - secretRef:
+            name: n8n-common-secrets
+
+        resources:
+          limits:
+            cpu: "3"
+            memory: "8Gi"
+          requests:
+            cpu: "2"
+            memory: "8Gi"
+
+        volumeMounts:
+        - name: n8n-pvc
+          mountPath: /home/node/.n8n
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+
+      volumes:
+      - name: n8n-pvc
+        persistentVolumeClaim:
+          claimName: n8n-main

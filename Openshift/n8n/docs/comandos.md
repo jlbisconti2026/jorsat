@@ -241,7 +241,7 @@ id |    workflowId    | status  |        fecha_inicio        |          fecha_fi
  3 | ClmFcWsKWjfgW1jP | success | 2026-09-10 13:57:52.941+00 | 2026-09-10 13:57:52.962+00
  2 | ClmFcWsKWjfgW1jP | error   | 2026-09-10 13:56:44.206+00 | 2026-09-10 13:56:44.221+00
  1 | ClmFcWsKWjfgW1jP | error   | 2026-09-10 13:56:11.315+00 | 2026-09-10 13:56:11.38+00
-
+ 
 ## Query para determinar a saber a qué nombre de workflow corresponde el ID
 
 n8n=> SELECT id, name

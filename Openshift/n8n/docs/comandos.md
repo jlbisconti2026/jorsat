@@ -244,10 +244,11 @@ Resultado:
 
 ## Query para determinar a saber a qué nombre de workflow corresponde el ID
 
-n8n=> SELECT id, name
+```bash
+SELECT id, name
 FROM workflow_entity
 WHERE id = 'ClmFcWsKWjfgW1jP';
-
+```
 
  |       id  |   name |
  | :--- | :--- | 
@@ -258,9 +259,11 @@ WHERE id = 'ClmFcWsKWjfgW1jP';
 
 ## Query para ver el detalle de los registros con error. en este caso 1 y 2
 
-n8n=> SELECT *
+```bash
+SELECT *
 FROM execution_data
 WHERE "executionId" IN (1,2);
+```
 
 Resultado:
 

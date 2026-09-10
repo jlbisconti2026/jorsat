@@ -78,7 +78,10 @@ oc exec -it postgres-6d857ccd88-7cdq7 -n arquitectura -- psql -U n8n -c "SELECT 
 ```
 
 Resultado:
-table_name              | total_size 
+
+
+table_name    | total_size 
+ :--- | :--- | 
 ---------------------------------------+------------
  execution_data                        | 160 kB
  role_scope                            | 152 kB

@@ -1,15 +1,15 @@
 
 # Indice
 
-[Ver logs de las colas activas en redis](#ver-logs-de-las-colas-activas-en-redis)
-[Pruebas de carga hacia Redis](#pruebas-de-carga-hacia-redis)
-[Ver instancias N8N registradas en  Redis](#ver-instancias-n8n-registradas-en--redis)
-[Inspeccionar los detalles de las instancias](#inspeccionar-los-detalles-de-las-instancias)
-[Consultar tamaño de db postgres](#consultar-tamaño-de-db-postgres)
-[Ver detalle de tamaño de las tablas en el pod de postgre](#ver-detalle-de-tamaño-de-las-tablas-en-el-pod-de-postgres)
-[Ver fechas en que se escribieron registos en la DB POSTGRES](#ver-fechas-en-que-se-escribieron-registos-en-la-db-postgres)
-[Query para determinar a saber a qué nombre de workflow corresponde el ID](#query-para-determinar-a-saber-a-qué-nombre-de-workflow-corresponde-el-id)
-[Query para ver el detalle de los registros con error. en este caso 1 y 2](#query-para-ver-el-detalle-de-los-registros-con-error-en-este-caso-1-y-2)
+1. [Ver logs de las colas activas en redis](#ver-logs-de-las-colas-activas-en-redis)
+2. [Pruebas de carga hacia Redis](#pruebas-de-carga-hacia-redis)
+3. [Ver instancias N8N registradas en  Redis](#ver-instancias-n8n-registradas-en--redis)
+4. [Inspeccionar los detalles de las instancias](#inspeccionar-los-detalles-de-las-instancias)
+5. [Consultar tamaño de db postgres](#consultar-tamaño-de-db-postgres)
+6. [Ver detalle de tamaño de las tablas en el pod de postgre](#ver-detalle-de-tamaño-de-las-tablas-en-el-pod-de-postgres)
+7. [Ver fechas en que se escribieron registos en la DB POSTGRES](#ver-fechas-en-que-se-escribieron-registos-en-la-db-postgres)
+8. [Query para determinar a saber a qué nombre de workflow corresponde el ID](#query-para-determinar-a-saber-a-qué-nombre-de-workflow-corresponde-el-id)
+9. [Query para ver el detalle de los registros con error. en este caso 1 y 2](#query-para-ver-el-detalle-de-los-registros-con-error-en-este-caso-1-y-2)
 
 ## Ver logs de las colas activas en redis
 

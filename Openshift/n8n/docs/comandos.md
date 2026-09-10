@@ -82,7 +82,6 @@ Resultado:
 
 table_name    | total_size 
  :--- | :--- | 
----------------------------------------+------------
  execution_data                        | 160 kB
  role_scope                            | 152 kB
  mcp_registry_server                   | 120 kB

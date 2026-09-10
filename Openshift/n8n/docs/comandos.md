@@ -248,14 +248,59 @@ n8n=> SELECT id, name
 FROM workflow_entity
 WHERE id = 'ClmFcWsKWjfgW1jP';
 
+ :--- | :--- | 
+        id        |         name
+
+ ClmFcWsKWjfgW1jP | Test Worker Execution
+(1 row)
+
+
+
 ## Query para ver el detalle de los registros con error. en este caso 1 y 2
 
 n8n=> SELECT *
 FROM execution_data
 WHERE "executionId" IN (1,2);
 
+Resultado:
 
-
+],"success",{"main":"47"},["48"],[],"error",{"level":"15","shouldReport":false,"description":null,"tags":"16","lineNumber":2,"message":"17","stack":"18"},{"mod
+"49","language":"50","jsCode":"51","notice":"52"},"14eefbed-d2b7-4aa5-b265-13e961a37fb1","n8n-nodes-base.code",[-240,-128],["53"],["54"],{"previousNode":"31","
+viousNodeOutput":0,"previousNodeRun":0},"runOnceForAllItems","javaScript","// Este código corre en el worker para confirmar procesamiento\nconst os = require(')
+;\nreturn [{ json: { message: 'Hola desde el worker de n8n!', hostname: os.hostname(), timestamp: new Date().toISOString() } }];","",["55"],["56"],{"json":"57"
+airedItem":"58"},{"json":"57","pairedItem":"59"},{},{"item":0},{"item":0}] | 04718b07-146e-4c3b-92bc-6b1fd9fd8311
+           2 | {"id":"ClmFcWsKWjfgW1jP","name":"Test Worker Execution","nodes":[{"parameters":{"notice":""},"id":"23077163-0261-4997-b400-4e8d5d5a4229","name":
+en clicking 'Execute Workflow'","type":"n8n-nodes-base.manualTrigger","typeVersion":1,"position":[-464,-128]},{"parameters":{"mode":"runOnceForAllItems","langu
+":"javaScript","jsCode":"// Este código corre en el worker para confirmar procesamiento\nconst os = require('os');\nreturn [{ json: { message: 'Hola desde el we
+r de n8n!', hostname: os.hostname(), timestamp: new Date().toISOString() } }];","notice":""},"id":"14eefbed-d2b7-4aa5-b265-13e961a37fb1","name":"Code in Worker
+type":"n8n-nodes-base.code","typeVersion":2,"position":[-240,-128]}],"connections":{"When clicking 'Execute Workflow'":{"main":[[{"node":"Code in Worker","type
+main","index":0}]]}},"settings":{"executionOrder":"v1","binaryMode":"separate","availableInMCP":false},"nodeGroups":[]} | [{"version":1,"startData":"1","result
+a":"2","executionData":"3","resumeToken":"4"},{},{"error":"5","runData":"6","pinData":"7","lastNodeExecuted":"8"},{"contextData":"9","nodeExecutionStack":"10",
+tadata":"11","waitingExecution":"12","waitingExecutionSource":"13","runtimeData":"14"},"764af2f5234ce39d39677461867b81b59e8d106676b3202b8e932840eaa10990",{"lev
+:"15","shouldReport":false,"description":null,"tags":"16","lineNumber":2,"message":"17","stack":"18"},{"When clicking 'Execute Workflow'":"19","Code in Worker"
+0"},{},"Code in Worker",{},["21"],{},{},{},{"version":1,"establishedAt":1789048604208,"source":"22","triggerNode":"23","redaction":"24","credentials":"25"},"in
+,{},"Module 'os' is disallowed [line 2]","Error: Module 'os' is disallowed\n    at /usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+task-runner@file+pac
+es+@n8n+task-runner_@opentelemetry+api@1.9.0_@opentelemetry_f4c4f0962cb44afa934cbd57e3ebca8c/node_modules/@n8n/task-runner/dist/js-task-runner/require-resolver
+:16:27\n    at VmCodeWrapper (evalmachine.<anonymous>:2:12)\n    at evalmachine.<anonymous>:4:2\n    at Script.runInContext (node:vm:149:12)\n    at runInConte
+(node:vm:301:6)\n    at result (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+task-runner@file+packages+@n8n+task-runner_@opentelemetry+api@1.9.0_@op
+elemetry_f4c4f0962cb44afa934cbd57e3ebca8c/node_modules/@n8n/task-runner/dist/js-task-runner/js-task-runner.js:215:61)\n    at new Promise (<anonymous>)\n    at
+TaskRunner.runForAllItems (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+task-runner@file+packages+@n8n+task-runner_@opentelemetry+api@1.9.0_@opentel
+try_f4c4f0962cb44afa934cbd57e3ebca8c/node_modules/@n8n/task-runner/dist/js-task-runner/js-task-runner.js:208:34)\n    at JsTaskRunner.executeTask (/usr/local/l
+node_modules/n8n/node_modules/.pnpm/@n8n+task-runner@file+packages+@n8n+task-runner_@opentelemetry+api@1.9.0_@opentelemetry_f4c4f0962cb44afa934cbd57e3ebca8c/no
+modules/@n8n/task-runner/dist/js-task-runner/js-task-runner.js:143:26)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",["2
+,["27"],{"node":"28","data":"29","source":"30"},"manual",{"name":"31","type":"32"},{"version":2,"production":false,"manual":false,"source":"33"},"U2FsdGVkX18xG
+gwWT2166qJsiMnss0LkxFDq5v01i+e5iWXGIL5GEIk/Vsxm8DAt17fGDYvfbjQzSq5k8kDpFXVcIa2QjwuWJX5M1Io3Nx08DirBQw9nbBRItMvBXIn7idwc1FPKtWTvRz5jlT96NUa6qWw1gj2Nnt9k+S8lF//H
+lxfgJChc64f0m3/0/sljeN2mw7OH5Lq4wLQMPf+lBXWjpRtDbJa34UfSpECTkiiEzu68wJvs3t9lhD7/qo1vrS9bYbieFqjFYfiV2kTDdGKr8Odqmw4F6N0GecIsQt6TWUCb1B2gKjWT4fQ8XrbW75bIyrFtzWm
+5VMKLxvTY+KIWv1astlLPCsQucr/7SLXiOQ6ILjNSF3kEbYWnV8yiVmFviY0cKwIBKrItJw/+s0n6nzPRN33yPkiUxyBXrKs6dt8GNoyTcGRtAAnPpr44GT1NMwtXlPnceyesjt4jrNwB3DFYdYwYDTMq4LzMKN
+YLuTEGZCthzaDacdsQpaJgFb/H5yJ4DA==",{"startTime":1789048604214,"executionIndex":0,"source":"34","hints":"35","executionTime":0,"executionStatus":"36","data":"3
+,{"startTime":1789048604215,"executionIndex":1,"source":"38","hints":"39","executionTime":5,"executionStatus":"40","error":"41"},{"parameters":"42","id":"43","
+e":"8","type":"44","typeVersion":2,"position":"45"},{"main":"46"},{"main":"38"},"When clicking 'Execute Workflow'","n8n-nodes-base.manualTrigger","workflow",[]
+,"success",{"main":"47"},["48"],[],"error",{"level":"15","shouldReport":false,"description":null,"tags":"16","lineNumber":2,"message":"17","stack":"18"},{"mode
+49","language":"50","jsCode":"51","notice":"52"},"14eefbed-d2b7-4aa5-b265-13e961a37fb1","n8n-nodes-base.code",[-240,-128],["53"],["54"],{"previousNode":"31","p
+iousNodeOutput":0,"previousNodeRun":0},"runOnceForAllItems","javaScript","// Este código corre en el worker para confirmar procesamiento\nconst os = require('o;
+\nreturn [{ json: { message: 'Hola desde el worker de n8n!', hostname: os.hostname(), timestamp: new Date().toISOString() } }];","",["55"],["56"],{"json":"57",
+iredItem":"58"},{"json":"57","pairedItem":"59"},{},{"item":0},{"item":0}]  | 04718b07-146e-4c3b-92bc-6b1fd9fd8311
+(2 rows)
 
 
 

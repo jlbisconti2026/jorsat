@@ -248,9 +248,9 @@ n8n=> SELECT id, name
 FROM workflow_entity
 WHERE id = 'ClmFcWsKWjfgW1jP';
 
- :--- | :--- | 
-        id        |         name
 
+ |       id  |   name |
+ | :--- | :--- | 
  ClmFcWsKWjfgW1jP | Test Worker Execution
 (1 row)
 

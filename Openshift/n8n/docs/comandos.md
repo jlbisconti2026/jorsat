@@ -8,6 +8,8 @@
 [Consultar tamaño de db postgres](#consultar-tamaño-de-db-postgres)
 [Ver detalle de tamaño de las tablas en el pod de postgre](#ver-detalle-de-tamaño-de-las-tablas-en-el-pod-de-postgres)
 [Ver fechas en que se escribieron registos en la DB POSTGRES](#ver-fechas-en-que-se-escribieron-registos-en-la-db-postgres)
+[Query para determinar a saber a qué nombre de workflow corresponde el ID](#query-para-determinar-a-saber-a-qué-nombre-de-workflow-corresponde-el-id)
+[Query para ver el detalle de los registros con error. en este caso 1 y 2](#query-para-ver-el-detalle-de-los-registros-con-error-en-este-caso-1-y-2)
 
 ## Ver logs de las colas activas en redis
 
@@ -239,6 +241,18 @@ id |    workflowId    | status  |        fecha_inicio        |         fecha_fin
   3 | ClmFcWsKWjfgW1jP | success | 2026-09-10 13:57:52.941+00 | 2026-09-10 13:57:52.962+00
   2 | ClmFcWsKWjfgW1jP | error   | 2026-09-10 13:56:44.206+00 | 2026-09-10 13:56:44.221+00
   1 | ClmFcWsKWjfgW1jP | error   | 2026-09-10 13:56:11.315+00 | 2026-09-10 13:56:11.38+00
+
+## Query para determinar a saber a qué nombre de workflow corresponde el ID
+
+n8n=> SELECT id, name
+FROM workflow_entity
+WHERE id = 'ClmFcWsKWjfgW1jP';
+
+## Query para ver el detalle de los registros con error. en este caso 1 y 2
+
+n8n=> SELECT *
+FROM execution_data
+WHERE "executionId" IN (1,2);
 
 
 

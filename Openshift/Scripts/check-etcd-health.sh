@@ -25,7 +25,7 @@ CA="/etc/kubernetes/static-pod-resources/configmaps/etcd-all-bundles/server-ca-b
 
 # ✅ Extraer solo CLIENT ADDRS y filtrar solo puerto 2379
 ENDPOINTS=$(oc -n "$NAMESPACE" exec --stdin "$ETCD_POD" -- \
-  env -i ETCDCTL_API=3 etcdctl \
+  env -i etcdctl \
     --cert="$CERT" \
     --key="$KEY" \
     --cacert="$CA" \
@@ -38,7 +38,7 @@ echo "-----------------------------------------"
 # 1. Chequeo de salud
 echo "📡 Chequeando salud del clúster etcd..."
 oc -n "$NAMESPACE" exec --stdin "$ETCD_POD" -- \
-  env -i ETCDCTL_API=3 etcdctl \
+    env -i etcdctl \
     --cert="$CERT" \
     --key="$KEY" \
     --cacert="$CA" \
@@ -50,7 +50,7 @@ echo "-----------------------------------------"
 # 2. Lista de miembros
 echo "👥 Chequeando miembros del clúster etcd..."
 oc -n "$NAMESPACE" exec --stdin "$ETCD_POD" -- \
-  env -i ETCDCTL_API=3 etcdctl \
+    env -i etcdctl \
     --cert="$CERT" \
     --key="$KEY" \
     --cacert="$CA" \
@@ -62,7 +62,7 @@ echo "-----------------------------------------"
 # 3. Mostrar el líder
 echo "👑 Identificando líder del clúster etcd..."
 oc -n "$NAMESPACE" exec --stdin "$ETCD_POD" -- \
-  env -i ETCDCTL_API=3 etcdctl \
+   env -i etcdctl \
     --cert="$CERT" \
     --key="$KEY" \
     --cacert="$CA" \

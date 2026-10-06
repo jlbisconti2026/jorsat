@@ -31,7 +31,9 @@ while true; do
   echo "5) Chequeos de clúster OpenShift (clusteroperators, nodos, etc.)"
   echo "6) Ver PVCs con errores"
   echo "7) Ver pods en estado Pending"
-  echo "8) Salir"
+  echo "8) Verificar estado routers de ingress"
+  echo "9) Verificar estado pods image-registry"
+  echo "10) Salir"
   read -rp "Elegí una opción [1-8]: " opcion
 
   case "$opcion" in
@@ -79,13 +81,23 @@ while true; do
       echo -e "\n⏳ Listando pods en estado Pending:"
       oc get pods --all-namespaces --field-selector=status.phase=Pending || echo -e "${GREEN}✅ No hay pods en Pending${NC}"
       ;;
+
     8)
+      echo -e "Verificar estado routers de ingress"
+      oc get po -n openshift-ingress -o wide
+      ;;
+
+   9) echo -e "Verficar estado pods de image-registry"
+      oc get po -n openshift-image-registry -o wide | grep -i "image-registry"
+      ;;
+
+    10)
       echo "👋 Hasta la vista..."
       exit 0
       ;;
+
     *)
       echo "❌ Opción inválida. Probá de nuevo."
       ;;
   esac
 done
-

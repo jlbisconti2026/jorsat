@@ -33,7 +33,8 @@ while true; do
   echo "7) Ver pods en estado Pending"
   echo "8) Verificar estado routers de ingress"
   echo "9) Verificar estado pods image-registry"
-  echo "10) Salir"
+  echo "10) Verificar machine config pools"
+  echo "11) Salir"
   read -rp "Elegí una opción [1-8]: " opcion
 
   case "$opcion" in
@@ -91,7 +92,11 @@ while true; do
       oc get po -n openshift-image-registry -o wide | grep -i "image-registry"
       ;;
 
-    10)
+   10) echo -e "Verificar machine config pools"
+       oc get mcp
+      ;;
+
+   11)
       echo "👋 Hasta la vista..."
       exit 0
       ;;

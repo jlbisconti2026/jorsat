@@ -1,13 +1,13 @@
 # Configura las variables con el nombre de tu clúster y dominio
-CLUSTER_NAME="osesapeic01"
+CLUSTER_NAME="labokdipi"
 BASE_DOMAIN="claro.amx"
 
 API_FQDN="api.${CLUSTER_NAME}.${BASE_DOMAIN}"
 API_INT_FQDN="api-int.${CLUSTER_NAME}.${BASE_DOMAIN}"
 
 # Dominios de aplicaciones con comodín (Wildcard)
-APPS_WILDCARD_1="apps.osepaihub.claro.amx"
-APPS_WILDCARD_2="apps-ssl.osepaihub.claro.amx"
+APPS_WILDCARD_1="apps.labokdipi.claro.amx"
+APPS_WILDCARD_2="apps-ssl.labokdipi.claro.amx"
 
 # Definición de pruebas TCP (FQDN:PUERTO)
 TARGETS=(

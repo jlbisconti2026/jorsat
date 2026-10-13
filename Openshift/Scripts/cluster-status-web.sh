@@ -1,4 +1,4 @@
-#!/bin/bash
+   #!/bin/bash
 
 OUTPUT_FILE="/var/www/html/ocp-status.html"
 
@@ -26,17 +26,33 @@ get_top_nodes() {
 }
 
 get_cluster_operators() {
-    oc get clusteroperators --no-headers 2>/dev/null | while read -r co_name co_avail co_prog co_deg rest; do
-        [ -z "$co_name" ] && continue
+    oc get clusteroperators -o json 2>/dev/null | jq -r '
+        .items[] |
+        {
+            name: .metadata.name,
+            available: (.status.conditions[] | select(.type=="Available") | .status),
+            progressing: (.status.conditions[] | select(.type=="Progressing") | .status),
+            degraded: (.status.conditions[] | select(.type=="Degraded") | .status)
+        } |
+        "\(.name)|\(.available)|\(.progressing)|\(.degraded)"
+    ' | while IFS='|' read -r name avail prog deg; do
+        [ -z "$name" ] && continue
+
         color="#4caf50"
         status="OK"
-        if [ "$co_avail" != "True" ] || [ "$co_prog" != "False" ] || [ "$co_deg" != "True" ]; then
+        # Un operador está OK si Available es True, Degraded es False y Progressing es False (o True si está actualizando, pero sano)
+        if [ "$avail" != "True" ] || [ "$deg" != "False" ]; then
             color="#f44336"
             status="DEGRADED"
+        elif [ "$prog" == "True" ]; then
+            color="#ff9800"
+            status="PROGRESSING"
         fi
-        echo "<tr><td><b>$co_name</b></td><td>$co_avail</td><td>$co_prog</td><td>$co_deg</td><td><span style='color: $color;'>$status</span></td></tr>"
+
+        echo "<tr><td><b>$name</b></td><td>$avail</td><td>$prog</td><td>$deg</td><td><span style='color: $color;'>$status</span></td></tr>"
     done
 }
+
 
 get_mcp() {
     oc get mcp --no-headers 2>/dev/null | while read -r name upd up deg dej rest; do
@@ -152,5 +168,3 @@ cat <<EOF > "$OUTPUT_FILE"
 </body>
 </html>
 EOF
-
-echo "¡Listo! Dashboard actualizado correctamente en $OUTPUT_FILE"

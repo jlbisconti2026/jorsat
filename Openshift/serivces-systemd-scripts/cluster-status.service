@@ -1,0 +1,15 @@
+[Unit]
+Description=OpenShift Cluster Live Dashboard Generator
+After=network.target httpd.service
+
+[Service]
+Type=simple
+User=root
+# Forzamos las variables de entorno de tu sesión para que encuentre oc y el config
+Environment=HOME=/root
+Environment=KUBECONFIG=/home/claro/okd-ipi/auth/kubeconfig
+ExecStart=/bin/bash -c 'while true; do /usr/local/bin/cluster-status-web; sleep 10; done'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

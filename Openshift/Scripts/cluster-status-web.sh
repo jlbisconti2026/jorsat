@@ -4,7 +4,7 @@ OUTPUT_FILE="/var/www/html/ocp-status.html"
 
 # Asegurar rutas y credenciales de OpenShift
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export KUBECONFIG="${KUBECONFIG:-/root/auth/kubeconfig}" # Ajustá esta ruta si tu kubeconfig está en otro lado (ej: /etc/kubernetes/kubeconfig)
+export KUBECONFIG="${KUBECONFIG:-/root/auth/kubeconfig}"
 
 get_pods_failing() {
     oc get pods --all-namespaces -o json 2>/dev/null | \
@@ -60,16 +60,16 @@ get_pods_pending() {
 }
 
 get_ingress() {
-    oc get po -n openshift-ingress -o wide --no-headers 2>/dev/null | while read -r name rest; do
+    oc get po -n openshift-ingress -o wide --no-headers 2>/dev/null | while read -r name rready rstatus restarts age ip node nomin_node nomination_gce_zone; do
         [ -z "$name" ] && continue
-        echo "<tr><td><b>$name</b></td><td>Corriendo</td></tr>"
+        echo "<tr><td><b>$name</b></td><td>Corriendo</td><td><code style='color: #03a9f4;'>$node</code></td></tr>"
     done
 }
 
 get_registry() {
-    oc get po -n openshift-image-registry -o wide --no-headers 2>/dev/null | grep -i "image-registry" | while read -r name rest; do
+    oc get po -n openshift-image-registry -o wide --no-headers 2>/dev/null | grep -i "image-registry" | while read -r name rready rstatus restarts age ip node nomin_node nomination_gce_zone; do
         [ -z "$name" ] && continue
-        echo "<tr><td><b>$name</b></td><td>Activo</td></tr>"
+        echo "<tr><td><b>$name</b></td><td>Activo</td><td><code style='color: #03a9f4;'>$node</code></td></tr>"
     done
 }
 
@@ -119,7 +119,7 @@ cat <<EOF > "$OUTPUT_FILE"
     <h2>3. Uso de Nodos (CPU y Memoria)</h2>
     <table>
         <tr><th>Nodo</th><th>CPU Usado (% del total)</th><th>Memoria Usada (% del total)</th></tr>
-        ${html_top_nodes:-"<tr><td colspan='3' class='ok'>Métricas de nodos no disponibles (Revisar cluster-monitoring)</td></tr>"}
+        ${html_top_nodes:-"<tr><td colspan='3' class='ok'>Métricas de nodos no disponibles</td></tr>"}
     </table>
 
     <h2>4. Pods con Errores (CrashLoop / ImagePull)</h2>
@@ -142,12 +142,12 @@ cat <<EOF > "$OUTPUT_FILE"
 
     <h2>7. Routers de Ingress e Image Registry</h2>
     <table>
-        <tr><th>Componente / Pod Ingress</th><th>Estado</th></tr>
-        ${html_ingress:-"<tr><td colspan='2' class='ok'>Sin datos de ingress</td></tr>"}
+        <tr><th>Pod Ingress</th><th>Estado</th><th>Nodo Asignado</th></tr>
+        ${html_ingress:-"<tr><td colspan='3' class='ok'>Sin datos de ingress</td></tr>"}
     </table>
     <table>
-        <tr><th>Pods Image Registry</th><th>Estado</th></tr>
-        ${html_registry:-"<tr><td colspan='2' class='ok'>Sin datos de image-registry</td></tr>"}
+        <tr><th>Pod Image Registry</th><th>Estado</th><th>Nodo Asignado</th></tr>
+        ${html_registry:-"<tr><td colspan='3' class='ok'>Sin datos de image-registry</td></tr>"}
     </table>
 </body>
 </html>

@@ -4,7 +4,7 @@ OUTPUT_FILE="/var/www/html/ocp-status.html"
 
 # Definir rutas absolutas obligatorias para systemd
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export KUBECONFIG="/home/claro/okd-ipi/auth/kubeconfig"
+export KUBECONFIG="/home/jorsat/ocp-install/auth/kubeconfig"
 OC_BIN="/usr/local/bin/oc"
 
 get_pods_failing() {

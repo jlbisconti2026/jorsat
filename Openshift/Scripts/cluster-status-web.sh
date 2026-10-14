@@ -2,7 +2,7 @@
 
 OUTPUT_FILE="/var/www/html/ocp-status.html"
 
-# Definir rutas absolutas obligatorias para systemd
+# Definir rutas absolutas obligatorias para systemd y tu kubeconfig real
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export KUBECONFIG="/home/jorsat/ocp-install/auth/kubeconfig"
 OC_BIN="/usr/local/bin/oc"
@@ -28,17 +28,17 @@ get_top_nodes() {
 
 get_cluster_operators() {
     $OC_BIN get clusteroperators -o json 2>/dev/null | jq -r '
-        .items[] | 
+        .items[] |
         {
-            name: .metadata.name, 
+            name: .metadata.name,
             available: (.status.conditions[] | select(.type=="Available") | .status),
             progressing: (.status.conditions[] | select(.type=="Progressing") | .status),
             degraded: (.status.conditions[] | select(.type=="Degraded") | .status)
-        } | 
+        } |
         "\(.name)|\(.available)|\(.progressing)|\(.degraded)"
     ' | while IFS='|' read -r name avail prog deg; do
         [ -z "$name" ] && continue
-        
+
         color="#4caf50"
         status="OK"
         if [ "$avail" != "True" ] || [ "$deg" != "False" ]; then
@@ -48,7 +48,7 @@ get_cluster_operators() {
             color="#ff9800"
             status="PROGRESSING"
         fi
-        
+
         echo "<tr><td><b>$name</b></td><td>$avail</td><td>$prog</td><td>$deg</td><td><span style='color: $color;'>$status</span></td></tr>"
     done
 }
@@ -101,32 +101,42 @@ get_control_plane_pods() {
 
 get_etcd_deep_health() {
     local etcd_pod=$($OC_BIN get pods -n openshift-etcd --no-headers -l etcd=true 2>/dev/null | awk '{print $1}' | head -n 1)
-    
+
     if [ -z "$etcd_pod" ]; then
         echo "<p style='color: #f44336;'>No se encontró ningún pod de etcd activo.</p>"
         return
     fi
 
-    local cert="/etc/kubernetes/static-pod-resources/secrets/etcd-all-certs/etcd-client.crt"
-    local key="/etc/kubernetes/static-pod-resources/secrets/etcd-all-certs/etcd-client.key"
-    local ca="/etc/kubernetes/static-pod-resources/configmaps/etcd-trusted-ca-bundle/ca-bundle.crt"
+    local node_name=$($OC_BIN get pod "$etcd_pod" -n openshift-etcd -o jsonpath='{.spec.nodeName}' 2>/dev/null)
+    local cert="/etc/kubernetes/static-pod-resources/secrets/etcd-all-certs/etcd-peer-$node_name.crt"
+    local key="/etc/kubernetes/static-pod-resources/secrets/etcd-all-certs/etcd-peer-$node_name.key"
+    local ca="/etc/kubernetes/static-pod-resources/configmaps/etcd-all-bundles/server-ca-bundle.crt"
 
-    echo "<h4>📡 Salud de Endpoints (etcdctl endpoint health)</h4>"
-    echo "<pre style='background: #111; color: #4caf50; padding: 10px; border-radius: 5px; overflow-x: auto;'>"
-    $OC_BIN -n openshift-etcd exec --stdin "$etcd_pod" -- \
-        env -i ETCDCTL_API=3 etcdctl \
-        --cert="$cert" --key="$key" --cacert="$ca" \
+    echo "<p style='color: #03a9f4; font-size: 13px; margin-bottom: 5px;'>📍 <b>Nodo analizado:</b> $node_name</p>"
+    echo "<p style='color: #aaa; font-size: 12px; margin-bottom: 15px;'>💡 <i>Ayuda: Las tablas muestran la salud de los endpoints y los miembros activos del clúster en formato nativo (-w table).</i></p>"
+
+    echo "<h4>📡 Salud de Endpoints (etcdctl endpoint health -w table)</h4>"
+    echo "<pre style='background: #111; color: #4caf50; padding: 10px; border-radius: 5px; font-family: monospace; overflow-x: auto;'>"
+    $OC_BIN -n openshift-etcd exec --stdin "$etcd_pod" -c etcd -- \
+        env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+        etcdctl \
+        --cacert="$ca" \
+        --cert="$cert" \
+        --key="$key" \
         --endpoints="https://127.0.0.1:2379" \
-        endpoint health 2>/dev/null
+        endpoint health -w table 2>&1
     echo "</pre>"
 
-    echo "<h4>👥 Miembros del Clúster (etcdctl member list)</h4>"
-    echo "<pre style='background: #111; color: #03a9f4; padding: 10px; border-radius: 5px; overflow-x: auto;'>"
-    $OC_BIN -n openshift-etcd exec --stdin "$etcd_pod" -- \
-        env -i ETCDCTL_API=3 etcdctl \
-        --cert="$cert" --key="$key" --cacert="$ca" \
+    echo "<h4>👥 Miembros del Clúster (etcdctl member list -w table)</h4>"
+    echo "<pre style='background: #111; color: #03a9f4; padding: 10px; border-radius: 5px; font-family: monospace; overflow-x: auto;'>"
+    $OC_BIN -n openshift-etcd exec --stdin "$etcd_pod" -c etcd -- \
+        env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+        etcdctl \
+        --cacert="$ca" \
+        --cert="$cert" \
+        --key="$key" \
         --endpoints="https://127.0.0.1:2379" \
-        member list 2>/dev/null
+        member list -w table 2>&1
     echo "</pre>"
 }
 
@@ -224,4 +234,4 @@ cat <<EOF > "$OUTPUT_FILE"
 </html>
 EOF
 
-echo "¡Dashboard actualizado con etcd profundo correctamente en $OUTPUT_FILE!"
+echo "¡Dashboard actualizado con formato de tabla etcd y nuevo KUBECONFIG en $OUTPUT_FILE!"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUTPUT_FILE="/var/www/html/k8s-status.html"
+OUTPUT_FILE="/var/www/html/index.html"
 
 # Definir rutas obligatorias
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin

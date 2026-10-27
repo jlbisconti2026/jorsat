@@ -1,0 +1,11 @@
+image:
+  repository: langflowai/langflow
+  tag: "1.0.19"
+
+env:
+  - name: LANGFLOW_SUPERUSER_PASSWORD
+    value: "claro123"
+  - name: LANGFLOW_SERVE_FRONTEND
+    value: "true"
+  - name: LANGFLOW_LOAD_FLOWS_FROM_FOLDER
+    value: ""

@@ -1,0 +1,7 @@
+langflow:
+  backend:
+    autoLogin: false
+
+env:
+  - name: LANGFLOW_SUPERUSER_PASSWORD
+    value: "claro123"

@@ -1,0 +1,11 @@
+langflow:
+  backend:
+    autoLogin: false
+
+env:
+  - name: LANGFLOW_SUPERUSER_PASSWORD
+    value: "claro123"
+  - name: LANGFLOW_DATABASE_URL
+    value: "postgresql://langflow_user:claro123@postgres:5432/langflow_db"
+  - name: PGVECTOR_CONNECTION_STRING
+    value: "postgresql://langflow_user:claro123@postgres:5432/langflow_db"

@@ -1,16 +1,15 @@
 |DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI|
-|---|
-|Introducción...................................................................................................................2|
-|Deploy de Langflow.....................................................................................................2|
-|Paso 1.....................................................................................................................2|
-|Paso 2.....................................................................................................................2|
-|Paso 3.....................................................................................................................3|
-|Deploy de db postgresql..............................................................................................3|
-|Aplicar capacidad vector a la db postgresql.................................................................4|
-|Verificaciones finales en la db.....................................................................................5|
-|Corroborar escritura de Langflow en la db................................................................7|
-
-
+| Índice | Página |
+| :--- | :---: |
+| **[Introducción](#introducción)** | 2 |
+| **[Deploy de Langflow](#deploy-de-langflow)** | 2 |
+|   • [Paso 1](#paso-1) | 2 |
+|   • [Paso 2](#paso-2) | 2 |
+|   • [Paso 3](#paso-3) | 3 |
+| **[Deploy de DB PostgreSQL](#deploy-de-db-postgresql)** | 3 |
+| **[Aplicar capacidad vector a la DB PostgreSQL](#aplicar-capacidad-vectorial-a-la-db-postgresql)** | 4 |
+| **[Verificaciones finales en la DB](#verificaciones-finales-en-la-db)** | 5 |
+| **[Corroborar escritura de Langflow en la DB](#corroborar-escritura-de-langflow-en-la-db)** | 7 |s
 
 1 
 
@@ -26,7 +25,19 @@ Este documento tiene como objeto detallar el deploy de la plataforma Langflow  y
 
 Necesitamos crear el archivo values.yaml necesario para el deploy. Nuestro archivo va a tener el siguiente contenido: 
 
-langflow: backend: autoLogin: false env: - name: LANGFLOW_SUPERUSER_PASSWORD value: "claro123" - name: LANGFLOW_DATABASE_URL value: "postgresql://langflow_user:claro123@postgres:5432/langflow_db" - name: PGVECTOR_CONNECTION_STRING value: "postgresql://langflow_user:claro123@postgres:5432/langflow_db" 
+```yaml
+langflow: 
+  backend: 
+    autoLogin: false
+    
+env: 
+  - name: LANGFLOW_SUPERUSER_PASSWORD
+    value: "claro123" 
+  - name: LANGFLOW_DATABASE_URL 
+    value: "postgresql://langflow_user:claro123@postgres:5432/langflow_db" 
+  - name: PGVECTOR_CONNECTION_STRING 
+    value: "postgresql://langflow_user:claro123@postgres:5432/langflow_db" 
+```
 
 ### Paso 2 
 
@@ -34,15 +45,20 @@ Ahora  el deploy mediante Helm con los siguientes comandos:
 
 Agregamos el repositorio Helm de Langflow: 
 
+```bash
 helm repo add langflow https://langflow-ai.github.io/langflow-helm-charts --force-update 
+```
 
 Actualizamos la lista de repositorios: 
 
+```bash
 helm repo update 
+```
 
 Creamos el namespace Langflow y lo deployamos: 
-
+```bash
 helm install my-langflow-app-with-flow langflow/langflow-runtime   -n langflow   --create-namespace \ 
+```
 
 2 
 
@@ -52,31 +68,98 @@ Paso 3
 
 Verificamos   la creación de los charts de Helm: 
 
+```bash
 helm list 
+```
+```
+NAME                            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+my-langflow                     langflow        1               2026-10-21 16:46:35.197814483 -0300 -03 deployed        langflow-ide-0.1.2      latest
+my-langflow-app-with-flow       langflow        1               2026-10-21 16:03:38.726767224 -0300 -03 deployed        langflow-runtime-0.1.1  latest
+```
 
-
-
-<!-- Start of picture text -->
-ane NAMESPACE REVISION UPDATED STATUS CHART APP VE<br>ny-Langflow Tangflow 1 2026-10-21. 16:46:35, 197814483 -03 0 -03 deployed Tangflov-ide-0.1.2 latest<br>Iny-Lanaflov-app-with-flov___lanaflow 1 2026-10-21. 16:03:38.726767224 -0300 -03 deployed Langflov-runtine-0.1.1_ latest<br><!-- End of picture text -->
 
 También verificamos el status de los pods de Langflow: 
 
+```bash
+oc get pods -n langflow
+```
 
+```
+NAME                                         READY   STATUS    RESTARTS   AGE
+langflow-service-0                           1/1     Running   0          4h26m
+langflow-service-frontend-86f58dbc84-b7wfv   1/1     Running   0          4h38m
+```
 
-<!-- Start of picture text -->
-root@bastion Langrlow]# OC get pods<br>NAME READY STATUS RESTARTS AGE<br>langflow-service-0 1/1 Running io} 38m<br>langflow-service-frontend-86f58dbc84-b7wfv 1/1 Running 0 50m<br><!-- End of picture text -->
 
 ## Deploy de db postgresql 
 
 Comenzamos por la creación del archivo de deployment de el pod de postgresql con siguiente contenido: 
 
-apiVersion: v1 kind: PersistentVolumeClaim metadata: name: postgres-pvc namespace: langflow spec: accessModes: - ReadWriteOnce resources: requests: storage: 5Gi --apiVersion: apps/v1 kind: Deployment metadata: name: postgres namespace: langflow spec: replicas: 1 selector: matchLabels: app: postgres template: metadata: labels: app: postgres spec: containers: 
-
-3 
 
 DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
 
-- name: postgres image: pgvector/pgvector:pg15 env: - name: POSTGRES_DB value: langflow_db - name: POSTGRES_USER value: langflow_user - name: POSTGRES_PASSWORD value: claro123 - name: PGDATA value: /var/lib/postgresql/data/pgdata ports: - containerPort: 5432 volumeMounts: - mountPath: /var/lib/postgresql/data name: postgres-storage volumes: - name: postgres-storage persistentVolumeClaim: claimName: postgres-pvc --apiVersion: v1 kind: Service metadata: name: postgres namespace: langflow spec: ports: - port: 5432 targetPort: 5432 selector: app: postgres 
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: langflow
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: langflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: pgvector/pgvector:pg15
+          env:
+            - name: POSTGRES_DB
+              value: langflow_db
+            - name: POSTGRES_USER
+              value: langflow_user
+            - name: POSTGRES_PASSWORD
+              value: claro123
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: langflow
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+```
 
 Aplicamos el yaml con el comando: 
 
@@ -84,40 +167,166 @@ oc apply -f deployment-postgresql.yaml
 
 Volvemos a chequear el status de los pods del namespace Langflow para ver el status del nuevo pod de postgresql: 
 
-oc get po 
+```bash
+oc get po -n langflow
+```
 
-
-
-<!-- Start of picture text -->
-NAME READY STATUS<br>langflow-lservice-0 1/1 Running<br>langflow-service-frontend-86f58dbc84-b7wfv 1/1 Running<br>)' tgres-6f55d66645-9qjt4 1/1 KUN Un<br><!-- End of picture text -->
+```
+NAME                                         READY   STATUS    RESTARTS   AGE
+langflow-service-0                           1/1     Running   0          4h31m
+langflow-service-frontend-86f58dbc84-b7wfv   1/1     Running   0          4h43m
+postgres-6f55d66645-9qjt4                    1/1     Running   0          5h1m
+```
 
 ## Aplicar capacidad vector a la db postgresql 
 
 A continuacion vamos a la capacidad vectorial en PostgreSQL que Langflow necesita con el comando: 
 
+
+```bash
 oc exec -it deployment/postgres -n langflow -- psql -U langflow_user -d langflow_db -c "CREATE EXTENSION IF NOT EXISTS vector;" 
+```
 
-4 
 
-DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
+
+## DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
 
 Verificaciones finales en la db 
 
 Verificamos el status de la db, a saber tablas necesarias para Langflow y escritura en la db. 
 
 Para verificar que tengamos las tablas necesarias ejecutamos el comando: 
-
+```bash
 oc exec -it deployment/postgres -n langflow -- psql -U langflow_user -d langflow_db 
-
+```
 Una vez dentro de la vm ejecutamos el comando: 
 
+```bash
 \dt 
-
+```
 A  continuacion la lista de tablas creadas en Langflow_db 
 
-5 
-
-DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
+```mermaid
+classDiagram
+    direction LR
+    namespace public {
+        class a2a_checkpoints {
+            table langflow_user
+        }
+        class a2a_tasks {
+            table langflow_user
+        }
+        class alembic_version {
+            table langflow_user
+        }
+        class apikey {
+            table langflow_user
+        }
+        class authz_audit_log {
+            table langflow_user
+        }
+        class authz_edit_lock {
+            table langflow_user
+        }
+        class authz_role {
+            table langflow_user
+        }
+        class authz_role_assignment {
+            table langflow_user
+        }
+        class authz_role_assignment_grant {
+            table langflow_user
+        }
+        class authz_share {
+            table langflow_user
+        }
+        class authz_team {
+            table langflow_user
+        }
+        class authz_team_member {
+            table langflow_user
+        }
+        class casbin_rule {
+            table langflow_user
+        }
+        class catalog_policy_rule {
+            table langflow_user
+        }
+        class deployment {
+            table langflow_user
+        }
+        class deployment_provider_account {
+            table langflow_user
+        }
+        class execution_signals {
+            table langflow_user
+        }
+        class file {
+            table langflow_user
+        }
+        class flow {
+            table langflow_user
+        }
+        class flow_version {
+            table langflow_user
+        }
+        class flow_version_deployment_attachment {
+            table langflow_user
+        }
+        class folder {
+            table langflow_user
+        }
+        class ingestion_run {
+            table langflow_user
+        }
+        class job {
+            table langflow_user
+        }
+        class job_checkpoints {
+            table langflow_user
+        }
+        class job_events {
+            table langflow_user
+        }
+        class knowledge_base {
+            table langflow_user
+        }
+        class mcp_server {
+            table langflow_user
+        }
+        class memory_base {
+            table langflow_user
+        }
+        class memory_base_preprocessing_output {
+            table langflow_user
+        }
+        class memory_base_session {
+            table langflow_user
+        }
+        class memory_base_workflow_run {
+            table langflow_user
+        }
+        class message {
+            table langflow_user
+        }
+        class message_ingestion_record {
+            table langflow_user
+        }
+        class model_provider_policy {
+            table langflow_user
+        }
+        class policy_bundle_active {
+            table langflow_user
+        }
+        class policy_bundle_revision {
+            table langflow_user
+        }
+        class span {
+            table langflow_user
+        }
+    }
+```
+## DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
 
 
 
@@ -132,9 +341,8 @@ oc <mark>exec -it pod/langf</mark> l <mark>ow-service</mark> -0 <mark>-n langfow
 
 <mark>Este comando  al proceso dentro del pod del backend (langfow-service-0) a conectarse a</mark> l <mark>la base de datos externa especif</mark> i <mark>cada en LANGFLOW_DATABASE_URL y aplicar todas las revisiones pendientes.</mark> 
 
-6 
 
-DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
+## DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
 
 **<mark>Crea las tablas faltantes</mark>** <mark>: Genera de golpe todo el esquema relacional y el soporte para pgvector en la base de datos sin depender de que el arranque automático lo dispare.</mark> 
 

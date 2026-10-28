@@ -163,7 +163,9 @@ spec:
 
 Aplicamos el yaml con el comando: 
 
+```bash
 oc apply -f deployment-postgresql.yaml 
+```
 
 Volvemos a chequear el status de los pods del namespace Langflow para ver el status del nuevo pod de postgresql: 
 
@@ -186,7 +188,6 @@ A continuacion vamos a la capacidad vectorial en PostgreSQL que Langflow necesit
 ```bash
 oc exec -it deployment/postgres -n langflow -- psql -U langflow_user -d langflow_db -c "CREATE EXTENSION IF NOT EXISTS vector;" 
 ```
-
 
 
 ## DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 

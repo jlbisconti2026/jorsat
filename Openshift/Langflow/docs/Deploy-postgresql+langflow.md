@@ -90,6 +90,32 @@ langflow-service-0                           1/1     Running   0          4h26m
 langflow-service-frontend-86f58dbc84-b7wfv   1/1     Running   0          4h38m
 ```
 
+## Setear key fernet 
+
+La clave Fernet es una clave criptográfica maestra utilizada por el motor de seguridad de Langflow (basado en la librería simétrica Fernet de Python) para cifrar y descifrar de forma segura toda la información sensible que se almacena en la base de datos de PostgreSQL.
+
+### Funciones principales
+Protección de Credenciales y API Keys: Cifra los tokens de acceso, contraseñas y claves privadas de proveedores de modelos de lenguaje externos (como Google Gemini, OpenAI, Anthropic, etc.) antes de guardarlas en las tablas de la base de datos, evitando que queden expuestas en texto plano.
+
+Firma de Tokens de Sesión (JWT): Valida la integridad de las sesiones de los usuarios y los tokens de autenticación web para garantizar que las peticiones hacia el backend provengan de sesiones legítimas y no hayan sido alteradas.
+
+Integridad Criptográfica Estricta: Exige obligatoriamente una cadena exacta de 32 bytes codificada en base64 segura para URL (url-safe base64). Si la clave no cumple con este formato exacto o cambia de forma imprevista entre reinicios sin mantener un historial de respaldo, el sistema arroja errores de firma (InvalidSignatureError o Fernet key must be 32 bytes) y se bloquea el acceso a las credenciales cifradas previas.
+
+Creamos la clave de Fernet necesaria para Langflow utilizando el siguiente comando:
+
+```bash
+python3 -c "from cryptography.fernet import Fernet; rint(Fernet.generate_key().decode())"
+```
+Inyección de la Clave y Credenciales en el Backend y Frontend: Dado que los servicios principales corrían bajo el StatefulSet y Deployments en OpenShift, se aplicó la inyección directa de las variables de entorno mediante comandos oc set env para forzar su actualización en memoria:
+
+
+```bash
+oc set env statefulset/langflow-service LANGFLOW_SECRET_KEY="zoadUmyBN47sTL-JGJ22WRceEJL6obsS5q1wBwNR_6U=" -n langflow
+```
+
+```bash
+oc set env deployment/langflow-service-frontend LANGFLOW_SECRET_KEY="zoadUmyBN47sTL-JGJ22WRceEJL6obsS5q1wBwNR_6U=" -n langflow
+```
 
 ## Deploy de db postgresql 
 

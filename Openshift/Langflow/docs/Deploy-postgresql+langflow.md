@@ -206,132 +206,8 @@ Una vez dentro de la vm ejecutamos el comando:
 ```
 A  continuacion la lista de tablas creadas en Langflow_db 
 
-```mermaid
-classDiagram
-    direction LR
-    namespace public {
-        class a2a_checkpoints {
-            table langflow_user
-        }
-        class a2a_tasks {
-            table langflow_user
-        }
-        class alembic_version {
-            table langflow_user
-        }
-        class apikey {
-            table langflow_user
-        }
-        class authz_audit_log {
-            table langflow_user
-        }
-        class authz_edit_lock {
-            table langflow_user
-        }
-        class authz_role {
-            table langflow_user
-        }
-        class authz_role_assignment {
-            table langflow_user
-        }
-        class authz_role_assignment_grant {
-            table langflow_user
-        }
-        class authz_share {
-            table langflow_user
-        }
-        class authz_team {
-            table langflow_user
-        }
-        class authz_team_member {
-            table langflow_user
-        }
-        class casbin_rule {
-            table langflow_user
-        }
-        class catalog_policy_rule {
-            table langflow_user
-        }
-        class deployment {
-            table langflow_user
-        }
-        class deployment_provider_account {
-            table langflow_user
-        }
-        class execution_signals {
-            table langflow_user
-        }
-        class file {
-            table langflow_user
-        }
-        class flow {
-            table langflow_user
-        }
-        class flow_version {
-            table langflow_user
-        }
-        class flow_version_deployment_attachment {
-            table langflow_user
-        }
-        class folder {
-            table langflow_user
-        }
-        class ingestion_run {
-            table langflow_user
-        }
-        class job {
-            table langflow_user
-        }
-        class job_checkpoints {
-            table langflow_user
-        }
-        class job_events {
-            table langflow_user
-        }
-        class knowledge_base {
-            table langflow_user
-        }
-        class mcp_server {
-            table langflow_user
-        }
-        class memory_base {
-            table langflow_user
-        }
-        class memory_base_preprocessing_output {
-            table langflow_user
-        }
-        class memory_base_session {
-            table langflow_user
-        }
-        class memory_base_workflow_run {
-            table langflow_user
-        }
-        class message {
-            table langflow_user
-        }
-        class message_ingestion_record {
-            table langflow_user
-        }
-        class model_provider_policy {
-            table langflow_user
-        }
-        class policy_bundle_active {
-            table langflow_user
-        }
-        class policy_bundle_revision {
-            table langflow_user
-        }
-        class span {
-            table langflow_user
-        }
-    }
-```
-## DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
+![Listado de tablas](..x    /screenshots/query-tablas.png)
 
-
-
-<!-- Start of picture text -->
-List of relations<br>Schema | Name | Type | Owner<br>ee<br>public | a2a_checkpoints | table | langflow_user<br>public | a2a_tasks | table | langflow_user<br>public | alembic_version | table | langflow_user<br>public | apikey | table | langflow_user<br>public | authz_audit_log | table | langflow_user<br>public | authz_edit_lock | table | Langflow_user<br>public | authz_role | table | langflow_user<br>public | authz_role_assignment | table | langflow_user<br>public | authz_role_assignment_grant | table | langflow_user<br>public | authz_share | table | langflow_user<br>public | authz_team | table | langflow_user<br>public | authz_team_member | table | langflow_user<br>public | casbin_rule | table | langflow_user<br>public | catalog policy rule | table | langflow_user<br>public | deployment | table | langflow_user<br>public | deployment_provider_account | table | Langflow_user<br>public | execution_signals | table | langflow_user<br>public | file | table | langflow_user<br>public | flow | table | langflow_user<br>public | flow_version | table | langflow_user<br>public | flow_version_deployment_attachment | table | langflow_user<br>public | folder | table | langflow_user<br>public | ingestion_run | table | langflow_user<br>public | job | table | langflow_user<br>public | job_checkpoints | table | langflow_user<br>public | job_events | table | Langflow_user<br>public | knowledge _base | table | langflow_us#r<br>public | mcp_server | table | langflow_user<br>public | memory base | table | langflow_user<br>public | memory_base_preprocessing_output | table | langflow_user<br>public | memory _base_session | table | Langflow_user<br>public | memory base _workflow_run | table | langflow_user<br>public | message | table | langflow_user<br>public | message_ingestion_record | table | langflow_user<br>public | model_provider_policy | table | langflow_user<br>public | policy_bundle_active | table | langflow_user<br>public | policy bundle_revision | table | langflow_user<br>public | span | table | langflow_user<br><!-- End of picture text -->
 
 #### <mark>Nota:</mark> 
 
@@ -342,8 +218,6 @@ oc <mark>exec -it pod/langf</mark> l <mark>ow-service</mark> -0 <mark>-n langfow
 <mark>Este comando  al proceso dentro del pod del backend (langfow-service-0) a conectarse a</mark> l <mark>la base de datos externa especif</mark> i <mark>cada en LANGFLOW_DATABASE_URL y aplicar todas las revisiones pendientes.</mark> 
 
 
-## DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI 
-
 **<mark>Crea las tablas faltantes</mark>** <mark>: Genera de golpe todo el esquema relacional y el soporte para pgvector en la base de datos sin depender de que el arranque automático lo dispare.</mark> 
 
 ### Corroborar escritura de Langflow en la db 
@@ -353,56 +227,25 @@ A continuacion vamos a crear un flujo de prueba en Langflow llamado test1 para p
 Para realizar esta prueba ingresamos en la gui de Langflow : 
 
 
-
-<!-- Start of picture text -->
-«oe D)% lrafow lacfionapps labokdp dro aml a 4 ea Sune:<br>% ) o r)<br>=n<br><!-- End of picture text -->
+![Gui langflow1](../screenshots/gui1.png)
 
 Una vez dentro  presionamos el botón New Flow y  creamos test1: 
 
+![Gui langflow1](../screenshots/gui-screen2.png)
 
 
-<!-- Start of picture text -->
-Let us set things up first<br><!-- End of picture text -->
+![Gui langflow1](../screenshots/gui-model-providers.png)
 
-7 
+![Gui langflow1](../screenshots/gui-api-key.png)
 
-
-
-<!-- Start of picture text -->
-DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI<br><!-- End of picture text -->
-
-
-
-<!-- Start of picture text -->
-Mode proviers x<br>Azure Al Foundry<br>JM Watson<br>Openal<br>DpenRouter<br>Dw<br><!-- End of picture text -->
-
-
-
-<!-- Start of picture text -->
-coe DD) < nation inom appslaolcipicro ama lon! 420961 7496-Aade Sb eSicdtl162/okde 405050bIOL Aa 85d. ao WA<br>BBC Aigce 2 Apigee Hybrid 5) Uris tecnicas general (] Piataformastest>p... [2] intra Claro [ kubetlow [2] OCP/OPKD-docs: DesinstataEdge | EC] MLODHetc Cis) NON<br>Mode! rovers ;<br>[ag | GoogieAPI Key<br>ogen<br><!-- End of picture text -->
 
 Colocamos la Apikey generada en la pagina de Gemini 
 
-8 
-
-
-
-<!-- Start of picture text -->
-DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI<br><!-- End of picture text -->
-
-
-
-<!-- Start of picture text -->
-Model providers x<br>9 Google API Key<br>Language Model<br><!-- End of picture text -->
-
 Le damos el nombre test1 al Flow: 
 
+Colocamos la Apikey generada en la pagina de Gemini 
 
-
-<!-- Start of picture text -->
-Flow Details x<br>Name<br>| testi |<br>Description<br>Crafting Conversations, One Node at a Time.<br>I<br>Lock Flow ©<br>Coe<br><!-- End of picture text -->
-
-9 
+![Gui langflow1](../screenshots/gui-flow-details.png)
 
 
 

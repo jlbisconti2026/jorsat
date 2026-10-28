@@ -290,3 +290,11 @@ SELECT id, name, updated_at FROM "flow";
 
 
 ![Gui langflow1](../screenshots/query-flows-db.png)
+
+## Ver logs 
+
+ Para consultar los logs en tiempo real y verificar si impactan en la db postgresql utilizamos el comando:
+
+```bash
+oc logs postgres-6f55d66645-9qjt4 -n langflow | grep -E "INSERT|UPDATE|DELETE"
+```

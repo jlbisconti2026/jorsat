@@ -243,34 +243,23 @@ Colocamos la Apikey generada en la pagina de Gemini
 
 Le damos el nombre test1 al Flow: 
 
-Colocamos la Apikey generada en la pagina de Gemini 
-
 ![Gui langflow1](../screenshots/gui-flow-details.png)
 
-
-
-<!-- Start of picture text -->
-DEDPLOY DE LANGFLOW CON DB EXTERNA EN LABOKDIPI<br><!-- End of picture text -->
-
-
-
-<!-- Start of picture text -->
-2 Onm = e<br>=a<br><!-- End of picture text -->
+![Gui langflow1](../screenshots/flow-creado.png)
 
 #### Volvemos a ingresar a la db con el comando: 
 
+```bash
 oc exec -it deployment/postgres -n langflow -- psql -U langflow_user -d langflow_db 
+```
 
 #### Ejecutamos la query: 
 
+```bash
 SELECT id, name, updated_at FROM "flow"; 
+```
 
 #### Y obtenemos el siguiente resultado: 
 
 
-
-<!-- Start of picture text -->
-langflow db=# SELECTid id, name, updatedI at FROM "flow"; name | updated_at<br>381828a4-cOd1-4b5f-afbf-dda71140cafc | Basic Prompting | 2026-10-27 14:48:58<br>800d195d-de12-4072-a8c2-cf20496a1e2b | Blog Writer | 2026-10-27 14:48:58<br>8b38593b-2a85-4cd7-af79-b4ba91da9631 | Content Aggregator | 2026-10-27 14:48:58<br>ceb246c7-bbf6-4704-925a-aa704cd92159 | Custom Component Generator | 2026-10-27 14:48:58<br>6a066f01-fc02-4c56-bf32-1c12ed5b9f93 | Deep Research Agent | 2026-10-27 14:48:58<br>dc¥35a2e-3b32-4cfe-a91b-122393cc9428 | Document Q&A | 2026-10-27 14:48:58<br>cd88299-8e59-4eb7-8812-1d9de70465bb | Financial Report Parser | 2026-10-27 14:48:58<br>3309831e-1c7f-4931-bea4-ca6c506b960e | Hybrid Search RAG | 2026-10-27 14:48:58<br>7a3065a6-2ba5-45a4-be8c-62bba3bac30d | Image Sentiment Analysis | 2026-10-27 14:48:58<br>cf2474c1-707-4d31-8dda-54bebd435fd3 | Instagram Copywriter | 2026-10-27 14:48:58<br>3b3#46a3-5051-4dd6-9902-ceeb92be15c0 | Knowledge Retrieval | 2026-10-27 14:48:58<br>0485cb5f-7a86-4427-a079-dbOaaa755be0 | Market Research | 2026-10-27 14:48:58<br>a9959c78-cf38-450e-a17e-9d6567421a43 | Meeting Summary | 2026-10-27 14:48:58<br>b681b22F-e529-44bd-8471-a9f9dafo923d | Memory Chatbot | 2026-10-27 14:48:58<br>7d152f13-0c67-478f-b620-aadeSddbfdf5 | Multi Agent Flow | 2026-10-27 14:48:58<br>ac86b796-f10d-4a61-811d-f400a6ecaa6a | Portfolio Website Code Generator | 2026-10-27 14:48:58<br>3785badc-643a-44a4-8117-b71cdeddd44a | Price Deal Finder | 2026-10-27 14:48:58<br>bdfe0750-3e64-4b89-89c2-87cbe57a381f | SEO Keyword Generator | 2026-10-27 14:48:59<br>acbf7812-28dd-418e-994c-a1222434f96e | SaaS Pricing | 2026-10-27 14:48:59<br>4bfc207c- fbb8-499c -bc9b-2e65ba36b39e | Sequential Tasks Agents | 2026-10-27 14:48:59<br>a2a5169e-c3a8-47bd-be53-afa8b3d24432 | Simple Agent | 2026-10-27 14:48:59<br>9f fe24e3-a25b-439d-974a-383f1e3fc006 | Social Media Agent | 2026-10-27 14:48:59<br>4456 fceb-e0d5-4e69-9208-d1823f266513 | Text Sentiment Analysis | 2026-10-27 14:48:59<br>cbadd803-ca12-465d-ba31-7ceeb4943315 | Travel Planning Agents | 2026-10-27 14:48:59<br>0f3c6448-a67c-4199-a2ec-4317295d777 | Twitter Thread Generator | 2026-10-27 14:48:59<br>343d65bc-22a8-4333-bdf2-fe49c951d9d6 | Vector Store RAG | 2026-10-27 14:48:59<br>d046ec5e-edd2-4b67-b1c6-e91c89F6F199si—-Ssupb0ef1a90-87c1-4749-878c-ae6255aicce) | testitS“AGENT || 2026-10-272026-10-27 17:38:22.19530614:51:52.819748<br>(28 rows)<br><!-- End of picture text -->
-
-10 
-
+![Gui langflow1](../screenshots/query-flows-db.png)
